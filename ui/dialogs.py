@@ -5,6 +5,17 @@ All @st.dialog popups:
   - show_field_history_dialog — per-field edit timeline
   - show_settings_dialog   — conf threshold + schema manager
   - show_schema_fields_dialog — required / accepted / custom field viewer
+
+AUDIT LOG BEHAVIOUR (show_claim_journey_dialog)
+────────────────────────────────────────────────
+• Default view  : only user actions THIS SESSION — FIELD_EDITED, FIELD_ADDED,
+                  EXPORT_GENERATED with timestamp >= _session_start
+• "View Full History" button : expands inline, ALL events across all sessions
+• LLM_CAUSE_ENRICHED : deduplicated to FIRST occurrence per claim in full history;
+                        never shown in the default user-actions view
+• Each row has ▼/▲ toggle for full event-dict detail
+• All toggles use on_click callbacks — never st.rerun() — so the dialog
+  stays open when the user expands/collapses rows or switches history views
 """
 
 import csv
@@ -25,7 +36,6 @@ from modules.excel_renderer import (
 @st.dialog("Cell View", width="large")
 def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> None:
     import os
-    # Always show BOTH raw extracted value AND current modified value in full
     raw_value  = info.get("value", "") or ""
     mod_value  = info.get("modified", raw_value) or raw_value
     target_row = info.get("excel_row")
@@ -33,7 +43,6 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
 
     st.markdown(f"### 📍 {field}")
 
-    # ── Full value display — guaranteed no truncation ─────────────────────────
     def _val_box(label: str, val: str, color: str = "#4f9cf9"):
         _empty_html = "<span style='color:#555;'>( empty )</span>"
         _content    = val if val else _empty_html
@@ -54,7 +63,6 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
     if mod_value and mod_value != raw_value:
         _val_box("Modified Value (user edited)", mod_value, "#f5c842")
 
-    # ── Cell location ─────────────────────────────────────────────────────────
     if target_row and target_col:
         col_letter = get_column_letter(target_col)
         st.markdown(
@@ -131,7 +139,6 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
             st.error(f"CSV preview error: {e}")
         return
 
-    # ── Excel image render ────────────────────────────────────────────────────
     cache_key = f"_rendered_{excel_path}_{sheet_name}"
     with st.spinner("Rendering sheet…"):
         if cache_key not in st.session_state:
@@ -155,6 +162,7 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
                  caption=f"Cell {col_letter}{target_row} highlighted in yellow")
     except Exception as e:
         st.error(f"Rendering error: {e}")
+
 
 # ── Field history dialog ──────────────────────────────────────────────────────
 
@@ -485,7 +493,6 @@ def show_cache_manager_dialog() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── Live stats ────────────────────────────────────────────────────────────
     stats = get_cache_stats()
 
     def _stat_row(label, detail, color="#4f9cf9"):
@@ -522,7 +529,6 @@ def show_cache_manager_dialog() -> None:
         unsafe_allow_html=True,
     )
 
-    # ── Checkboxes ────────────────────────────────────────────────────────────
     c1, c2 = st.columns(2)
     with c1:
         do_session   = st.checkbox("UI Session State", value=True,
@@ -541,7 +547,6 @@ def show_cache_manager_dialog() -> None:
 
     st.markdown("---")
 
-    # ── Quick presets ─────────────────────────────────────────────────────────
     st.markdown(
         "<div style='font-size:12px;color:#a0a0c8;margin-bottom:8px;font-family:monospace;"
         "text-transform:uppercase;letter-spacing:1px;'>Quick presets</div>",
@@ -569,7 +574,6 @@ def show_cache_manager_dialog() -> None:
             st.session_state["_confirm_full_reset"] = True
             st.rerun()
 
-    # Confirm full reset
     if st.session_state.get("_confirm_full_reset"):
         st.warning("⚠️ **This will clear ALL cache layers.** Are you sure?")
         yes_col, no_col = st.columns(2)
@@ -591,7 +595,6 @@ def show_cache_manager_dialog() -> None:
 
     st.markdown("---")
 
-    # ── Custom clear button ───────────────────────────────────────────────────
     col_clear, col_close = st.columns(2)
     with col_clear:
         if st.button("🗑️ Clear Selected", use_container_width=True):
@@ -625,7 +628,7 @@ def show_cache_manager_dialog() -> None:
             st.rerun()
 
 
-# ── Claim Journey / Traceability Dialog ──────────────────────────────────────
+# ── Claim Journey / Traceability Dialog ───────────────────────────────────────
 
 @st.dialog("Claim Transformation Journey", width="large")
 def show_claim_journey_dialog(
@@ -636,26 +639,50 @@ def show_claim_journey_dialog(
     _llm_map_result: dict,
 ) -> None:
     """
-    Visual traceability view showing the full transformation journey for a claim.
-    Works correctly in both schema mode and plain mode, properly detecting
-    LLM-mapped and fuzzy-matched fields in all cases.
+    Visual traceability view — full transformation journey for a claim.
+
+    Audit log behaviour
+    ───────────────────
+    • Default  : shows only THIS SESSION's user actions
+                 (FIELD_EDITED, FIELD_ADDED, EXPORT_GENERATED)
+                 filtered by timestamp >= st.session_state["_session_start"]
+    • Full history : expands inline on button click; shows ALL events across
+                     all sessions; LLM_CAUSE_ENRICHED kept once per claim
+    • Toggle buttons use on_click= callbacks — NO st.rerun() — so the dialog
+      stays open when expanding/collapsing rows or switching history view
+    • Each row has ▼/▲ toggle for full event-dict detail
     """
     import json as _json
+    import datetime as _dt
     from modules.audit import _load_audit_log
     from modules.field_history import _get_field_history
     from modules.schema_mapping import map_claim_to_schema
 
+    # ── Session-state keys ────────────────────────────────────────────────────
+    _audit_expand_key = f"_audit_expanded_{selected_sheet}_{claim_id}"
+    _full_hist_key    = f"_audit_fullhist_{selected_sheet}_{claim_id}"
+    if _audit_expand_key not in st.session_state:
+        st.session_state[_audit_expand_key] = set()
+    if _full_hist_key not in st.session_state:
+        st.session_state[_full_hist_key] = False
+
+    # ── Timestamps ────────────────────────────────────────────────────────────
+    _ts_dialog_open = _dt.datetime.now()
+    _ts_fmt = lambda d: d.strftime("%H:%M:%S.%f")[:-3]
+
     st.markdown(
         f"<div style='font-size:18px;font-weight:700;color:#e8e7ff;margin-bottom:4px;'>"
         f"🔍 Transformation Journey</div>"
-        f"<div style='font-size:12px;color:#a0a0c8;font-family:monospace;margin-bottom:16px;'>"
+        f"<div style='font-size:12px;color:#a0a0c8;font-family:monospace;margin-bottom:4px;'>"
         f"Claim {claim_id} · Sheet: {selected_sheet}"
         + (f" · Schema: {active_schema}" if active_schema else " · Plain Mode")
-        + "</div>",
+        + f"</div>"
+        f"<div style='font-size:10px;color:#555;font-family:monospace;margin-bottom:16px;'>"
+        f"⏱ Dialog opened at {_ts_fmt(_ts_dialog_open)}</div>",
         unsafe_allow_html=True,
     )
 
-    # ── Load audit events for this claim ─────────────────────────────────────
+    # ── Load audit events ─────────────────────────────────────────────────────
     _all_audit   = _load_audit_log()
     _claim_audit = [
         e for e in _all_audit
@@ -663,25 +690,91 @@ def show_claim_journey_dialog(
     ]
 
     # ── Unpack LLM result ─────────────────────────────────────────────────────
-    # _llm_mappings: { source_excel_col -> schema_field }   (schema mode)
-    #                or { excel_col -> excel_col }          (plain mode — usually empty/identity)
-    _llm_mappings  = (_llm_map_result or {}).get("mappings", {})
-    _llm_reasoning = (_llm_map_result or {}).get("_reasoning", {})
+    _ts_llm_unpack   = _dt.datetime.now()
+    _llm_mappings    = (_llm_map_result or {}).get("mappings", {})
+    _llm_reasoning   = (_llm_map_result or {}).get("_reasoning", {})
+    _llm_called_at   = (_llm_map_result or {}).get("_timestamp", None)
+    _llm_model       = (_llm_map_result or {}).get("_model", "see .env")
+    _llm_reverse     = {v: k for k, v in _llm_mappings.items()}
+    _llm_source_cols = set(_llm_mappings.keys())
 
-    # Build a reverse map: schema_field -> source_excel_col  (used in schema mode)
-    _llm_reverse: dict[str, str] = {v: k for k, v in _llm_mappings.items()}
-
-    # Also build a set of all source columns that LLM handled (for plain-mode lookup)
-    _llm_source_cols: set[str] = set(_llm_mappings.keys())
-
-    # ── Build field map if schema active ─────────────────────────────────────
+    # ── Schema mapping ────────────────────────────────────────────────────────
+    _ts_schema_map = _dt.datetime.now()
     _mapped: dict = {}
     if active_schema:
         from config.schemas import SCHEMAS
         if active_schema in SCHEMAS:
             _mapped = map_claim_to_schema(curr_claim, active_schema, {}, _llm_map_result)
+    _ts_schema_map_done = _dt.datetime.now()
+    _schema_map_ms = int((_ts_schema_map_done - _ts_schema_map).total_seconds() * 1000)
 
-    # ── Timeline header ───────────────────────────────────────────────────────
+    # ── Pipeline trace banner ─────────────────────────────────────────────────
+    _pipeline_steps = []
+    _pipeline_steps.append(
+        f"<div style='display:flex;align-items:center;gap:6px;padding:5px 0;"
+        f"border-bottom:1px solid #1e1e32;'>"
+        f"<span style='min-width:140px;font-size:10px;color:#34d399;font-weight:700;font-family:monospace;'>"
+        f"📂 FILE PARSED</span>"
+        f"<span style='font-size:10px;color:#555;font-family:monospace;'>→</span>"
+        f"<span style='font-size:10px;color:#a0a0c8;font-family:monospace;'>"
+        f"Claims read from the uploaded spreadsheet"
+        f"<span style='margin-left:auto;font-size:10px;color:#555;font-family:monospace;'>"
+        f" {_ts_fmt(_ts_dialog_open)}</span></div>"
+    )
+    if active_schema:
+        _pipeline_steps.append(
+            f"<div style='display:flex;align-items:center;gap:6px;padding:5px 0;"
+            f"border-bottom:1px solid #1e1e32;'>"
+            f"<span style='min-width:140px;font-size:10px;color:#4f9cf9;font-weight:700;font-family:monospace;'>"
+            f"🗂 SCHEMA MAPPED</span>"
+            f"<span style='font-size:10px;color:#555;font-family:monospace;'>→</span>"
+            f"<span style='font-size:10px;color:#a0a0c8;font-family:monospace;'>"
+            f"Fields matched to the {active_schema} schema template"
+            f"<span style='margin-left:auto;font-size:10px;color:#555;font-family:monospace;'>"
+            f" {_ts_fmt(_ts_schema_map)} ({_schema_map_ms}ms)</span></div>"
+        )
+    if _llm_mappings:
+        _llm_ts_display = _llm_called_at if _llm_called_at else _ts_fmt(_ts_llm_unpack)
+        _pipeline_steps.append(
+            f"<div style='display:flex;align-items:center;gap:6px;padding:5px 0;"
+            f"border-bottom:1px solid #1e1e32;'>"
+            f"<span style='min-width:140px;font-size:10px;color:#f5c842;font-weight:700;font-family:monospace;'>"
+            f"🤖 LLM CALLED</span>"
+            f"<span style='font-size:10px;color:#555;font-family:monospace;'>→</span>"
+            f"<span style='font-size:10px;color:#a0a0c8;font-family:monospace;'>"
+            f"AI resolved {len(_llm_mappings)} unrecognised column(s) to known fields"
+            f"{len(_llm_mappings)} column(s) resolved</span>"
+            f"<span style='margin-left:auto;font-size:10px;color:#555;font-family:monospace;'>"
+            f" {_llm_ts_display}</span></div>"
+        )
+    _edit_count = sum(1 for e in _claim_audit if e.get("event") == "FIELD_EDITED")
+    if _edit_count:
+        _last_edit_ts = max(
+            (e.get("timestamp", "")[:19] for e in _claim_audit if e.get("event") == "FIELD_EDITED"),
+            default=None,
+        )
+        _pipeline_steps.append(
+            f"<div style='display:flex;align-items:center;gap:6px;padding:5px 0;'>"
+            f"<span style='min-width:140px;font-size:10px;color:#f5c842;font-weight:700;font-family:monospace;'>"
+            f"✏ USER EDITS</span>"
+            f"<span style='font-size:10px;color:#555;font-family:monospace;'>→</span>"
+            f"<span style='font-size:10px;color:#a0a0c8;font-family:monospace;'>"
+            f"{_edit_count} field(s) manually updated by the user"
+            f"<span style='margin-left:auto;font-size:10px;color:#555;font-family:monospace;'>"
+            f" {_last_edit_ts.replace('T',' ') if _last_edit_ts else '—'}</span></div>"
+        )
+
+    st.markdown(
+        f"<div style='background:#0d0d1a;border:1px solid #2a2a45;border-radius:8px;"
+        f"padding:10px 14px;margin-bottom:16px;'>"
+        f"<div style='font-size:10px;font-weight:700;color:#a0a0c8;font-family:monospace;"
+        f"text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;'>⚡ Pipeline Trace</div>"
+        + "".join(_pipeline_steps)
+        + "</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Field timeline ────────────────────────────────────────────────────────
     st.markdown(
         "<div style='display:flex;align-items:center;gap:8px;margin-bottom:12px;'>"
         "<div style='font-size:11px;font-weight:700;color:#a0a0c8;font-family:monospace;"
@@ -691,14 +784,12 @@ def show_claim_journey_dialog(
         unsafe_allow_html=True,
     )
 
-    # ── Determine fields to iterate ───────────────────────────────────────────
     fields_to_show = list(_mapped.keys()) if _mapped else list(curr_claim.keys())
 
     for field in fields_to_show:
+        _ts_field = _dt.datetime.now()
 
-        # ── Gather per-field metadata ─────────────────────────────────────────
         if _mapped and field in _mapped:
-            # ── SCHEMA MODE ───────────────────────────────────────────────────
             m          = _mapped[field]
             raw_val    = m["info"].get("value", "")
             excel_col  = m.get("excel_field", field)
@@ -706,38 +797,21 @@ def show_claim_journey_dialog(
             val_score  = m.get("value_score", 0)
             conf       = m.get("confidence", 0)
             from_title = m.get("from_title", False)
-
-            # llm_mapped: trust the flag if set, OR check if this schema field
-            # appears as a value in the LLM mappings dict (source_col -> schema_field)
-            # e.g. _llm_mappings = {"SUMMARY_FLIBBER": "Policy Number"}
-            # so _llm_reverse = {"Policy Number": "SUMMARY_FLIBBER"}
             llm_mapped = bool(m.get("llm_mapped", False)) or (field in _llm_reverse)
-
-            # If LLM-mapped, ensure excel_col shows the raw source column name
-            # e.g. show SUMMARY_FLIBBER rather than the schema field name Policy Number
             if llm_mapped and field in _llm_reverse:
                 excel_col = _llm_reverse[field]
-
         else:
-            # ── PLAIN MODE ────────────────────────────────────────────────────
             if field not in curr_claim:
                 continue
             info       = curr_claim[field]
             raw_val    = info.get("value", "")
             excel_col  = field
-
-            # Pull scores that may have been stored during parsing/mapping
             hdr_score  = info.get("header_score", 0)
             val_score  = info.get("value_score", 0)
             conf       = info.get("confidence", 0)
             from_title = info.get("from_title", False)
-
-            # In plain mode the field key IS the raw Excel column name.
-            # Check if it appears in the source keys of _llm_mappings.
-            # Also check values in case mappings are stored col->col in plain mode.
             llm_mapped = (field in _llm_source_cols) or (field in _llm_reverse)
 
-        # ── Current (possibly edited) value ───────────────────────────────────
         mk_schema = f"mod_{selected_sheet}_{claim_id}_schema_{field}"
         mk_plain  = f"mod_{selected_sheet}_{claim_id}_{field}"
         cur_val   = (
@@ -748,39 +822,30 @@ def show_claim_journey_dialog(
         edits     = _get_field_history(selected_sheet, claim_id, field)
         is_edited = cur_val != raw_val
 
-        # ── Determine extraction / mapping method label ───────────────────────
         if from_title:
-            method       = "TITLE ROW"
-            method_color = "#a78bfa"
-            method_icon  = "📋"
+            method       = "TITLE ROW";    method_color = "#a78bfa"; method_icon = "📋"
+            method_fn    = "parsing.py · extract_title_fields()"
         elif llm_mapped:
-            method       = "LLM MAPPED"
-            method_color = "#f5c842"
-            method_icon  = "🤖"
+            method       = "LLM MAPPED";   method_color = "#f5c842"; method_icon = "🤖"
+            method_fn    = f"modules.llm · llm_map_unknown_fields() → {_llm_model}"
         elif hdr_score >= 90:
-            method       = "EXACT MATCH"
-            method_color = "#34d399"
-            method_icon  = "✓"
+            method       = "EXACT MATCH";  method_color = "#34d399"; method_icon = "✓"
+            method_fn    = "modules.schema_mapping · _header_match_score()"
         elif hdr_score >= 65:
-            method       = "FUZZY MATCH"
-            method_color = "#4f9cf9"
-            method_icon  = "~"
+            method       = "FUZZY MATCH";  method_color = "#4f9cf9"; method_icon = "~"
+            method_fn    = "modules.schema_mapping · _header_match_score() [fuzzy]"
         elif hdr_score > 0:
-            method       = "PARTIAL MATCH"
-            method_color = "#94a3b8"
-            method_icon  = "≈"
+            method       = "PARTIAL MATCH"; method_color = "#94a3b8"; method_icon = "≈"
+            method_fn    = "modules.schema_mapping · _header_match_score() [partial]"
         else:
-            method       = "DIRECT"
-            method_color = "#a0a0c8"
-            method_icon  = "→"
+            method       = "DIRECT";       method_color = "#a0a0c8"; method_icon = "→"
+            method_fn    = "modules.parsing · direct column read"
 
-        # Confidence bar colour
-        conf_color = "#34d399" if conf >= 80 else "#f5c842" if conf >= 50 else "#f87171"
-
+        conf_color   = "#34d399" if conf >= 80 else "#f5c842" if conf >= 50 else "#f87171"
         _empty_html  = "<span style='color:#555;'>(empty)</span>"
         _display_val = raw_val if raw_val else _empty_html
+        _field_ts    = _ts_fmt(_ts_field)
 
-        # ── Build step indicators HTML ────────────────────────────────────────
         steps_html = ""
 
         # Step 1 — Extraction
@@ -790,43 +855,38 @@ def show_claim_journey_dialog(
             f"border:2px solid #34d399;display:flex;align-items:center;justify-content:center;"
             f"font-size:10px;color:#34d399;font-weight:bold;flex-shrink:0;'>1</div>"
             f"<div style='flex:1;'>"
+            f"<div style='display:flex;align-items:center;gap:8px;'>"
             f"<div style='font-size:11px;font-weight:700;color:#34d399;font-family:monospace;"
             f"text-transform:uppercase;letter-spacing:1px;'>Extracted from Excel</div>"
+            f"<span style='font-size:9px;color:#555;font-family:monospace;margin-left:auto;'>"
+            f"⏱ {_field_ts} · modules.parsing</span></div>"
             f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
             f"Column: <code style='color:#e8e7ff;background:#1a1a2e;padding:1px 5px;"
-            f"border-radius:3px;'>{excel_col}</code>"
-            f"</div>"
+            f"border-radius:3px;'>{excel_col}</code></div>"
             f"<div style='font-size:13px;color:#e8e7ff;font-family:monospace;"
             f"background:#12121c;border:1px solid #2a2a45;border-radius:4px;"
-            f"padding:4px 8px;margin-top:4px;word-break:break-all;'>"
-            f"{_display_val}"
-            f"</div>"
+            f"padding:4px 8px;margin-top:4px;word-break:break-all;'>{_display_val}</div>"
             f"</div></div>"
         )
+        steps_html += "<div style='margin-left:11px;border-left:2px dashed #2a2a45;height:8px;margin-bottom:8px;'></div>"
 
-        # Connector
-        steps_html += (
-            "<div style='margin-left:11px;border-left:2px dashed #2a2a45;"
-            "height:8px;margin-bottom:8px;'></div>"
-        )
-
-        # Step 2 — Mapping method
+        # Step 2 — Mapping
         steps_html += (
             f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
             f"<div style='min-width:22px;height:22px;border-radius:50%;background:#1a2540;"
             f"border:2px solid {method_color};display:flex;align-items:center;justify-content:center;"
             f"font-size:10px;color:{method_color};font-weight:bold;flex-shrink:0;'>2</div>"
             f"<div style='flex:1;'>"
+            f"<div style='display:flex;align-items:center;gap:8px;'>"
             f"<div style='font-size:11px;font-weight:700;color:{method_color};font-family:monospace;"
             f"text-transform:uppercase;letter-spacing:1px;'>{method_icon} {method}</div>"
+            f"<span style='font-size:9px;color:#555;font-family:monospace;margin-left:auto;'>"
+            f"⏱ {_field_ts} · {method_fn}</span></div>"
         )
-
         if llm_mapped:
-            # Show source column and LLM reasoning
-            # In schema mode the reverse map gives us the source col;
-            # in plain mode the field IS the source col.
             _src_col = _llm_reverse.get(field, field)
             _reason  = _llm_reasoning.get(_src_col, "")
+            _llm_ts_step = _llm_called_at if _llm_called_at else "—"
             steps_html += (
                 f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
                 f"Source column: <code style='color:#f5c842;background:#1a1a2e;"
@@ -837,7 +897,11 @@ def show_claim_journey_dialog(
                     f" → mapped to <code style='color:#f5c842;background:#1a1a2e;"
                     f"padding:1px 5px;border-radius:3px;'>{field}</code>"
                 )
-            steps_html += "</div>"
+            steps_html += (
+                f"</div>"
+                f"<div style='font-size:10px;color:#555;font-family:monospace;margin-top:2px;'>"
+                f"LLM called at: {_llm_ts_step} · model: {_llm_model}</div>"
+            )
             if _reason:
                 steps_html += (
                     f"<div style='font-size:11px;color:#a0a0c8;font-style:italic;"
@@ -856,62 +920,58 @@ def show_claim_journey_dialog(
                 f"{conf}%</span></div>"
             )
         else:
-            # DIRECT — no scores to show, but give a brief explanation
             steps_html += (
                 f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
                 f"Column name matches field directly (no fuzzy scoring applied)</div>"
             )
-
         steps_html += "</div></div>"
 
-        # Edit history steps
-        if edits:
-            for i, edit in enumerate(edits):
-                steps_html += (
-                    "<div style='margin-left:11px;border-left:2px dashed #2a2a45;"
-                    "height:8px;margin-bottom:8px;'></div>"
-                )
-                steps_html += (
-                    f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
-                    f"<div style='min-width:22px;height:22px;border-radius:50%;background:#2a1a10;"
-                    f"border:2px solid #f5c842;display:flex;align-items:center;justify-content:center;"
-                    f"font-size:10px;color:#f5c842;font-weight:bold;flex-shrink:0;'>"
-                    f"{i+3}</div>"
-                    f"<div style='flex:1;'>"
-                    f"<div style='font-size:11px;font-weight:700;color:#f5c842;font-family:monospace;"
-                    f"text-transform:uppercase;letter-spacing:1px;'>✏ User Edit — {edit['ts']}</div>"
-                    f"<div style='display:flex;gap:8px;margin-top:4px;align-items:center;'>"
-                    f"<div style='font-size:12px;color:#f87171;font-family:monospace;"
-                    f"background:#2a1218;border:1px solid #f87171;border-radius:4px;"
-                    f"padding:3px 8px;word-break:break-all;flex:1;'>"
-                    f"<span style='font-size:10px;color:#f87171;'>FROM: </span>{edit['from']}</div>"
-                    f"<div style='color:#a0a0c8;font-size:14px;'>→</div>"
-                    f"<div style='font-size:12px;color:#34d399;font-family:monospace;"
-                    f"background:#0a2a1a;border:1px solid #34d399;border-radius:4px;"
-                    f"padding:3px 8px;word-break:break-all;flex:1;'>"
-                    f"<span style='font-size:10px;color:#34d399;'>TO: </span>{edit['to']}</div>"
-                    f"</div></div></div>"
-                )
+        # Edit steps
+        for i, edit in enumerate(edits):
+            steps_html += (
+                "<div style='margin-left:11px;border-left:2px dashed #2a2a45;height:8px;margin-bottom:8px;'></div>"
+                f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
+                f"<div style='min-width:22px;height:22px;border-radius:50%;background:#2a1a10;"
+                f"border:2px solid #f5c842;display:flex;align-items:center;justify-content:center;"
+                f"font-size:10px;color:#f5c842;font-weight:bold;flex-shrink:0;'>{i+3}</div>"
+                f"<div style='flex:1;'>"
+                f"<div style='display:flex;align-items:center;gap:8px;'>"
+                f"<div style='font-size:11px;font-weight:700;color:#f5c842;font-family:monospace;"
+                f"text-transform:uppercase;letter-spacing:1px;'>✏ User Edit</div>"
+                f"<span style='font-size:9px;color:#555;font-family:monospace;margin-left:auto;'>"
+                f"⏱ {edit['ts']} · ui.claim_panel · _plain_edit_col()</span></div>"
+                f"<div style='display:flex;gap:8px;margin-top:4px;align-items:center;'>"
+                f"<div style='font-size:12px;color:#f87171;font-family:monospace;"
+                f"background:#2a1218;border:1px solid #f87171;border-radius:4px;"
+                f"padding:3px 8px;word-break:break-all;flex:1;'>"
+                f"<span style='font-size:10px;color:#f87171;'>FROM: </span>{edit['from']}</div>"
+                f"<div style='color:#a0a0c8;font-size:14px;'>→</div>"
+                f"<div style='font-size:12px;color:#34d399;font-family:monospace;"
+                f"background:#0a2a1a;border:1px solid #34d399;border-radius:4px;"
+                f"padding:3px 8px;word-break:break-all;flex:1;'>"
+                f"<span style='font-size:10px;color:#34d399;'>TO: </span>{edit['to']}</div>"
+                f"</div></div></div>"
+            )
 
-        # Final value (if modified)
         if is_edited:
             steps_html += (
-                "<div style='margin-left:11px;border-left:2px dashed #2a2a45;"
-                "height:8px;margin-bottom:8px;'></div>"
+                "<div style='margin-left:11px;border-left:2px dashed #2a2a45;height:8px;margin-bottom:8px;'></div>"
                 f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:4px;'>"
                 f"<div style='min-width:22px;height:22px;border-radius:50%;background:#0a2a1a;"
                 f"border:2px solid #34d399;display:flex;align-items:center;justify-content:center;"
                 f"font-size:10px;color:#34d399;flex-shrink:0;'>✓</div>"
                 f"<div style='flex:1;'>"
+                f"<div style='display:flex;align-items:center;gap:8px;'>"
                 f"<div style='font-size:11px;font-weight:700;color:#34d399;font-family:monospace;"
                 f"text-transform:uppercase;letter-spacing:1px;'>Final Value</div>"
+                f"<span style='font-size:9px;color:#555;font-family:monospace;margin-left:auto;'>"
+                f"⏱ {_ts_fmt(_dt.datetime.now())} · export ready</span></div>"
                 f"<div style='font-size:13px;color:#34d399;font-family:monospace;"
                 f"background:#0a2a1a;border:1px solid #34d399;border-radius:4px;"
                 f"padding:4px 8px;margin-top:4px;word-break:break-all;'>{cur_val}</div>"
                 f"</div></div>"
             )
 
-        # ── Render field card ─────────────────────────────────────────────────
         border_color = "#f5c842" if is_edited else "#2a2a45"
         st.markdown(
             f"<div style='background:#17172a;border:1px solid {border_color};"
@@ -920,50 +980,247 @@ def show_claim_journey_dialog(
             f"text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;"
             f"display:flex;align-items:center;gap:8px;'>"
             f"{field}"
-            # ── MODIFIED badge only — no AI/LLM badge in the header ──────────
             + (
                 f"<span style='font-size:9px;background:#2a1a10;color:#f5c842;"
                 f"padding:1px 6px;border-radius:3px;border:1px solid #f5c842;'>"
                 f"MODIFIED</span>" if is_edited else ""
             )
-            + f"</div>"
-            f"{steps_html}"
-            f"</div>",
+            + f"</div>{steps_html}</div>",
             unsafe_allow_html=True,
         )
 
-    # ── Audit Events Section ──────────────────────────────────────────────────
+    # ══════════════════════════════════════════════════════════════════════════
+    # AUDIT LOG SECTION
+    # ══════════════════════════════════════════════════════════════════════════
     if _claim_audit:
         st.markdown("---")
-        st.markdown(
-            "<div style='font-size:11px;font-weight:700;color:#a0a0c8;font-family:monospace;"
-            "text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;'>"
-            "📋 Audit Log Events</div>",
-            unsafe_allow_html=True,
+
+        # ── Event config ──────────────────────────────────────────────────────
+        _ev_cfg = {
+            "FIELD_EDITED":             ("#4f9cf9", "✏",  "Field edited"),
+            "FIELD_ADDED":              ("#a78bfa", "＋", "Custom field added"),
+            "EXPORT_GENERATED":         ("#34d399", "⬇",  "Export generated"),
+            "FILE_UPLOADED":            ("#f5c842", "📂", "File uploaded"),
+            "SCHEMA_CHANGED":           ("#94a3b8", "🗂",  "Schema changed"),
+            "LLM_CAUSE_ENRICHED":       ("#6b7280", "🤖", "LLM enriched"),
+            "CLAIM_DUPLICATE_DETECTED": ("#f87171", "⚠",  "Duplicate detected"),
+        }
+
+        # Only these event types appear in the default (session) view
+        _USER_EVENTS = {"FIELD_EDITED", "FIELD_ADDED", "EXPORT_GENERATED"}
+
+        # ── Session boundary — ISO string set once per browser session ────────
+        _session_start = st.session_state.get("_session_start", "")
+
+        # ── Deduplicate LLM_CAUSE_ENRICHED — first occurrence only ────────────
+        _seen_llm = False
+        _deduped_audit: list = []
+        for _e in _claim_audit:
+            if _e.get("event") == "LLM_CAUSE_ENRICHED":
+                if not _seen_llm:
+                    _deduped_audit.append(_e)
+                    _seen_llm = True
+            else:
+                _deduped_audit.append(_e)
+
+        # Current-session user events only (default view)
+        # Timestamps stored as ISO strings; lexicographic comparison is safe
+        _session_user_events = [
+            e for e in _deduped_audit
+            if e.get("event") in _USER_EVENTS
+            and e.get("timestamp", "") >= _session_start
+        ]
+
+        # All events (full history view — every session)
+        _full_events = _deduped_audit
+
+        # Read toggle state (mutated via on_click, no rerun needed)
+        _show_full = st.session_state[_full_hist_key]
+
+        # ── Summary pills for session events ──────────────────────────────────
+        _type_counts: dict[str, int] = {}
+        for _e in _session_user_events:
+            _t = _e.get("event", "EVENT")
+            _type_counts[_t] = _type_counts.get(_t, 0) + 1
+
+        _summary_pills = "".join(
+            f"<span style='background:{_ev_cfg.get(_t,('#a0a0c8','•',''))[0]}18;"
+            f"border:1px solid {_ev_cfg.get(_t,('#a0a0c8','•',''))[0]}55;"
+            f"border-radius:20px;padding:2px 8px;font-size:10px;"
+            f"color:{_ev_cfg.get(_t,('#a0a0c8','•',_t))[0]};font-family:monospace;margin-right:4px;'>"
+            f"{_ev_cfg.get(_t,('#a0a0c8','•',_t))[1]} {_n} {_t.replace('_',' ').lower()}</span>"
+            for _t, _n in _type_counts.items()
         )
-        for event in _claim_audit:
-            ev_type  = event.get("event", "EVENT")
-            ev_ts    = event.get("timestamp", "")[:19].replace("T", " ")
-            ev_field = event.get("field", "")
-            ev_from  = event.get("original", "")
-            ev_to    = event.get("new_value", "")
-            ev_color = "#4f9cf9" if ev_type == "FIELD_EDITED" else "#a0a0c8"
+
+        # ── Header + toggle button (on_click — dialog stays open) ─────────────
+        _hdr_col, _btn_col = st.columns([7, 3])
+        with _hdr_col:
             st.markdown(
-                f"<div style='background:#12121c;border:1px solid #2a2a45;"
-                f"border-left:3px solid {ev_color};border-radius:6px;"
-                f"padding:8px 12px;margin-bottom:6px;font-family:monospace;font-size:11px;'>"
-                f"<span style='color:{ev_color};font-weight:700;'>{ev_type}</span>"
-                f" <span style='color:#555;'>·</span> "
-                f"<span style='color:#6b7280;'>{ev_ts}</span>"
-                + (
-                    f" <span style='color:#555;'>·</span> "
-                    f"<span style='color:#e8e7ff;'>{ev_field}</span> "
-                    f"<span style='color:#f87171;'>{ev_from}</span> → "
-                    f"<span style='color:#34d399;'>{ev_to}</span>" if ev_field else ""
-                )
-                + "</div>",
+                f"<div style='display:flex;align-items:center;gap:10px;margin-bottom:6px;'>"
+                f"<div style='font-size:11px;font-weight:700;color:#a0a0c8;font-family:monospace;"
+                f"text-transform:uppercase;letter-spacing:1.5px;'>📋 Audit Log"
+                f"<span style='font-size:9px;color:#555;margin-left:6px;font-weight:400;'>"
+                f"(this session)</span></div>"
+                f"<div style='flex:1;'>{_summary_pills}</div>"
+                f"</div>",
                 unsafe_allow_html=True,
             )
+        with _btn_col:
+            _full_label = "▲ Hide Full History" if _show_full else "▼ View Full History"
 
+            def _toggle_full_hist(_key=_full_hist_key):
+                st.session_state[_key] = not st.session_state[_key]
+
+            st.button(
+                _full_label,
+                key=f"toggle_full_hist_{claim_id}",
+                use_container_width=True,
+                on_click=_toggle_full_hist,
+            )
+
+        # ── Inner renderer — shared by session view + full history ────────────
+        def _render_audit_rows(events: list, id_prefix: str) -> None:
+            for _ei, _event in enumerate(events):
+                _ev_type  = _event.get("event", "EVENT")
+                _ev_ts    = _event.get("timestamp", "")[:19].replace("T", " ")
+                _ev_field = _event.get("field", "")
+                _ev_from  = _event.get("original", "")
+                _ev_to    = _event.get("new_value", "")
+                _ev_recs  = _event.get("records", "")
+                _ev_etype = _event.get("export_type", "")
+
+                _cfg      = _ev_cfg.get(_ev_type, ("#a0a0c8", "•", _ev_type))
+                _ev_color = _cfg[0]
+                _ev_icon  = _cfg[1]
+
+                # Compact summary line
+                _detail = ""
+                if _ev_type == "FIELD_EDITED" and _ev_field:
+                    _sf   = str(_ev_from)[:22] + ("…" if len(str(_ev_from)) > 22 else "")
+                    _st_v = str(_ev_to)[:22]   + ("…" if len(str(_ev_to))   > 22 else "")
+                    _detail = (
+                        f"<span style='color:#e8e7ff;'>{_ev_field}</span> "
+                        f"<span style='color:#f87171;'>{_sf}</span>"
+                        f"<span style='color:#555;'> → </span>"
+                        f"<span style='color:#34d399;'>{_st_v}</span>"
+                    )
+                elif _ev_type == "FIELD_ADDED" and _ev_field:
+                    _detail = f"<span style='color:#a78bfa;'>{_ev_field}</span>"
+                elif _ev_type == "EXPORT_GENERATED":
+                    _detail = (
+                        f"<span style='color:#34d399;'>{_ev_etype}</span>"
+                        + (f"<span style='color:#555;'> · {_ev_recs} records</span>" if _ev_recs else "")
+                    )
+                elif _ev_type == "LLM_CAUSE_ENRICHED":
+                    _cause = _event.get("cause_of_loss", "")
+                    _detail = (
+                        f"<span style='color:#6b7280;'>cause: </span>"
+                        f"<span style='color:#a0a0c8;'>{_cause}</span>"
+                        if _cause else
+                        "<span style='color:#6b7280;font-style:italic;'>first enrichment only</span>"
+                    )
+                elif _ev_type == "CLAIM_DUPLICATE_DETECTED":
+                    _detail = "<span style='color:#f87171;font-style:italic;'>duplicate flag raised</span>"
+
+                # Expand/collapse toggle — on_click keeps dialog open
+                _card_key = f"{id_prefix}_{_ei}"
+                _expanded = _card_key in st.session_state[_audit_expand_key]
+                _btn_lbl  = "▲" if _expanded else "▼"
+
+                def _toggle_card(_ck=_card_key, _ek=_audit_expand_key):
+                    if _ck in st.session_state[_ek]:
+                        st.session_state[_ek].discard(_ck)
+                    else:
+                        st.session_state[_ek].add(_ck)
+
+                _row_col, _xbtn_col = st.columns([10, 1])
+                with _row_col:
+                    st.markdown(
+                        f"<div style='background:#12121c;border:1px solid #2a2a45;"
+                        f"border-left:3px solid {_ev_color};border-radius:6px;"
+                        f"padding:8px 12px;font-family:monospace;font-size:11px;"
+                        f"display:flex;align-items:center;gap:8px;'>"
+                        f"<span style='color:{_ev_color};font-weight:700;min-width:16px;'>{_ev_icon}</span>"
+                        f"<span style='color:{_ev_color};font-weight:700;min-width:175px;"
+                        f"white-space:nowrap;'>{_ev_type}</span>"
+                        f"<span style='color:#555;'>·</span>"
+                        f"<span style='color:#6b7280;min-width:135px;white-space:nowrap;'>{_ev_ts}</span>"
+                        f"<span style='color:#555;'>·</span>"
+                        f"<span style='flex:1;'>{_detail}</span>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+                with _xbtn_col:
+                    st.button(
+                        _btn_lbl,
+                        key=f"audit_expand_{_card_key}",
+                        use_container_width=True,
+                        help="Expand / collapse full details",
+                        on_click=_toggle_card,
+                        # No st.rerun() — on_click mutates state, dialog re-renders in place
+                    )
+
+                # Expanded detail panel
+                if _expanded:
+                    _detail_rows = ""
+                    for _k, _v in _event.items():
+                        if _k == "event" or _v in (None, "", []):
+                            continue
+                        _vs = str(_v)
+                        if _k == "original":                  _vc = "#f87171"
+                        elif _k == "new_value":               _vc = "#34d399"
+                        elif _k == "timestamp":               _vc = "#6b7280"
+                        elif _k in ("field", "export_type"):  _vc = "#e8e7ff"
+                        else:                                 _vc = "#a0a0c8"
+                        _detail_rows += (
+                            f"<div style='display:flex;gap:12px;padding:4px 0;"
+                            f"border-bottom:1px solid #1a1a2e;'>"
+                            f"<span style='min-width:120px;font-size:10px;color:#555;"
+                            f"font-family:monospace;text-transform:uppercase;'>{_k}</span>"
+                            f"<span style='font-size:11px;color:{_vc};font-family:monospace;"
+                            f"word-break:break-all;'>{_vs}</span>"
+                            f"</div>"
+                        )
+                    st.markdown(
+                        f"<div style='background:#0d0d1a;border:1px solid {_ev_color}44;"
+                        f"border-left:3px solid {_ev_color};border-radius:0 0 6px 6px;"
+                        f"padding:10px 14px;margin-top:-6px;margin-bottom:8px;'>"
+                        f"{_detail_rows}</div>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.markdown("<div style='margin-bottom:6px;'></div>", unsafe_allow_html=True)
+
+        # ── Default view: this session's user actions only ────────────────────
+        if not _session_user_events:
+            st.markdown(
+                "<div style='color:#555;font-size:12px;font-family:monospace;"
+                "padding:10px 0;font-style:italic;'>"
+                "No user actions recorded in this session yet for this claim.</div>",
+                unsafe_allow_html=True,
+            )
+        else:
+            _render_audit_rows(_session_user_events, f"user_{selected_sheet}_{claim_id}")
+
+        # ── Full history (inline expand, no rerun) ────────────────────────────
+        if _show_full:
+            _llm_count_raw = sum(1 for e in _claim_audit if e.get("event") == "LLM_CAUSE_ENRICHED")
+            _suppressed    = _llm_count_raw - (1 if _llm_count_raw > 0 else 0)
+            _note = (
+                f" · {_suppressed} duplicate LLM_CAUSE_ENRICHED event(s) suppressed"
+                if _suppressed > 0 else ""
+            )
+            st.markdown(
+                f"<div style='background:#0d0d1a;border:1px solid #2a2a45;border-radius:8px;"
+                f"padding:10px 14px;margin-top:8px;'>"
+                f"<div style='font-size:10px;font-weight:700;color:#6b7280;font-family:monospace;"
+                f"text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;'>"
+                f"🕓 Full History — {len(_full_events)} event(s){_note}</div>",
+                unsafe_allow_html=True,
+            )
+            _render_audit_rows(_full_events, f"full_{selected_sheet}_{claim_id}")
+            st.markdown("</div>", unsafe_allow_html=True)
+
+    # ── Close button — intentionally the only st.rerun() in this dialog ───────
     if st.button("Close", type="primary", use_container_width=True):
         st.rerun()

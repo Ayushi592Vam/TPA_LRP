@@ -11500,5 +11500,3508 @@
     "field": "SUMMARY_FLIBBER",
     "original": "POL-HO200000",
     "new_value": "POL-HO2000090"
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T14:15:49.443727",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:49.556399",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:49.643220",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:49.762564",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:49.832707",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:49.905560",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:49.985603",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:50.087173",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:50.186992",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:50.301763",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:15:50.407463",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T14:15:53.483970",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T14:16:05.900369",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T14:16:11.216915",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "63900": "Total Paid",
+      "466700": "Total Incurred",
+      "32000": "Reserve",
+      "Open:2 Pend:2": "Status",
+      "POL-HO200000": "Policy Number",
+      "Acme Insurance Co.": "Carrier",
+      "Mike Peterson": "Insured Name",
+      "Valuation Report": "Description of Loss",
+      "Closed": "Open/Closed",
+      "Adjuster_D": "Adjuster Name"
+    },
+    "unmapped": [
+      "03/16/2026",
+      "Homeowner_001",
+      "402800",
+      "10/01/2025",
+      "All Adjusters"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.298782",
+    "claim_id": "CLM-HO0001",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.348710",
+    "claim_id": "CLM-HO0002",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.398688",
+    "claim_id": "CLM-HO0003",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.463250",
+    "claim_id": "CLM-HO0004",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.540771",
+    "claim_id": "CLM-HO0005",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.635912",
+    "claim_id": "CLM-HO0006",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.714795",
+    "claim_id": "CLM-HO0007",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.781832",
+    "claim_id": "CLM-HO0008",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.874815",
+    "claim_id": "CLM-HO0009",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:11.954516",
+    "claim_id": "CLM-HO0010",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.002240",
+    "claim_id": "CLM-HO0011",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.066133",
+    "claim_id": "CLM-HO0012",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.145462",
+    "claim_id": "CLM-HO0013",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.260235",
+    "claim_id": "CLM-HO0014",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.371615",
+    "claim_id": "CLM-HO0015",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.472001",
+    "claim_id": "CLM-HO0016",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.526645",
+    "claim_id": "CLM-HO0017",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.590365",
+    "claim_id": "CLM-HO0018",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.672826",
+    "claim_id": "CLM-HO0019",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.735005",
+    "claim_id": "CLM-HO0020",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.798972",
+    "claim_id": "CLM-HO0021",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.894968",
+    "claim_id": "CLM-HO0022",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:12.942664",
+    "claim_id": "CLM-HO0023",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:13.037758",
+    "claim_id": "CLM-HO0024",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:16:13.117579",
+    "claim_id": "CLM-HO0025",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T14:16:15.624130",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200000 | Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there was a leak in the roof."
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T14:16:19.312409",
+    "sheet": "HomeOwners Loss Run_plain",
+    "schema": "Guidewire",
+    "source_cols": [
+      "Claim Number",
+      "Loss Date",
+      "SUMMARY_FLIBBER",
+      "Carrier",
+      "Claimant Name",
+      "Description of Loss",
+      "Status",
+      "402800",
+      "Total Paid",
+      "Total Incurred",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "Claim Number": "Claim Number",
+      "Loss Date": "Loss Date",
+      "Claimant Name": "Claimant Name",
+      "Status": "Status",
+      "Total Paid": "Total Paid",
+      "Total Incurred": "Total Incurred",
+      "Date Reported": "Date Reported",
+      "Carrier": "Carrier",
+      "Description of Loss": "Description of Loss",
+      "All Adjusters": "Adjuster Name"
+    },
+    "unmapped": [
+      "SUMMARY_FLIBBER",
+      "402800"
+    ]
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T14:18:48.608313",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:48.671750",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:48.752297",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:48.822697",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:48.943669",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:49.012614",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:49.089341",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:49.210269",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:49.327899",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:49.418748",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:18:49.518331",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T14:18:51.693878",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-30T14:19:36.167236",
+    "filename": "loss_runs.xlsx",
+    "sheet": "Workers Comp Loss Run",
+    "sheet_hash": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
+    "claim_rows": 12,
+    "sheet_type": "LOSS_RUN",
+    "total_rows": 16,
+    "total_cols": 14,
+    "col_renames": {
+      "Claim_id": "Claim Number",
+      "Date Reported": "Date Reported",
+      "Employee Name": "Claimant Name",
+      "Job Title": "Job Title",
+      "Body Part": "Body Part",
+      "Days Lost": "Days Lost",
+      "Medical Paid": "Medical Paid",
+      "Expense Paid": "Expense Paid",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Status": "Status"
+    }
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T14:19:38.599362",
+    "sheet": "Workers Comp Loss Run",
+    "claim_id": "WC-001",
+    "source_fields": [
+      "Nature of Injury"
+    ],
+    "input_text": "Laceration",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they sustained a laceration."
+  },
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-30T14:35:51.930098",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "file_hash": "10a7a27edd729af1adebf413f1407c70a62c09051c50f2f3a0369e8f200aa435",
+    "sheets": [
+      "HomeOwners Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T14:35:52.097551",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T14:35:57.273518",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Acme Insurance Co.": "Carrier",
+      "POL-HO200000": "Policy Number",
+      "Valuation Report": "Description of Loss",
+      "Open:2 Pend:2": "Status",
+      "Closed": "Open/Closed",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "Adjuster_D": "Adjuster Name"
+    },
+    "unmapped": [
+      "03/16/2026",
+      "01/20/2024",
+      "Homeowner_001",
+      "10/01/2025",
+      "32000",
+      "500",
+      "32500"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.432395",
+    "claim_id": "CLM-HO0001",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.508415",
+    "claim_id": "CLM-HO0002",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.591531",
+    "claim_id": "CLM-HO0003",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.665187",
+    "claim_id": "CLM-HO0004",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.748207",
+    "claim_id": "CLM-HO0005",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.809644",
+    "claim_id": "CLM-HO0006",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.898959",
+    "claim_id": "CLM-HO0007",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:57.968196",
+    "claim_id": "CLM-HO0008",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.032250",
+    "claim_id": "CLM-HO0009",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.112042",
+    "claim_id": "CLM-HO0010",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.207219",
+    "claim_id": "CLM-HO0011",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.311995",
+    "claim_id": "CLM-HO0012",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.455782",
+    "claim_id": "CLM-HO0013",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.622223",
+    "claim_id": "CLM-HO0014",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.785577",
+    "claim_id": "CLM-HO0015",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.867209",
+    "claim_id": "CLM-HO0016",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:58.946863",
+    "claim_id": "CLM-HO0017",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.013425",
+    "claim_id": "CLM-HO0018",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.089385",
+    "claim_id": "CLM-HO0019",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.168485",
+    "claim_id": "CLM-HO0020",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.263554",
+    "claim_id": "CLM-HO0021",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.359023",
+    "claim_id": "CLM-HO0022",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.501386",
+    "claim_id": "CLM-HO0023",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve",
+      "Total Incurred"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.581613",
+    "claim_id": "CLM-HO0024",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T14:35:59.629456",
+    "claim_id": "CLM-HO0025",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "Reserve"
+    ]
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T14:36:03.311978",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200000 | Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there is a leak in the roof."
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T14:36:07.097124",
+    "sheet": "HomeOwners Loss Run_plain",
+    "schema": "Guidewire",
+    "source_cols": [
+      "Claim Number",
+      "Loss Date",
+      "SUMMARY_FLIBBER",
+      "Carrier",
+      "Claimant Name",
+      "Description of Loss",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Reserve",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "Claim Number": "Claim Number",
+      "Loss Date": "Loss Date",
+      "Claimant Name": "Claimant Name",
+      "Status": "Status",
+      "Total Incurred": "Total Incurred",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Date Reported": "Date Reported",
+      "Carrier": "Carrier",
+      "Description of Loss": "Description of Loss"
+    },
+    "unmapped": [
+      "SUMMARY_FLIBBER",
+      "All Adjusters"
+    ]
+  },
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-30T14:52:50.608467",
+    "filename": "loss_runs.xlsx",
+    "file_hash": "47f14b302b83b7b7409833a0f72996f8757168d2d40475bb984467f1bcbb09cd",
+    "sheets": [
+      "CGL Loss Run",
+      "Workers Comp Loss Run",
+      "Commercial Auto Loss Run",
+      "Commercial Property Loss Run",
+      "Prof Liability E&O Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-30T14:52:51.388680",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de",
+    "claim_rows": 10,
+    "sheet_type": "LOSS_RUN",
+    "total_rows": 14,
+    "total_cols": 12,
+    "col_renames": {
+      "Claim_id": "Claim Number",
+      "Date of Loss": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Claimant Name": "Claimant Name",
+      "Description of Loss": "Description of Loss",
+      "Indemnity Paid": "Indemnity Paid",
+      "Medical Paid": "Medical Paid",
+      "Expense Paid": "Expense Paid",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Total Incurred": "Total Incurred",
+      "Status": "Status"
+    }
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T14:52:54.138577",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T15:13:35.824074",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:35.897710",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:35.982896",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.078611",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.126623",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.174923",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.238702",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.302467",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.349968",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.428891",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T15:13:36.476668",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T15:13:39.014038",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "FIELD_EDITED",
+    "timestamp": "2026-03-30T15:15:24.567547",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "field": "Date Reported",
+    "original": "03/20/2021",
+    "new_value": "03/20/2029"
+  },
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-30T15:17:41.709198",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "file_hash": "10a7a27edd729af1adebf413f1407c70a62c09051c50f2f3a0369e8f200aa435",
+    "sheets": [
+      "HomeOwners Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-30T15:17:41.985622",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34",
+    "claim_rows": 25,
+    "sheet_type": "COMMERCIAL_LOSS_RUN",
+    "total_rows": 28,
+    "total_cols": 12,
+    "col_renames": {
+      "Report Date": "Date Reported"
+    }
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T15:17:48.439944",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Acme Insurance Co.": "Carrier",
+      "POL-HO200000": "Policy Number",
+      "Valuation Report": "Description of Loss",
+      "Open:2 Pend:2": "Status",
+      "Closed": "Open/Closed",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "Adjuster_D": "Adjuster Name"
+    },
+    "unmapped": [
+      "01/20/2024",
+      "Homeowner_001",
+      "10/01/2025",
+      "32000",
+      "500",
+      "32500"
+    ]
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T15:17:51.156909",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200000 | Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there was a leak in the roof."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T16:08:09.460590",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T16:08:14.960881",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Acme Insurance Co.": "Carrier",
+      "POL-HO200000": "Policy Number",
+      "Closed": "Status",
+      "32000": "Total Incurred",
+      "500": "Total Paid",
+      "32500": "Reserve",
+      "Adjuster_D": "Adjuster Name",
+      "Roof leak splish": "Description of Loss"
+    },
+    "unmapped": [
+      "01/20/2024",
+      "Homeowner_001",
+      "Open:2 Pend:2",
+      "63900",
+      "466700"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.027462",
+    "claim_id": "CLM-HO0001",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.090054",
+    "claim_id": "CLM-HO0002",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.148594",
+    "claim_id": "CLM-HO0003",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.223183",
+    "claim_id": "CLM-HO0004",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.298236",
+    "claim_id": "CLM-HO0005",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.381721",
+    "claim_id": "CLM-HO0006",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.481108",
+    "claim_id": "CLM-HO0007",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.616274",
+    "claim_id": "CLM-HO0008",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.720020",
+    "claim_id": "CLM-HO0009",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.775583",
+    "claim_id": "CLM-HO0010",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.851240",
+    "claim_id": "CLM-HO0011",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:15.934843",
+    "claim_id": "CLM-HO0012",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.017178",
+    "claim_id": "CLM-HO0013",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.079628",
+    "claim_id": "CLM-HO0014",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.133671",
+    "claim_id": "CLM-HO0015",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.198096",
+    "claim_id": "CLM-HO0016",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.245726",
+    "claim_id": "CLM-HO0017",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.325538",
+    "claim_id": "CLM-HO0018",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.405098",
+    "claim_id": "CLM-HO0019",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.501034",
+    "claim_id": "CLM-HO0020",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.628403",
+    "claim_id": "CLM-HO0021",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.723745",
+    "claim_id": "CLM-HO0022",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.787991",
+    "claim_id": "CLM-HO0023",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.851443",
+    "claim_id": "CLM-HO0024",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:08:16.919477",
+    "claim_id": "CLM-HO0025",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T16:08:19.467758",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER"
+    ],
+    "input_text": "POL-HO200000",
+    "cause_of_loss": "Other",
+    "summary": "The claimant alleges a loss related to their homeowner's insurance policy."
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T16:08:24.593913",
+    "sheet": "HomeOwners Loss Run_plain",
+    "schema": "Guidewire",
+    "source_cols": [
+      "Claim Number",
+      "Loss Date",
+      "SUMMARY_FLIBBER",
+      "Carrier",
+      "Claimant Name",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "Claim Number": "Claim Number",
+      "Loss Date": "Loss Date",
+      "Claimant Name": "Claimant Name",
+      "Date Reported": "Date Reported",
+      "Open:2 Pend:2": "Status",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "SUMMARY_FLIBBER": "Policy Number",
+      "Carrier": "Carrier",
+      "Valuation Report": "Description of Loss",
+      "All Adjusters": "Adjuster Name"
+    },
+    "unmapped": [
+      "Open:2 Pend:2"
+    ]
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T16:10:22.805633",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:22.887751",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:22.964050",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.088211",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.170463",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.270264",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.331862",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.404640",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.471527",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.617840",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:10:23.722123",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T16:10:26.551945",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T16:19:35.889481",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T16:19:42.204562",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Acme Insurance Co.": "Carrier",
+      "POL-HO200000": "Policy Number",
+      "Valuation Report": "Description of Loss",
+      "Open:2 Pend:2": "Status",
+      "Closed": "Open/Closed",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "Adjuster_D": "Adjuster Name"
+    },
+    "unmapped": [
+      "01/20/2024",
+      "Homeowner_001",
+      "10/01/2025",
+      "32000",
+      "500",
+      "32500"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:42.290130",
+    "claim_id": "CLM-HO0002",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:42.365074",
+    "claim_id": "CLM-HO0003",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:42.505817",
+    "claim_id": "CLM-HO0004",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:42.677052",
+    "claim_id": "CLM-HO0005",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:42.788162",
+    "claim_id": "CLM-HO0006",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:42.867385",
+    "claim_id": "CLM-HO0007",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.004012",
+    "claim_id": "CLM-HO0008",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.097308",
+    "claim_id": "CLM-HO0009",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.191656",
+    "claim_id": "CLM-HO0010",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.273763",
+    "claim_id": "CLM-HO0011",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.342192",
+    "claim_id": "CLM-HO0012",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.435842",
+    "claim_id": "CLM-HO0013",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.543175",
+    "claim_id": "CLM-HO0014",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.669623",
+    "claim_id": "CLM-HO0015",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.809511",
+    "claim_id": "CLM-HO0016",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:43.937002",
+    "claim_id": "CLM-HO0017",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.054999",
+    "claim_id": "CLM-HO0018",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.207189",
+    "claim_id": "CLM-HO0019",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.303061",
+    "claim_id": "CLM-HO0020",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.386245",
+    "claim_id": "CLM-HO0021",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.493914",
+    "claim_id": "CLM-HO0022",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.646220",
+    "claim_id": "CLM-HO0023",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.739200",
+    "claim_id": "CLM-HO0024",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T16:19:44.807170",
+    "claim_id": "CLM-HO0025",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": [
+      "402800",
+      "466700",
+      "63900",
+      "Description of Loss",
+      "Open:2 Pend:2",
+      "Reserve",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Valuation Report"
+    ]
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T16:19:47.099209",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200000 | Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there was a leak in the roof."
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T16:19:53.976617",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0002",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200015 | Flood water glug",
+    "cause_of_loss": "Water Damage - Flood",
+    "summary": "The claimant alleges that flood water caused damage to their property."
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T16:19:59.143014",
+    "sheet": "HomeOwners Loss Run_plain",
+    "schema": "Guidewire",
+    "source_cols": [
+      "Claim Number",
+      "Loss Date",
+      "SUMMARY_FLIBBER",
+      "Carrier",
+      "Claimant Name",
+      "Description of Loss",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Reserve",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "Claim Number": "Claim Number",
+      "Loss Date": "Loss Date",
+      "Claimant Name": "Claimant Name",
+      "Status": "Status",
+      "Total Incurred": "Total Incurred",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Date Reported": "Date Reported",
+      "Carrier": "Carrier",
+      "Description of Loss": "Description of Loss",
+      "SUMMARY_FLIBBER": "Policy Number",
+      "All Adjusters": "Adjuster Name"
+    },
+    "unmapped": []
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T18:49:16.487050",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:16.611434",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:16.712083",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:16.859280",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:16.992957",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:17.132528",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:17.206852",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:17.282322",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:17.364742",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:17.495159",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:49:17.608567",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T18:49:19.982894",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T18:58:42.238068",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T18:58:48.946047",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Acme Insurance Co.": "Carrier",
+      "POL-HO200000": "Policy Number",
+      "Valuation Report": "Description of Loss",
+      "Open:2 Pend:2": "Status",
+      "Closed": "Open/Closed",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "Adjuster_D": "Adjuster Name"
+    },
+    "unmapped": [
+      "01/20/2024",
+      "Homeowner_001",
+      "10/01/2025",
+      "32000",
+      "500",
+      "32500"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.025946",
+    "claim_id": "CLM-HO0001",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.106445",
+    "claim_id": "CLM-HO0003",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.218843",
+    "claim_id": "CLM-HO0004",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.298752",
+    "claim_id": "CLM-HO0005",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.362509",
+    "claim_id": "CLM-HO0006",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.444652",
+    "claim_id": "CLM-HO0007",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.553943",
+    "claim_id": "CLM-HO0008",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.664978",
+    "claim_id": "CLM-HO0009",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.760864",
+    "claim_id": "CLM-HO0010",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.829306",
+    "claim_id": "CLM-HO0011",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.897494",
+    "claim_id": "CLM-HO0012",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:49.975172",
+    "claim_id": "CLM-HO0013",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.062883",
+    "claim_id": "CLM-HO0014",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.126351",
+    "claim_id": "CLM-HO0015",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.220325",
+    "claim_id": "CLM-HO0016",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.305496",
+    "claim_id": "CLM-HO0017",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.388508",
+    "claim_id": "CLM-HO0018",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.460017",
+    "claim_id": "CLM-HO0019",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.589411",
+    "claim_id": "CLM-HO0020",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.697562",
+    "claim_id": "CLM-HO0021",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.760340",
+    "claim_id": "CLM-HO0022",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.824121",
+    "claim_id": "CLM-HO0023",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.887624",
+    "claim_id": "CLM-HO0024",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T18:58:50.935731",
+    "claim_id": "CLM-HO0025",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T18:58:53.960480",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200000 | Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there was a leak in the roof."
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T18:58:57.900746",
+    "sheet": "HomeOwners Loss Run_plain",
+    "schema": "Guidewire",
+    "source_cols": [
+      "Claim Number",
+      "Loss Date",
+      "SUMMARY_FLIBBER",
+      "Carrier",
+      "Claimant Name",
+      "Description of Loss",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Reserve",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "Claim Number": "Claim Number",
+      "Loss Date": "Loss Date",
+      "Claimant Name": "Claimant Name",
+      "Status": "Status",
+      "Total Incurred": "Total Incurred",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Date Reported": "Date Reported",
+      "Carrier": "Carrier",
+      "Description of Loss": "Description of Loss"
+    },
+    "unmapped": [
+      "SUMMARY_FLIBBER",
+      "All Adjusters"
+    ]
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T19:00:45.699766",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:45.783134",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:45.932992",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.092126",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.194534",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.293007",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.393356",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.493658",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.663319",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.783836",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:00:46.916724",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T19:00:49.660722",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-30T19:33:07.747974",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T19:33:14.462702",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "Total Claims: 25": "Claimant Name",
+      "03/16/2026": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Acme Insurance Co.": "Carrier",
+      "POL-HO200000": "Policy Number",
+      "Valuation Report": "Description of Loss",
+      "Open:2 Pend:2": "Status",
+      "Closed": "Open/Closed",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "Adjuster_D": "Adjuster Name"
+    },
+    "unmapped": [
+      "03/16/2026",
+      "01/20/2024",
+      "Homeowner_001",
+      "10/01/2025",
+      "32000",
+      "500",
+      "32500"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:14.551222",
+    "claim_id": "CLM-HO0001",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:14.622129",
+    "claim_id": "CLM-HO0002",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:14.701521",
+    "claim_id": "CLM-HO0003",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:14.780165",
+    "claim_id": "CLM-HO0004",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:14.875364",
+    "claim_id": "CLM-HO0005",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:14.986975",
+    "claim_id": "CLM-HO0006",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.066382",
+    "claim_id": "CLM-HO0007",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.125220",
+    "claim_id": "CLM-HO0008",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.185437",
+    "claim_id": "CLM-HO0009",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.256767",
+    "claim_id": "CLM-HO0010",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.368060",
+    "claim_id": "CLM-HO0011",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.464181",
+    "claim_id": "CLM-HO0012",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.543426",
+    "claim_id": "CLM-HO0013",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.623400",
+    "claim_id": "CLM-HO0014",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.718929",
+    "claim_id": "CLM-HO0015",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.799195",
+    "claim_id": "CLM-HO0016",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.881894",
+    "claim_id": "CLM-HO0017",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:15.957978",
+    "claim_id": "CLM-HO0018",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.037944",
+    "claim_id": "CLM-HO0019",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.111599",
+    "claim_id": "CLM-HO0020",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.181257",
+    "claim_id": "CLM-HO0021",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.268206",
+    "claim_id": "CLM-HO0022",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.387600",
+    "claim_id": "CLM-HO0023",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.500853",
+    "claim_id": "CLM-HO0024",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-30T19:33:16.596415",
+    "claim_id": "CLM-HO0025",
+    "sheet": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "prev_filename": "test_lossrun_homeowners_weird.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-30T19:33:19.384633",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "SUMMARY_FLIBBER",
+      "Description of Loss"
+    ],
+    "input_text": "POL-HO200000 | Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there is a leak in the roof."
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-30T19:33:26.868869",
+    "sheet": "HomeOwners Loss Run_plain",
+    "schema": "Guidewire",
+    "source_cols": [
+      "Claim Number",
+      "Loss Date",
+      "SUMMARY_FLIBBER",
+      "Carrier",
+      "Claimant Name",
+      "Description of Loss",
+      "Status",
+      "Total Incurred",
+      "Total Paid",
+      "Reserve",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "Claim Number": "Claim Number",
+      "Loss Date": "Loss Date",
+      "Claimant Name": "Claimant Name",
+      "Status": "Status",
+      "Total Incurred": "Total Incurred",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Date Reported": "Date Reported",
+      "Carrier": "Carrier",
+      "Description of Loss": "Description of Loss",
+      "SUMMARY_FLIBBER": "Policy Number"
+    },
+    "unmapped": [
+      "All Adjusters"
+    ]
   }
 ]

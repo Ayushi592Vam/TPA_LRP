@@ -538,6 +538,53 @@ def _render_custom_field_adder(curr_claim_id, selected_sheet, uploaded_name):
     st.markdown("</div>", unsafe_allow_html=True)
 
 
+# ── Totals section renderer ───────────────────────────────────────────────────
+
+def _render_totals_section(totals_data: dict) -> None:
+    """
+    Render the Sheet Totals section.
+
+    Works whether totals_data came from an Excel totals row ("source": "excel_row")
+    or was computed on-the-fly from claim data ("source": "computed").
+    Always renders when aggregated is non-empty.
+    """
+    agg = totals_data.get("aggregated", {})
+    if not agg:
+        return
+
+    source      = totals_data.get("source", "computed")
+    source_label = (
+        "<span style='font-size:9px;background:rgba(52,211,153,0.12);"
+        "border:1px solid rgba(52,211,153,0.3);border-radius:3px;color:#34d399;"
+        "padding:1px 5px;margin-left:6px;font-family:monospace;'>FROM EXCEL ROW</span>"
+        if source == "excel_row" else
+        "<span style='font-size:9px;background:rgba(96,165,250,0.12);"
+        "border:1px solid rgba(96,165,250,0.3);border-radius:3px;color:#60a5fa;"
+        "padding:1px 5px;margin-left:6px;font-family:monospace;'></span>"
+    )
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown(
+        f"<p class='section-lbl' style='display:flex;align-items:center;'>"
+        f"Sheet Totals{source_label}</p>",
+        unsafe_allow_html=True,
+    )
+
+    t_cols = st.columns(min(4, len(agg)))
+    for idx, (k, v) in enumerate(agg.items()):
+        with t_cols[idx % len(t_cols)]:
+            st.markdown(
+                f"<div style='background:var(--s0);border:1px solid var(--b0);"
+                f"border-top:2px solid var(--green);border-radius:8px;"
+                f"padding:10px 14px;margin-bottom:8px;'>"
+                f"<div style='font-size:var(--sz-xs);color:var(--t2);"
+                f"text-transform:uppercase;font-family:var(--mono);letter-spacing:0.8px;'>{k}</div>"
+                f"<div style='font-size:var(--sz-body);font-weight:700;color:var(--green);"
+                f"font-family:var(--mono);margin-top:2px;'>{v:,.2f}</div></div>",
+                unsafe_allow_html=True,
+            )
+
+
 # ── Main render function ──────────────────────────────────────────────────────
 
 def render_claim_panel(
@@ -550,6 +597,14 @@ def render_claim_panel(
     use_conf    = st.session_state.get("use_conf_threshold", False)
     conf_thresh = st.session_state.get("conf_threshold", 80) if use_conf else 0
     active_schema = st.session_state.get("active_schema", None)
+
+    # ── Always ensure totals are populated from claim data if not already ─────
+    # If the caller passed an empty / Excel-only totals dict that has no numbers,
+    # fall back to computing totals from the loaded claim rows right here so the
+    # section always appears.
+    if not totals_data or not totals_data.get("aggregated"):
+        from modules.file_utils import compute_totals_from_claims
+        totals_data = compute_totals_from_claims(active.get("data", []))
 
     # Sheet title banner
     sorted_titles = sorted(
@@ -638,22 +693,5 @@ def render_claim_panel(
     # Custom field adder
     _render_custom_field_adder(curr_claim_id, selected_sheet, uploaded_name)
 
-    # Totals section
-    if totals_data:
-        st.markdown("<hr>", unsafe_allow_html=True)
-        st.markdown("<p class='section-lbl'>Sheet Totals</p>", unsafe_allow_html=True)
-        agg = totals_data.get("aggregated", {})
-        if agg:
-            t_cols = st.columns(min(4, len(agg)))
-            for idx, (k, v) in enumerate(agg.items()):
-                with t_cols[idx % len(t_cols)]:
-                    st.markdown(
-                        f"<div style='background:var(--s0);border:1px solid var(--b0);"
-                        f"border-top:2px solid var(--green);border-radius:8px;"
-                        f"padding:10px 14px;margin-bottom:8px;'>"
-                        f"<div style='font-size:var(--sz-xs);color:var(--t2);"
-                        f"text-transform:uppercase;font-family:var(--mono);letter-spacing:0.8px;'>{k}</div>"
-                        f"<div style='font-size:var(--sz-body);font-weight:700;color:var(--green);"
-                        f"font-family:var(--mono);margin-top:2px;'>{v:,.2f}</div></div>",
-                        unsafe_allow_html=True,
-                    )
+    # Totals section — always shown when numeric columns exist
+    _render_totals_section(totals_data)

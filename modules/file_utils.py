@@ -150,3 +150,66 @@ def extract_totals_row(file_path: str, sheet_name: str) -> dict:
                     pass
         totals["aggregated"] = {k: round(v, 2) for k, v in agg.items()}
     return totals
+
+
+# ── Compute totals from parsed claim data (always available) ──────────────────
+
+def compute_totals_from_claims(claims_data: list[dict]) -> dict:
+    """
+    Calculate column totals directly from the parsed claim rows.
+
+    Each item in `claims_data` is a dict of  { field_name: {"value": ..., ...} }.
+    Only numeric-looking values are summed.  Non-numeric columns are skipped.
+
+    Returns a dict shaped like extract_totals_row():
+        {
+            "aggregated": { field: rounded_float, ... },
+            "source":     "computed",          # marks that this was not from an Excel totals row
+        }
+    Always returns at least {"aggregated": {}, "source": "computed"} — never an
+    empty dict — so callers can rely on the "aggregated" key existing.
+    """
+    if not claims_data:
+        return {"aggregated": {}, "source": "computed"}
+
+    agg: dict[str, float] = {}
+
+    for claim in claims_data:
+        for field, info in claim.items():
+            raw = info.get("modified") or info.get("value", "")
+            if raw is None:
+                continue
+            cleaned = str(raw).strip().replace(",", "").replace("$", "").replace("%", "")
+            try:
+                num = float(cleaned)
+            except (ValueError, TypeError):
+                continue
+            agg[field] = round(agg.get(field, 0.0) + num, 2)
+
+    return {"aggregated": agg, "source": "computed"}
+
+
+def get_totals_for_sheet(
+    file_path: str,
+    sheet_name: str,
+    claims_data: list[dict],
+) -> dict:
+    """
+    Always return a populated totals dict for the sheet.
+
+    Strategy:
+      1. Try to find an explicit totals row in the Excel file (existing behaviour).
+      2. If none found (or aggregated is empty), fall back to computing totals
+         directly from `claims_data`.
+
+    The returned dict always contains an "aggregated" key.
+    """
+    totals = extract_totals_row(file_path, sheet_name)
+
+    # Use the Excel totals row only when it actually produced numbers
+    if totals.get("aggregated"):
+        totals.setdefault("source", "excel_row")
+        return totals
+
+    # Fall back: compute from the parsed claim rows
+    return compute_totals_from_claims(claims_data)

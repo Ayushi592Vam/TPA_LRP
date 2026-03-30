@@ -81,6 +81,10 @@ for _k, _v in SESSION_DEFAULTS.items():
     if _k not in st.session_state:
         st.session_state[_k] = _v
 
+# ── Session start timestamp (used by audit log to separate current vs past) ──
+if "_session_start" not in st.session_state:
+    st.session_state["_session_start"] = datetime.datetime.utcnow().isoformat()
+
 # ── One-time migration: clear stale claim dup snapshots with empty fields ─────
 if "claim_dup_migrated_v2" not in st.session_state:
     try:
