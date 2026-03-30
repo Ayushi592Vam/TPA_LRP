@@ -64,6 +64,8 @@ from ui.dialogs import (
     show_field_history_dialog,
     show_eye_popup,
     show_cache_manager_dialog,
+    # CHANGED: import the journey dialog so we can call it from the flag check below
+    show_claim_journey_dialog,
 )
 
 import os
@@ -120,6 +122,22 @@ if st.session_state.get("_open_cache_manager"):
     st.session_state["_open_cache_manager"] = False
     show_cache_manager_dialog()
 
+# CHANGED: Persistent flag pattern for the Claim Journey dialog.
+# The flag is set by the "View Journey" button wherever it lives (claim_panel /
+# export_panel).  We check it here — at the top of every rerun — so the dialog
+# re-opens after any on_click toggle inside it, keeping the dialog alive while
+# the user expands/collapses audit rows or switches history views.
+# The flag is cleared only by the Close button inside show_claim_journey_dialog.
+if st.session_state.get("_open_journey_dialog"):
+    _jd = st.session_state["_open_journey_dialog"]
+    show_claim_journey_dialog(
+        claim_id=_jd["claim_id"],
+        curr_claim=_jd["curr_claim"],
+        selected_sheet=_jd["selected_sheet"],
+        active_schema=_jd.get("active_schema"),
+        _llm_map_result=_jd.get("_llm_map_result", {}),
+    )
+
 _, col_sheet_dropdown = st.columns([6.8, 1.2])
 
 # ── File upload ──────────────────────────────────────────────────────────────
@@ -166,6 +184,8 @@ if st.session_state.get("last_uploaded") != _upload_fingerprint:
             or key.startswith("_schema_export") # schema export cache
             or key.startswith("user_added_") # custom fields
             or key.startswith("_claim_id_edit_warn_") # claim ID warnings
+            # CHANGED: also clear any open journey dialog state on fresh upload
+            or key == "_open_journey_dialog"
         ):
             del st.session_state[key]
 
@@ -443,6 +463,8 @@ with col_nav:
             del st.session_state[_old_frozen]
         st.session_state.selected_idx = new_idx
         st.session_state.focus_field  = None
+        # CHANGED: close the journey dialog when the user navigates to a different claim
+        st.session_state.pop("_open_journey_dialog", None)
         st.rerun()
 
 with col_main:

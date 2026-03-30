@@ -3,7 +3,7 @@
     "claim_id": "CGL-001",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:45.783134",
+    "ingested_at": "2026-03-30T20:02:00.170074",
     "fields": {
       "Claim Number": "CGL-001",
       "Loss Date": "03/15/2021",
@@ -23,7 +23,7 @@
     "claim_id": "CGL-002",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:45.932992",
+    "ingested_at": "2026-03-30T20:02:00.249402",
     "fields": {
       "Claim Number": "CGL-002",
       "Loss Date": "07/08/2021",
@@ -43,7 +43,7 @@
     "claim_id": "CGL-003",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.092126",
+    "ingested_at": "2026-03-30T20:02:00.300830",
     "fields": {
       "Claim Number": "CGL-003",
       "Loss Date": "11/22/2021",
@@ -63,7 +63,7 @@
     "claim_id": "CGL-004",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.194534",
+    "ingested_at": "2026-03-30T20:02:00.344802",
     "fields": {
       "Claim Number": "CGL-004",
       "Loss Date": "02/14/2022",
@@ -83,7 +83,7 @@
     "claim_id": "CGL-005",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.293007",
+    "ingested_at": "2026-03-30T20:02:00.392124",
     "fields": {
       "Claim Number": "CGL-005",
       "Loss Date": "06/30/2022",
@@ -103,7 +103,7 @@
     "claim_id": "CGL-006",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.393356",
+    "ingested_at": "2026-03-30T20:02:00.434918",
     "fields": {
       "Claim Number": "CGL-006",
       "Loss Date": "09/11/2022",
@@ -123,7 +123,7 @@
     "claim_id": "CGL-007",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.493658",
+    "ingested_at": "2026-03-30T20:02:00.479326",
     "fields": {
       "Claim Number": "CGL-007",
       "Loss Date": "01/20/2023",
@@ -143,7 +143,7 @@
     "claim_id": "CGL-008",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.651491",
+    "ingested_at": "2026-03-30T20:02:00.519034",
     "fields": {
       "Claim Number": "CGL-008",
       "Loss Date": "05/03/2023",
@@ -163,7 +163,7 @@
     "claim_id": "CGL-009",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.783836",
+    "ingested_at": "2026-03-30T20:02:00.571067",
     "fields": {
       "Claim Number": "CGL-009",
       "Loss Date": "08/17/2023",
@@ -183,7 +183,7 @@
     "claim_id": "CGL-010",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-30T19:00:46.916724",
+    "ingested_at": "2026-03-30T20:02:00.614475",
     "fields": {
       "Claim Number": "CGL-010",
       "Loss Date": "11/05/2023",
@@ -203,7 +203,7 @@
     "claim_id": "CLM-HO0003",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:14.701521",
+    "ingested_at": "2026-03-30T20:04:02.391108",
     "fields": {
       "Claim Number": "CLM-HO0003",
       "Loss Date": "03/19/2024",
@@ -223,7 +223,7 @@
     "claim_id": "CLM-HO0004",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:14.780165",
+    "ingested_at": "2026-03-30T20:04:02.444735",
     "fields": {
       "Claim Number": "CLM-HO0004",
       "Loss Date": "04/02/2024",
@@ -243,7 +243,7 @@
     "claim_id": "CLM-HO0005",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:14.875364",
+    "ingested_at": "2026-03-30T20:04:02.486758",
     "fields": {
       "Claim Number": "CLM-HO0005",
       "Loss Date": "05/13/2024",
@@ -263,7 +263,7 @@
     "claim_id": "CLM-HO0006",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:14.986975",
+    "ingested_at": "2026-03-30T20:04:02.534514",
     "fields": {
       "Claim Number": "CLM-HO0006",
       "Loss Date": "06/27/2024",
@@ -283,7 +283,7 @@
     "claim_id": "CLM-HO0007",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.066382",
+    "ingested_at": "2026-03-30T20:04:02.582268",
     "fields": {
       "Claim Number": "CLM-HO0007",
       "Loss Date": "07/04/2024",
@@ -303,7 +303,7 @@
     "claim_id": "CLM-HO0008",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.125220",
+    "ingested_at": "2026-03-30T20:04:02.626677",
     "fields": {
       "Claim Number": "CLM-HO0008",
       "Loss Date": "08/21/2024",
@@ -323,7 +323,7 @@
     "claim_id": "CLM-HO0009",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.185437",
+    "ingested_at": "2026-03-30T20:04:02.667658",
     "fields": {
       "Claim Number": "CLM-HO0009",
       "Loss Date": "09/25/2024",
@@ -343,7 +343,7 @@
     "claim_id": "CLM-HO0010",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.256767",
+    "ingested_at": "2026-03-30T20:04:02.709695",
     "fields": {
       "Claim Number": "CLM-HO0010",
       "Loss Date": "10/21/2024",
@@ -363,7 +363,7 @@
     "claim_id": "CLM-HO0011",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.368060",
+    "ingested_at": "2026-03-30T20:04:02.741840",
     "fields": {
       "Claim Number": "CLM-HO0011",
       "Loss Date": "11/18/2024",
@@ -383,7 +383,7 @@
     "claim_id": "CLM-HO0012",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.464181",
+    "ingested_at": "2026-03-30T20:04:02.796977",
     "fields": {
       "Claim Number": "CLM-HO0012",
       "Loss Date": "12/09/2024",
@@ -403,7 +403,7 @@
     "claim_id": "CLM-HO0013",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.543426",
+    "ingested_at": "2026-03-30T20:04:02.840350",
     "fields": {
       "Claim Number": "CLM-HO0013",
       "Loss Date": "01/17/2024",
@@ -423,7 +423,7 @@
     "claim_id": "CLM-HO0014",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.623400",
+    "ingested_at": "2026-03-30T20:04:02.869177",
     "fields": {
       "Claim Number": "CLM-HO0014",
       "Loss Date": "02/02/2024",
@@ -443,7 +443,7 @@
     "claim_id": "CLM-HO0015",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.718929",
+    "ingested_at": "2026-03-30T20:04:02.927081",
     "fields": {
       "Claim Number": "CLM-HO0015",
       "Loss Date": "03/02/2024",
@@ -463,7 +463,7 @@
     "claim_id": "CLM-HO0016",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.799195",
+    "ingested_at": "2026-03-30T20:04:02.965058",
     "fields": {
       "Claim Number": "CLM-HO0016",
       "Loss Date": "04/26/2024",
@@ -483,7 +483,7 @@
     "claim_id": "CLM-HO0017",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.881894",
+    "ingested_at": "2026-03-30T20:04:03.012732",
     "fields": {
       "Claim Number": "CLM-HO0017",
       "Loss Date": "05/25/2024",
@@ -503,7 +503,7 @@
     "claim_id": "CLM-HO0018",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:15.957978",
+    "ingested_at": "2026-03-30T20:04:03.044670",
     "fields": {
       "Claim Number": "CLM-HO0018",
       "Loss Date": "06/26/2024",
@@ -523,7 +523,7 @@
     "claim_id": "CLM-HO0019",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.037944",
+    "ingested_at": "2026-03-30T20:04:03.092778",
     "fields": {
       "Claim Number": "CLM-HO0019",
       "Loss Date": "07/16/2024",
@@ -543,7 +543,7 @@
     "claim_id": "CLM-HO0020",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.111599",
+    "ingested_at": "2026-03-30T20:04:03.140513",
     "fields": {
       "Claim Number": "CLM-HO0020",
       "Loss Date": "08/05/2024",
@@ -563,7 +563,7 @@
     "claim_id": "CLM-HO0021",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.181257",
+    "ingested_at": "2026-03-30T20:04:03.172806",
     "fields": {
       "Claim Number": "CLM-HO0021",
       "Loss Date": "09/02/2024",
@@ -583,7 +583,7 @@
     "claim_id": "CLM-HO0022",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.268206",
+    "ingested_at": "2026-03-30T20:04:03.236490",
     "fields": {
       "Claim Number": "CLM-HO0022",
       "Loss Date": "10/05/2024",
@@ -603,7 +603,7 @@
     "claim_id": "CLM-HO0023",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.387600",
+    "ingested_at": "2026-03-30T20:04:03.283868",
     "fields": {
       "Claim Number": "CLM-HO0023",
       "Loss Date": "11/18/2024",
@@ -623,7 +623,7 @@
     "claim_id": "CLM-HO0024",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.500853",
+    "ingested_at": "2026-03-30T20:04:03.331442",
     "fields": {
       "Claim Number": "CLM-HO0024",
       "Loss Date": "12/04/2024",
@@ -643,7 +643,7 @@
     "claim_id": "CLM-HO0025",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:16.596415",
+    "ingested_at": "2026-03-30T20:04:03.378852",
     "fields": {
       "Claim Number": "CLM-HO0025",
       "Loss Date": "01/25/2024",
@@ -663,7 +663,7 @@
     "claim_id": "CLM-HO0001",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:14.551222",
+    "ingested_at": "2026-03-30T20:04:02.306924",
     "fields": {
       "Claim Number": "CLM-HO0001",
       "Loss Date": "01/20/2024",
@@ -683,7 +683,7 @@
     "claim_id": "CLM-HO0002",
     "sheet_name": "HomeOwners Loss Run",
     "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-30T19:33:14.622129",
+    "ingested_at": "2026-03-30T20:04:02.343625",
     "fields": {
       "Claim Number": "CLM-HO0002",
       "Loss Date": "02/15/2024",

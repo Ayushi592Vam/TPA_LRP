@@ -16,6 +16,25 @@ AUDIT LOG BEHAVIOUR (show_claim_journey_dialog)
 • Each row has ▼/▲ toggle for full event-dict detail
 • All toggles use on_click callbacks — never st.rerun() — so the dialog
   stays open when the user expands/collapses rows or switches history views
+
+DIALOG PERSISTENCE
+──────────────────
+• show_claim_journey_dialog is kept open across reruns via the
+  "_open_journey_dialog" session-state flag set by the caller (e.g. the
+  "View Journey" button in claim_panel / export_panel).
+• The flag is checked at the top of app.py on every rerun, so on_click
+  callbacks inside the dialog (which trigger a rerun) automatically
+  re-open the dialog in the correct state.
+• Only the Close button clears the flag, which is the one place we
+  actually want the dialog to disappear.
+• Callers must NOT call show_claim_journey_dialog() directly from a
+  button handler.  Instead set the flag:
+      st.session_state["_open_journey_dialog"] = {
+          "claim_id": ..., "curr_claim": ...,
+          "selected_sheet": ..., "active_schema": ...,
+          "_llm_map_result": ...,
+      }
+  app.py will call show_claim_journey_dialog() on the next rerun.
 """
 
 import csv
@@ -651,6 +670,13 @@ def show_claim_journey_dialog(
     • Toggle buttons use on_click= callbacks — NO st.rerun() — so the dialog
       stays open when expanding/collapsing rows or switching history view
     • Each row has ▼/▲ toggle for full event-dict detail
+
+    Persistence
+    ───────────
+    • Do NOT call this function directly from a button handler.
+    • Instead, set st.session_state["_open_journey_dialog"] = {...} and let
+      app.py call this on the next rerun (see module docstring).
+    • The Close button below is the ONLY place that clears the flag.
     """
     import json as _json
     import datetime as _dt
@@ -675,7 +701,7 @@ def show_claim_journey_dialog(
         f"🔍 Transformation Journey</div>"
         f"<div style='font-size:12px;color:#a0a0c8;font-family:monospace;margin-bottom:4px;'>"
         f"Claim {claim_id} · Sheet: {selected_sheet}"
-        + (f" · Schema: {active_schema}" if active_schema else " · Plain Mode")
+        + (f" · Schema: {active_schema}" if active_schema else "")
         + f"</div>"
         f"<div style='font-size:10px;color:#555;font-family:monospace;margin-bottom:16px;'>"
         f"⏱ Dialog opened at {_ts_fmt(_ts_dialog_open)}</div>",
@@ -1024,7 +1050,6 @@ def show_claim_journey_dialog(
                 _deduped_audit.append(_e)
 
         # Current-session user events only (default view)
-        # Timestamps stored as ISO strings; lexicographic comparison is safe
         _session_user_events = [
             e for e in _deduped_audit
             if e.get("event") in _USER_EVENTS
@@ -1157,7 +1182,6 @@ def show_claim_journey_dialog(
                         use_container_width=True,
                         help="Expand / collapse full details",
                         on_click=_toggle_card,
-                        # No st.rerun() — on_click mutates state, dialog re-renders in place
                     )
 
                 # Expanded detail panel
@@ -1221,6 +1245,9 @@ def show_claim_journey_dialog(
             _render_audit_rows(_full_events, f"full_{selected_sheet}_{claim_id}")
             st.markdown("</div>", unsafe_allow_html=True)
 
-    # ── Close button — intentionally the only st.rerun() in this dialog ───────
+    # ── Close button — clears the persistent flag so the dialog stays closed ──
+    # CHANGED: pop "_open_journey_dialog" before rerunning so app.py does not
+    # immediately re-open the dialog on the next pass.
     if st.button("Close", type="primary", use_container_width=True):
+        st.session_state.pop("_open_journey_dialog", None)
         st.rerun()
