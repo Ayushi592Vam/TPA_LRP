@@ -87,7 +87,7 @@ _GW_KEY_MAP: dict[str, str] = {
 def to_guidewire_json(mapped_records: list, sheet_meta: dict) -> dict:
     claims = []
     for rec in mapped_records:
-        claim_obj  = {"_type": "cc.Claim", "_confidence": rec.get("_avg_confidence", 0)}
+        claim_obj  = {"_type": "cc.Claim"}
         financials = {}
         for sf, fd in rec.items():
             if sf.startswith("_"):
@@ -95,11 +95,11 @@ def to_guidewire_json(mapped_records: list, sheet_meta: dict) -> dict:
             gw_key = _GW_KEY_MAP.get(sf, sf[0].lower() + sf[1:].replace(" ", ""))
             val    = fd.get("value", "")
             if any(x in sf.lower() for x in ["paid", "reserve", "incurred", "deductible", "recovery", "subrogation"]):
-                financials[gw_key] = {"amount": val, "currency": "USD", "confidence": fd.get("confidence", 0)}
+                financials[gw_key] = {"amount": val, "currency": "USD"}
                 if fd.get("edited"):
                     financials[gw_key]["originalValue"] = fd.get("original", "")
             else:
-                claim_obj[gw_key] = {"value": val, "confidence": fd.get("confidence", 0)}
+                claim_obj[gw_key] = {"value": val}
                 if fd.get("edited"):
                     claim_obj[gw_key]["originalValue"] = fd.get("original", "")
         if financials:
@@ -125,15 +125,13 @@ def to_duck_creek_json(mapped_records: list, sheet_meta: dict) -> dict:
             if sf.startswith("_"):
                 continue
             claim_obj[sf] = {
-                "value":      fd.get("value", ""),
-                "confidence": fd.get("confidence", 0),
-                "edited":     fd.get("edited", False),
+                "value":   fd.get("value", ""),
+                "edited":  fd.get("edited", False),
             }
             if fd.get("edited"):
                 claim_obj[sf]["originalValue"] = fd.get("original", "")
         transactions.append({
             "transactionType": "UPDATE",
-            "avgConfidence":   rec.get("_avg_confidence", 0),
             "claim":           claim_obj,
         })
     return {

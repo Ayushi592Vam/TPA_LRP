@@ -69,6 +69,17 @@ def _conf_colors(conf: int, use_conf: bool, conf_thresh: int) -> tuple[str, str,
 
 # ── Main render function ──────────────────────────────────────────────────────
 
+# Claim ID field keywords — these are primary key fields that need protection
+_CLAIM_ID_KEYWORDS = [
+    "claim number", "claim id", "claim_id", "claim no", "claim#",
+    "claim ref", "file number", "file no", "claimid", "clm id",
+]
+
+def _is_claim_id_field(field_name: str) -> bool:
+    fn = field_name.lower().replace("_", " ").strip()
+    return any(kw in fn for kw in _CLAIM_ID_KEYWORDS)
+
+
 def render_field_row(
     *,
     schema_field: str,
@@ -89,8 +100,11 @@ def render_field_row(
     use_conf: bool,
     conf_thresh: int,
     open_eye_popup,
+    all_claim_ids: list | None = None,   # all existing claim IDs in the sheet
 ) -> None:
     conf_col, row_border, row_bg = _conf_colors(conf, use_conf, conf_thresh)
+    is_claim_id = _is_claim_id_field(schema_field)
+    all_claim_ids = all_claim_ids or []
 
     # ── State init ────────────────────────────────────────────────────────────
     if ek not in st.session_state:
@@ -134,6 +148,32 @@ def render_field_row(
     )
 
     # ── Edit column ───────────────────────────────────────────────────────────
+    def _save_field(nv, _display_val):
+        """Shared save logic for both date and non-date fields."""
+        err_key = f"err_{mk}"
+        old_val = _display_val
+        st.session_state[mk] = nv
+        info["modified"] = nv
+        if (
+            not is_title_sourced
+            and excel_f in active["data"][st.session_state.selected_idx]
+        ):
+            active["data"][st.session_state.selected_idx][excel_f]["modified"] = nv
+        st.session_state[ek] = False
+        st.session_state.pop(err_key, None)
+        _record_field_history(selected_sheet, curr_claim_id, schema_field, old_val, nv)
+        _append_audit({
+            "event":     "FIELD_EDITED",
+            "timestamp": datetime.datetime.now().isoformat(),
+            "filename":  uploaded_name,
+            "sheet":     selected_sheet,
+            "claim_id":  curr_claim_id,
+            "field":     schema_field,
+            "original":  info.get("value", ""),
+            "new_value": nv,
+        })
+        st.rerun()
+
     def _edit_col():
         _display_val = st.session_state.get(mk, info.get("modified", info.get("value", ""))) or ""
         err_key = f"err_{mk}"
@@ -146,61 +186,28 @@ def render_field_row(
                 nv        = st.text_input("m", value=_display_val, label_visibility="collapsed")
                 submitted = st.form_submit_button("", use_container_width=False)
                 if submitted:
-                    # Date validation — only for date fields
-                    if _is_date_field(schema_field):
+                    # Claim ID field — check for duplicates
+                    if is_claim_id:
+                        nv_stripped = nv.strip()
+                        original_id = info.get("value", "").strip()
+                        # Check if new value duplicates another existing claim
+                        other_ids = [c for c in all_claim_ids if c != original_id]
+                        if nv_stripped in other_ids:
+                            st.session_state[err_key] = (
+                                f"'{nv_stripped}' already exists in this sheet. "
+                                f"Claim Number must be unique."
+                            )
+                        else:
+                            _save_field(nv, _display_val)
+                    elif _is_date_field(schema_field):
                         is_valid, err_msg = _validate_date(nv)
                         if not is_valid:
                             st.session_state[err_key] = err_msg
-                            # Don't save — stay in edit mode
                         else:
-                            st.session_state.pop(err_key, None)
-                            old_val = _display_val
-                            st.session_state[mk] = nv
-                            info["modified"] = nv
-                            if (
-                                not is_title_sourced
-                                and excel_f in active["data"][st.session_state.selected_idx]
-                            ):
-                                active["data"][st.session_state.selected_idx][excel_f]["modified"] = nv
-                            st.session_state[ek] = False
-                            _record_field_history(selected_sheet, curr_claim_id, schema_field, old_val, nv)
-                            _append_audit({
-                                "event":     "FIELD_EDITED",
-                                "timestamp": datetime.datetime.now().isoformat(),
-                                "filename":  uploaded_name,
-                                "sheet":     selected_sheet,
-                                "claim_id":  curr_claim_id,
-                                "field":     schema_field,
-                                "original":  info.get("value", ""),
-                                "new_value": nv,
-                            })
-                            st.rerun()
+                            _save_field(nv, _display_val)
                     else:
-                        # Non-date field — save directly, no validation
-                        st.session_state.pop(err_key, None)
-                        old_val = _display_val
-                        st.session_state[mk] = nv
-                        info["modified"] = nv
-                        if (
-                            not is_title_sourced
-                            and excel_f in active["data"][st.session_state.selected_idx]
-                        ):
-                            active["data"][st.session_state.selected_idx][excel_f]["modified"] = nv
-                        st.session_state[ek] = False
-                        _record_field_history(selected_sheet, curr_claim_id, schema_field, old_val, nv)
-                        _append_audit({
-                            "event":     "FIELD_EDITED",
-                            "timestamp": datetime.datetime.now().isoformat(),
-                            "filename":  uploaded_name,
-                            "sheet":     selected_sheet,
-                            "claim_id":  curr_claim_id,
-                            "field":     schema_field,
-                            "original":  info.get("value", ""),
-                            "new_value": nv,
-                        })
-                        st.rerun()
+                        _save_field(nv, _display_val)
 
-            # Show date error below the form (outside the with block so it renders)
             err = st.session_state.get(err_key)
             if err:
                 st.markdown(
@@ -210,7 +217,6 @@ def render_field_row(
                     unsafe_allow_html=True,
                 )
         else:
-            # Clear any leftover error when not in edit mode
             st.session_state.pop(err_key, None)
             st.text_input(
                 "m", value=_display_val,
@@ -219,7 +225,43 @@ def render_field_row(
 
     # ── Edit button ───────────────────────────────────────────────────────────
     def _edit_btn():
-        if not st.session_state[ek]:
+        if is_claim_id:
+            # Claim Number is the primary key — show lock icon, allow edit with warning
+            _lock_key = f"_claim_id_edit_warn_{mk}"
+            if not st.session_state[ek]:
+                if st.button(
+                    "🔒",
+                    key=f"ed_s_{selected_sheet}_{curr_claim_id}_{schema_field}",
+                    use_container_width=True,
+                    help="Claim Number is the primary key. Edit with caution.",
+                ):
+                    st.session_state[_lock_key] = True
+                if st.session_state.get(_lock_key):
+                    st.markdown(
+                        "<div style='background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.4);"
+                        "border-radius:6px;padding:6px 8px;margin-top:4px;font-size:10px;"
+                        "color:#f5c842;font-family:monospace;'>"
+                        "⚠ Claim Number is the primary key.<br>"
+                        "Editing may affect duplicate tracking.<br>"
+                        "<b>Duplicate values are not allowed.</b></div>",
+                        unsafe_allow_html=True,
+                    )
+                    if st.button(
+                        "Proceed to Edit",
+                        key=f"ed_s_confirm_{selected_sheet}_{curr_claim_id}_{schema_field}",
+                        use_container_width=True,
+                    ):
+                        st.session_state[_lock_key] = False
+                        st.session_state[ek] = True
+                        st.rerun()
+            else:
+                st.markdown(
+                    "<div style='height:38px;display:flex;align-items:center;justify-content:center;"
+                    "color:var(--yellow);font-size:11px;border:1px solid rgba(245,200,66,0.4);"
+                    "border-radius:6px;'>↵</div>",
+                    unsafe_allow_html=True,
+                )
+        elif not st.session_state[ek]:
             if st.button(
                 "✏",
                 key=f"ed_s_{selected_sheet}_{curr_claim_id}_{schema_field}",

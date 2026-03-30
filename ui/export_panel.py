@@ -20,6 +20,7 @@ from modules.schema_mapping import map_claim_to_schema, detect_claim_id
 from modules.storage import _save_to_feature_store
 
 import datetime
+from ui.dialogs import show_claim_journey_dialog
 
 
 def render_export_panel(
@@ -220,6 +221,24 @@ def render_export_panel(
             f"<div class='json-live-body' style='max-height:420px;'>{_rp_json}</div></div>",
             unsafe_allow_html=True,
         )
+
+    # ── Claim Journey (TOP PRIORITY) ─────────────────────────────────────────
+    if curr_claim_id:
+        if st.button(
+        "🔍 View Transformation Journey",
+        use_container_width=True,
+        key=f"journey_btn_{selected_sheet}_{curr_claim_id}",
+        help="See how each field was extracted, mapped, and modified",
+    ):
+         show_claim_journey_dialog(
+            claim_id=curr_claim_id,
+            curr_claim=curr_claim,
+            selected_sheet=selected_sheet,
+            active_schema=st.session_state.get("active_schema"),
+            _llm_map_result=_llm_map_result,
+        )
+
+    st.markdown("<hr>", unsafe_allow_html=True)
 
     # ── Standard export ───────────────────────────────────────────────────────
     _sheet_meta = {"sheet_name": selected_sheet, "record_count": len(data)}

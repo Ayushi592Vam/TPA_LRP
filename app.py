@@ -131,16 +131,38 @@ if "tmpdir" not in st.session_state:
 file_ext   = os.path.splitext(uploaded.name)[1]
 excel_path = os.path.join(st.session_state.tmpdir, f"input{file_ext}")
 
-if st.session_state.get("last_uploaded") != uploaded.name:
+# AFTER
+_upload_fingerprint = f"{uploaded.name}_{uploaded.file_id}"
+if st.session_state.get("last_uploaded") != _upload_fingerprint:
     with open(excel_path, "wb") as f:
         f.write(uploaded.read())
-    st.session_state.last_uploaded = uploaded.name
+    st.session_state.last_uploaded = _upload_fingerprint
     st.session_state.sheet_names   = get_sheet_names(excel_path)
     st.session_state.sheet_cache   = {}
     st.session_state.selected_idx  = 0
     st.session_state.focus_field   = None
+    # Clear all field-level session state so Modified == Extracted on fresh upload
     for key in list(st.session_state.keys()):
-        if key.startswith("_rendered_") or key.startswith("_llm_fieldmap_") or key.startswith("_claim_dup_results_"):
+        if (
+            key.startswith("_rendered_")
+            or key.startswith("_llm_fieldmap_")
+            or key.startswith("_claim_dup_results_")
+            or key.startswith("mod_")       # modified field values
+            or key.startswith("edit_")      # edit mode flags
+            or key.startswith("_fv_")       # form version counters
+            or key.startswith("_v_")        # version counters
+            or key.startswith("err_")       # field error messages
+            or key.startswith("disp_")      # display widget keys
+            or key.startswith("_frozen_")   # frozen claim IDs
+            or key.startswith("chk_")       # checkbox states
+            or key.startswith("_chk_")      # checkbox snapshots
+            or key.startswith("_col_")      # cause of loss cache
+            or key.startswith("show_live_") # JSON preview toggle
+            or key.startswith("_std_json")  # export cache
+            or key.startswith("_schema_export") # schema export cache
+            or key.startswith("user_added_") # custom fields
+            or key.startswith("_claim_id_edit_warn_") # claim ID warnings
+        ):
             del st.session_state[key]
 
     file_hash  = _compute_file_sha256(excel_path)
@@ -393,7 +415,14 @@ if _llm_map_ran:
 
 # ── Three-column layout ───────────────────────────────────────────────────────
 curr_claim    = data[st.session_state.selected_idx]
-curr_claim_id = detect_claim_id(curr_claim)
+
+# Freeze claim ID in session state so editing the Claim Number field
+# doesn't change the mk/ek/xk keys mid-session and lose edited values.
+# The frozen ID is reset only when the user navigates to a different claim.
+_frozen_id_key = f"_frozen_claim_id_{selected_sheet}_{st.session_state.selected_idx}"
+if _frozen_id_key not in st.session_state:
+    st.session_state[_frozen_id_key] = detect_claim_id(curr_claim)
+curr_claim_id = st.session_state[_frozen_id_key]
 
 # Enrich Cause of Loss silently
 if enrich_claim_cause_of_loss(curr_claim, curr_claim_id, selected_sheet):
@@ -404,6 +433,10 @@ col_nav, col_main, col_fmt = st.columns([1.2, 3.2, 1.4], gap="large")
 with col_nav:
     new_idx = render_nav_panel(data, selected_sheet)
     if new_idx is not None and new_idx != st.session_state.selected_idx:
+        # Clear frozen claim ID for the new index so it re-derives from fresh data
+        _old_frozen = f"_frozen_claim_id_{selected_sheet}_{new_idx}"
+        if _old_frozen in st.session_state:
+            del st.session_state[_old_frozen]
         st.session_state.selected_idx = new_idx
         st.session_state.focus_field  = None
         st.rerun()

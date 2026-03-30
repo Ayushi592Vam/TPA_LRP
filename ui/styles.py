@@ -96,16 +96,89 @@ div[data-baseweb="input"]:focus-within,div[data-baseweb="base-input"]:focus-with
 div[data-baseweb="input"] input{color:var(--t0)!important;-webkit-text-fill-color:var(--t0)!important;background-color:transparent!important;font-size:var(--sz-body)!important;padding:8px 12px!important;font-family:var(--font)!important}
 div[data-baseweb="input"]:has(input:disabled),div[data-baseweb="base-input"]:has(input:disabled){background-color:transparent!important;border:none!important}
 div[data-baseweb="input"] input:disabled{color:var(--t0)!important;-webkit-text-fill-color:var(--t0)!important;cursor:default!important;padding-left:0!important;font-size:var(--sz-body)!important}
-div[data-testid="stButton"] button{background-color:var(--s1)!important;color:var(--t0)!important;border:1px solid var(--b1)!important;border-radius:var(--radius)!important;padding:7px 14px!important;transition:all .15s ease!important;font-family:var(--font)!important;font-size:var(--sz-body)!important;font-weight:600!important}
-div[data-testid="stButton"] button:hover{border-color:var(--blue)!important;color:var(--blue)!important;background-color:var(--blue-g)!important;box-shadow:0 0 12px rgba(79,156,249,.15)!important}
-div[data-testid="stButton"] button[kind="primary"]{background:linear-gradient(135deg,var(--blue-dk) 0%,var(--blue) 100%)!important;color:#fff!important;border-color:transparent!important;font-weight:700!important;box-shadow:0 2px 12px rgba(79,156,249,.35)!important}
-div[data-testid="stButton"] button[kind="primary"]:hover{box-shadow:0 4px 20px rgba(79,156,249,.50)!important;transform:translateY(-1px)}
+
+/* ── Buttons: base state ── */
+div[data-testid="stButton"] button{
+    background-color:var(--s1)!important;
+    color:var(--t0)!important;
+    border:1px solid var(--b1)!important;
+    border-radius:var(--radius)!important;
+    padding:7px 14px!important;
+    transition:all .15s ease!important;
+    font-family:var(--font)!important;
+    font-size:var(--sz-body)!important;
+    font-weight:600!important;
+}
+/* ── Buttons: hover — keep text WHITE, only border/glow turns blue ── */
+div[data-testid="stButton"] button:hover{
+    border-color:var(--blue)!important;
+    color:var(--t0)!important;
+    background-color:var(--blue-g)!important;
+    box-shadow:0 0 12px rgba(79,156,249,.15)!important;
+}
+/* ensure any <p> or <span> inside button stays white on hover */
+div[data-testid="stButton"] button:hover p,
+div[data-testid="stButton"] button:hover span,
+div[data-testid="stButton"] button:hover div{
+    color:var(--t0)!important;
+    -webkit-text-fill-color:var(--t0)!important;
+}
+/* ensure SVG icons inside buttons stay visible */
+div[data-testid="stButton"] button svg,
+div[data-testid="stButton"] button:hover svg{
+    fill:var(--t0)!important;
+    stroke:var(--t0)!important;
+    color:var(--t0)!important;
+}
+
+/* ── Primary buttons ── */
+div[data-testid="stButton"] button[kind="primary"]{
+    background:linear-gradient(135deg,var(--blue-dk) 0%,var(--blue) 100%)!important;
+    color:#fff!important;
+    border-color:transparent!important;
+    font-weight:700!important;
+    box-shadow:0 2px 12px rgba(79,156,249,.35)!important;
+}
+div[data-testid="stButton"] button[kind="primary"]:hover{
+    box-shadow:0 4px 20px rgba(79,156,249,.50)!important;
+    transform:translateY(-1px);
+    color:#fff!important;
+}
 div[data-testid="stButton"] button:disabled{opacity:.3!important}
+
+/* ── File uploader "Browse files" button ── */
+div[data-testid="stFileUploader"] button,
+div[data-testid="stFileUploaderDropzone"] button{
+    background-color:var(--s1)!important;
+    color:var(--t0)!important;
+    border:1px solid var(--b1)!important;
+    border-radius:var(--radius)!important;
+    font-family:var(--font)!important;
+    font-size:var(--sz-body)!important;
+    font-weight:600!important;
+    transition:all .15s ease!important;
+}
+div[data-testid="stFileUploader"] button:hover,
+div[data-testid="stFileUploaderDropzone"] button:hover{
+    border-color:var(--blue)!important;
+    color:var(--t0)!important;
+    background-color:var(--blue-g)!important;
+    box-shadow:0 0 12px rgba(79,156,249,.15)!important;
+}
+/* force text inside Browse Files button to stay white */
+div[data-testid="stFileUploader"] button span,
+div[data-testid="stFileUploader"] button p,
+div[data-testid="stFileUploaderDropzone"] button span,
+div[data-testid="stFileUploaderDropzone"] button p{
+    color:var(--t0)!important;
+    -webkit-text-fill-color:var(--t0)!important;
+}
+
 div[role="dialog"]{background-color:var(--surface)!important;border:1px solid var(--b0)!important;border-radius:var(--radius-xl)!important;box-shadow:var(--shadow-lg)!important}
 div[role="dialog"] *{color:var(--t1)!important}
 div[role="dialog"] h1,div[role="dialog"] h2,div[role="dialog"] h3{color:var(--t0)!important}
 div[role="dialog"] button{background:var(--s1)!important;border:1px solid var(--b1)!important;color:var(--t0)!important;border-radius:var(--radius)!important;font-size:var(--sz-body)!important;font-family:var(--font)!important}
-div[role="dialog"] button:hover{border-color:var(--blue)!important;color:var(--blue)!important}
+div[role="dialog"] button:hover{border-color:var(--blue)!important;color:var(--t0)!important}
 .conf-bar-wrap{background:var(--s1);border-radius:4px;height:5px;width:100%;margin-top:4px;overflow:hidden}
 .conf-bar-fill{height:100%;border-radius:4px;transition:width .4s ease}
 .field-pill{display:inline-block;background:var(--s1);border:1px solid var(--b0);border-radius:4px;padding:4px 12px;font-size:var(--sz-sm);color:var(--t1);margin:3px 4px;font-family:var(--font)}
@@ -142,5 +215,57 @@ div[data-testid="stCheckbox"] label{font-family:var(--font)!important;font-size:
 .col-summary-panel{background:var(--s0);border:1px solid var(--b1);border-left:3px solid var(--green);border-radius:var(--radius);padding:7px 12px;margin-top:4px;margin-bottom:6px}
 .col-summary-text{font-size:var(--sz-xs);color:var(--t2);font-family:var(--font);line-height:1.5}
 .llm-map-banner{background:rgba(245,200,66,.07);border:1px solid rgba(245,200,66,.25);border-left:3px solid var(--yellow);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px}
+
+/* ── Tooltip nuclear fix ── */
+div[role="tooltip"],
+div[role="tooltip"] *,
+div[role="tooltip"] p,
+div[role="tooltip"] span,
+div[role="tooltip"] div{
+    background:#1e1e32!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    font-family:var(--font)!important;
+    font-size:12px!important;
+}
+
+/* ── Selectbox / Dropdown dark theme fix ── */
+div[data-baseweb="select"] > div{
+    background-color:var(--s1)!important;
+    border:1px solid var(--b1)!important;
+    border-radius:var(--radius)!important;
+    color:var(--t0)!important;
+}
+div[data-baseweb="select"] > div:focus-within{
+    border-color:var(--blue)!important;
+    box-shadow:0 0 0 3px rgba(79,156,249,.12)!important;
+}
+/* Dropdown menu list (the white popup) */
+ul[data-baseweb="menu"]{
+    background-color:var(--s1)!important;
+    border:1px solid var(--b1)!important;
+    border-radius:var(--radius)!important;
+}
+li[role="option"]{
+    background-color:var(--s1)!important;
+    color:var(--t0)!important;
+}
+li[role="option"]:hover,
+li[role="option"][aria-selected="true"]{
+    background-color:var(--blue-g)!important;
+    color:var(--t0)!important;
+}
+li[role="option"] span,
+li[role="option"] div{
+    color:var(--t0)!important;
+    -webkit-text-fill-color:var(--t0)!important;
+}
+/* Popover/listbox container */
+div[data-baseweb="popover"] div,
+div[data-baseweb="popover"] ul{
+    background-color:var(--s1)!important;
+    border-color:var(--b1)!important;
+}
+
 </style>
 """

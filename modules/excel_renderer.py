@@ -15,7 +15,7 @@ def _col_px(ws, c: int, scale: float = 1.0) -> int:
     letter = get_column_letter(c)
     cd     = ws.column_dimensions.get(letter)
     w      = cd.width if (cd and cd.width and cd.width > 0) else 8.43
-    return max(20, int(w * 8 * scale))
+    return max(60, int(w * 10 * scale))
 
 
 def _row_px(ws, r: int, scale: float = 1.0) -> int:
@@ -82,8 +82,14 @@ def render_excel_sheet(excel_path: str, sheet_name: str, scale: float = 1.0):
                 cell_w  = x2 - x1
                 ch_w    = 8 if bold else 7
                 max_chars = max(1, (cell_w - 8) // ch_w)
-                if len(text) > max_chars:
-                    text = text[:max_chars - 1] + "…"
+                # Detect header row
+                if r == 1:
+                # DON'T truncate header
+                      display_text = text
+                else:
+                      display_text = text[:max_chars] if len(text) > max_chars else text
+
+                      draw.text((x1 + 4, y1 + 4), display_text, fill=txt_color)
                 draw.text((x1 + 4, y1 + 4), text, fill=txt_color)
 
     wb.close()

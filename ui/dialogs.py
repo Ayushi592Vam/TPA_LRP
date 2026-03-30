@@ -1,3 +1,11 @@
+"""
+ui/dialogs.py
+All @st.dialog popups:
+  - show_eye_popup         — cell-view with Excel highlight
+  - show_field_history_dialog — per-field edit timeline
+  - show_settings_dialog   — conf threshold + schema manager
+  - show_schema_fields_dialog — required / accepted / custom field viewer
+"""
 
 import csv
 import datetime
@@ -17,85 +25,105 @@ from modules.excel_renderer import (
 @st.dialog("Cell View", width="large")
 def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> None:
     import os
-    st.markdown(f"### 📍 {field}")
-    value      = info.get("modified", info["value"])
+    # Always show BOTH raw extracted value AND current modified value in full
+    raw_value  = info.get("value", "") or ""
+    mod_value  = info.get("modified", raw_value) or raw_value
     target_row = info.get("excel_row")
     target_col = info.get("excel_col")
 
-    col_a, col_b = st.columns([1, 1])
-    with col_a:
-        st.markdown("**Extracted Value**")
-        st.code(value if value else "(empty)")
-    with col_b:
-        col_letter = get_column_letter(target_col) if target_col else "?"
+    st.markdown(f"### 📍 {field}")
+
+    # ── Full value display — guaranteed no truncation ─────────────────────────
+    def _val_box(label: str, val: str, color: str = "#4f9cf9"):
+        _empty_html = "<span style='color:#555;'>( empty )</span>"
+        _content    = val if val else _empty_html
         st.markdown(
-            f"<div style='padding:10px 0;color:var(--t2);font-size:var(--sz-body);font-family:var(--font);'>"
-            f"Cell: <span style='color:var(--blue);font-weight:bold;'>{col_letter}{target_row or '?'}</span>"
-            f" &nbsp;|&nbsp; Row <span style='color:var(--t0);'>{target_row or '?'}</span>"
-            f" · Col <span style='color:var(--t0);'>{target_col or '?'}</span></div>",
+            f"<div style='margin-bottom:12px;'>"
+            f"<div style='font-size:10px;font-weight:700;color:{color};font-family:monospace;"
+            f"text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;'>{label}</div>"
+            f"<div style='background:#12121c;border:1px solid #2a2a45;border-radius:6px;"
+            f"padding:12px 14px;font-family:Consolas,monospace;font-size:13px;"
+            f"color:#e8e7ff;word-break:break-all;white-space:pre-wrap;"
+            f"max-height:200px;overflow-y:auto;line-height:1.6;'>"
+            f"{_content}"
+            f"</div></div>",
             unsafe_allow_html=True,
         )
 
-    if not target_row or not target_col:
+    _val_box("Extracted Value (raw from file)", raw_value, "#34d399")
+    if mod_value and mod_value != raw_value:
+        _val_box("Modified Value (user edited)", mod_value, "#f5c842")
+
+    # ── Cell location ─────────────────────────────────────────────────────────
+    if target_row and target_col:
+        col_letter = get_column_letter(target_col)
+        st.markdown(
+            f"<div style='font-size:12px;color:#a0a0c8;font-family:monospace;margin-bottom:12px;'>"
+            f"📌 Cell <b style='color:#4f9cf9;'>{col_letter}{target_row}</b>"
+            f" &nbsp;·&nbsp; Row {target_row} &nbsp;·&nbsp; Col {target_col}"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+    else:
         st.warning("No cell location recorded for this field.")
         return
 
     ext = os.path.splitext(excel_path)[1].lower()
+    st.markdown("---")
 
     if ext == ".csv":
-        st.markdown("---")
         try:
             with open(excel_path, "r", encoding="utf-8-sig") as f:
                 all_rows = list(csv.reader(f))
             if not all_rows:
                 return
-            n_rows  = len(all_rows)
-            n_cols  = max(len(r) for r in all_rows)
-            r0, r1  = max(0, target_row - 6), min(n_rows, target_row + 5)
+            n_rows = len(all_rows)
+            n_cols = max(len(r) for r in all_rows)
+            r0, r1 = max(0, target_row - 4), min(n_rows, target_row + 4)
+
             col_headers = "".join(
-                f"<th style='background:var(--s0);color:var(--t3);font-size:var(--sz-xs);"
-                f"padding:4px 8px;border:1px solid var(--b0);font-family:var(--mono);font-weight:600;'>"
-                f"{get_column_letter(c + 1)}</th>"
+                f"<th style='background:#1a1a2e;color:#6b7280;font-size:11px;"
+                f"padding:5px 10px;border:1px solid #2a2a45;font-family:monospace;"
+                f"font-weight:600;text-align:center;'>{get_column_letter(c+1)}</th>"
                 for c in range(n_cols)
             )
             thead = (
                 f"<thead><tr>"
-                f"<th style='background:var(--s0);color:var(--t3);font-size:var(--sz-xs);"
-                f"padding:4px 8px;border:1px solid var(--b0);font-family:var(--mono);font-weight:600;'>#</th>"
+                f"<th style='background:#1a1a2e;color:#6b7280;font-size:11px;"
+                f"padding:5px 8px;border:1px solid #2a2a45;font-family:monospace;'>#</th>"
                 f"{col_headers}</tr></thead>"
             )
             tbody = ""
             for r_idx in range(r0, r1):
                 row_data = all_rows[r_idx] if r_idx < len(all_rows) else []
-                is_tr    = (r_idx + 1 == target_row)
-                rn_style = (
-                    "background:#1a2540;color:#4f9cf9;font-weight:bold;"
-                    if is_tr
-                    else "background:var(--s0);color:var(--t3);"
-                )
+                is_tr = (r_idx + 1 == target_row)
+                rn_bg = "#1a2540" if is_tr else "#12121c"
+                rn_color = "#4f9cf9" if is_tr else "#555"
                 cells = (
-                    f"<td style='{rn_style}font-size:var(--sz-xs);padding:4px 8px;"
-                    f"border:1px solid var(--b0);text-align:center;font-family:var(--mono);'>"
-                    f"{r_idx + 1}</td>"
+                    f"<td style='background:{rn_bg};color:{rn_color};font-size:11px;"
+                    f"padding:5px 8px;border:1px solid #2a2a45;font-family:monospace;"
+                    f"font-weight:bold;text-align:center;'>{r_idx+1}</td>"
                 )
                 for c_idx in range(n_cols):
                     cell_val = row_data[c_idx] if c_idx < len(row_data) else ""
-                    is_tc    = is_tr and (c_idx + 1 == target_col)
+                    is_tc = is_tr and (c_idx + 1 == target_col)
                     if is_tc:
-                        style = "background:#2a2010;border:2px solid var(--yellow);color:var(--t0);font-weight:bold;"
+                        style = ("background:#2a2010;border:2px solid #f5c842;"
+                                 "color:#fff;font-weight:bold;")
                     elif is_tr:
-                        style = "background:var(--blue-g);border:1px solid rgba(79,156,249,0.2);color:var(--t1);"
+                        style = "background:#1a2540;border:1px solid rgba(79,156,249,0.3);color:#c8d8ff;"
                     else:
-                        style = "background:var(--surface);border:1px solid var(--b0);color:var(--t2);"
+                        style = "background:#12121c;border:1px solid #2a2a45;color:#6b7280;"
                     cells += (
-                        f"<td style='{style}font-size:var(--sz-sm);padding:5px 10px;"
-                        f"max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
-                        f"font-family:var(--font);'>{cell_val}</td>"
+                        f"<td style='{style}font-size:11px;padding:5px 10px;"
+                        f"white-space:normal;word-break:break-word;"
+                        f"font-family:monospace;'>{cell_val}</td>"
                     )
                 tbody += f"<tr>{cells}</tr>"
+
             st.markdown(
-                f"<div style='overflow-x:auto;border-radius:var(--radius);border:1px solid var(--b0);'>"
-                f"<table style='border-collapse:collapse;width:100%;font-family:var(--font);'>"
+                f"<div style='overflow-x:auto;border-radius:6px;border:1px solid #2a2a45;'>"
+                f"<table style='border-collapse:collapse;width:100%;'>"
                 f"{thead}<tbody>{tbody}</tbody></table></div>",
                 unsafe_allow_html=True,
             )
@@ -103,7 +131,7 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
             st.error(f"CSV preview error: {e}")
         return
 
-    st.markdown("---")
+    # ── Excel image render ────────────────────────────────────────────────────
     cache_key = f"_rendered_{excel_path}_{sheet_name}"
     with st.spinner("Rendering sheet…"):
         if cache_key not in st.session_state:
@@ -118,19 +146,15 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
         img  = rendered_img.copy()
         draw = ImageDraw.Draw(img, "RGBA")
         x1, y1, x2, y2 = get_cell_pixel_bbox(col_starts, row_starts, target_row, target_col, merged_master)
-        draw.rectangle([x1 + 1, y1 + 1, x2 - 1, y2 - 1], fill=(255, 230, 0, 80))
+        draw.rectangle([x1+1, y1+1, x2-1, y2-1], fill=(255, 230, 0, 80))
         draw.rectangle([x1, y1, x2, y2], outline=(245, 158, 11, 255), width=3)
-        draw.rectangle([x1 + 3, y1 + 3, x2 - 3, y2 - 3], outline=(255, 255, 255, 160), width=1)
+        draw.rectangle([x1+3, y1+3, x2-3, y2-3], outline=(255, 255, 255, 160), width=1)
         cropped, _, _, _, _ = crop_context(img, x1, y1, x2, y2, pad_x=300, pad_y=200)
         col_letter = get_column_letter(target_col)
-        st.image(
-            cropped,
-            use_container_width=True,
-            caption=f"Cell {col_letter}{target_row}  ·  Value: {value or '(empty)'}",
-        )
+        st.image(cropped, use_container_width=True,
+                 caption=f"Cell {col_letter}{target_row} highlighted in yellow")
     except Exception as e:
         st.error(f"Rendering error: {e}")
-
 
 # ── Field history dialog ──────────────────────────────────────────────────────
 
@@ -599,3 +623,347 @@ def show_cache_manager_dialog() -> None:
     with col_close:
         if st.button("Close", type="primary", use_container_width=True):
             st.rerun()
+
+
+# ── Claim Journey / Traceability Dialog ──────────────────────────────────────
+
+@st.dialog("Claim Transformation Journey", width="large")
+def show_claim_journey_dialog(
+    claim_id: str,
+    curr_claim: dict,
+    selected_sheet: str,
+    active_schema: str | None,
+    _llm_map_result: dict,
+) -> None:
+    """
+    Visual traceability view showing the full transformation journey for a claim.
+    Works correctly in both schema mode and plain mode, properly detecting
+    LLM-mapped and fuzzy-matched fields in all cases.
+    """
+    import json as _json
+    from modules.audit import _load_audit_log
+    from modules.field_history import _get_field_history
+    from modules.schema_mapping import map_claim_to_schema
+
+    st.markdown(
+        f"<div style='font-size:18px;font-weight:700;color:#e8e7ff;margin-bottom:4px;'>"
+        f"🔍 Transformation Journey</div>"
+        f"<div style='font-size:12px;color:#a0a0c8;font-family:monospace;margin-bottom:16px;'>"
+        f"Claim {claim_id} · Sheet: {selected_sheet}"
+        + (f" · Schema: {active_schema}" if active_schema else " · Plain Mode")
+        + "</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Load audit events for this claim ─────────────────────────────────────
+    _all_audit   = _load_audit_log()
+    _claim_audit = [
+        e for e in _all_audit
+        if e.get("claim_id") == claim_id and e.get("sheet") == selected_sheet
+    ]
+
+    # ── Unpack LLM result ─────────────────────────────────────────────────────
+    # _llm_mappings: { source_excel_col -> schema_field }   (schema mode)
+    #                or { excel_col -> excel_col }          (plain mode — usually empty/identity)
+    _llm_mappings  = (_llm_map_result or {}).get("mappings", {})
+    _llm_reasoning = (_llm_map_result or {}).get("_reasoning", {})
+
+    # Build a reverse map: schema_field -> source_excel_col  (used in schema mode)
+    _llm_reverse: dict[str, str] = {v: k for k, v in _llm_mappings.items()}
+
+    # Also build a set of all source columns that LLM handled (for plain-mode lookup)
+    _llm_source_cols: set[str] = set(_llm_mappings.keys())
+
+    # ── Build field map if schema active ─────────────────────────────────────
+    _mapped: dict = {}
+    if active_schema:
+        from config.schemas import SCHEMAS
+        if active_schema in SCHEMAS:
+            _mapped = map_claim_to_schema(curr_claim, active_schema, {}, _llm_map_result)
+
+    # ── Timeline header ───────────────────────────────────────────────────────
+    st.markdown(
+        "<div style='display:flex;align-items:center;gap:8px;margin-bottom:12px;'>"
+        "<div style='font-size:11px;font-weight:700;color:#a0a0c8;font-family:monospace;"
+        "text-transform:uppercase;letter-spacing:1.5px;'>Field Transformation Timeline</div>"
+        "<div style='flex:1;height:1px;background:linear-gradient(90deg,#2a2a45,transparent);'></div>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Determine fields to iterate ───────────────────────────────────────────
+    fields_to_show = list(_mapped.keys()) if _mapped else list(curr_claim.keys())
+
+    for field in fields_to_show:
+
+        # ── Gather per-field metadata ─────────────────────────────────────────
+        if _mapped and field in _mapped:
+            # ── SCHEMA MODE ───────────────────────────────────────────────────
+            m          = _mapped[field]
+            raw_val    = m["info"].get("value", "")
+            excel_col  = m.get("excel_field", field)
+            hdr_score  = m.get("header_score", 0)
+            val_score  = m.get("value_score", 0)
+            conf       = m.get("confidence", 0)
+            from_title = m.get("from_title", False)
+
+            # llm_mapped: trust the flag if set, OR check if this schema field
+            # appears as a value in the LLM mappings dict (source_col -> schema_field)
+            # e.g. _llm_mappings = {"SUMMARY_FLIBBER": "Policy Number"}
+            # so _llm_reverse = {"Policy Number": "SUMMARY_FLIBBER"}
+            llm_mapped = bool(m.get("llm_mapped", False)) or (field in _llm_reverse)
+
+            # If LLM-mapped, ensure excel_col shows the raw source column name
+            # e.g. show SUMMARY_FLIBBER rather than the schema field name Policy Number
+            if llm_mapped and field in _llm_reverse:
+                excel_col = _llm_reverse[field]
+
+        else:
+            # ── PLAIN MODE ────────────────────────────────────────────────────
+            if field not in curr_claim:
+                continue
+            info       = curr_claim[field]
+            raw_val    = info.get("value", "")
+            excel_col  = field
+
+            # Pull scores that may have been stored during parsing/mapping
+            hdr_score  = info.get("header_score", 0)
+            val_score  = info.get("value_score", 0)
+            conf       = info.get("confidence", 0)
+            from_title = info.get("from_title", False)
+
+            # In plain mode the field key IS the raw Excel column name.
+            # Check if it appears in the source keys of _llm_mappings.
+            # Also check values in case mappings are stored col->col in plain mode.
+            llm_mapped = (field in _llm_source_cols) or (field in _llm_reverse)
+
+        # ── Current (possibly edited) value ───────────────────────────────────
+        mk_schema = f"mod_{selected_sheet}_{claim_id}_schema_{field}"
+        mk_plain  = f"mod_{selected_sheet}_{claim_id}_{field}"
+        cur_val   = (
+            st.session_state.get(mk_schema)
+            or st.session_state.get(mk_plain)
+            or raw_val
+        )
+        edits     = _get_field_history(selected_sheet, claim_id, field)
+        is_edited = cur_val != raw_val
+
+        # ── Determine extraction / mapping method label ───────────────────────
+        if from_title:
+            method       = "TITLE ROW"
+            method_color = "#a78bfa"
+            method_icon  = "📋"
+        elif llm_mapped:
+            method       = "LLM MAPPED"
+            method_color = "#f5c842"
+            method_icon  = "🤖"
+        elif hdr_score >= 90:
+            method       = "EXACT MATCH"
+            method_color = "#34d399"
+            method_icon  = "✓"
+        elif hdr_score >= 65:
+            method       = "FUZZY MATCH"
+            method_color = "#4f9cf9"
+            method_icon  = "~"
+        elif hdr_score > 0:
+            method       = "PARTIAL MATCH"
+            method_color = "#94a3b8"
+            method_icon  = "≈"
+        else:
+            method       = "DIRECT"
+            method_color = "#a0a0c8"
+            method_icon  = "→"
+
+        # Confidence bar colour
+        conf_color = "#34d399" if conf >= 80 else "#f5c842" if conf >= 50 else "#f87171"
+
+        _empty_html  = "<span style='color:#555;'>(empty)</span>"
+        _display_val = raw_val if raw_val else _empty_html
+
+        # ── Build step indicators HTML ────────────────────────────────────────
+        steps_html = ""
+
+        # Step 1 — Extraction
+        steps_html += (
+            f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
+            f"<div style='min-width:22px;height:22px;border-radius:50%;background:#1e3a2a;"
+            f"border:2px solid #34d399;display:flex;align-items:center;justify-content:center;"
+            f"font-size:10px;color:#34d399;font-weight:bold;flex-shrink:0;'>1</div>"
+            f"<div style='flex:1;'>"
+            f"<div style='font-size:11px;font-weight:700;color:#34d399;font-family:monospace;"
+            f"text-transform:uppercase;letter-spacing:1px;'>Extracted from Excel</div>"
+            f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
+            f"Column: <code style='color:#e8e7ff;background:#1a1a2e;padding:1px 5px;"
+            f"border-radius:3px;'>{excel_col}</code>"
+            f"</div>"
+            f"<div style='font-size:13px;color:#e8e7ff;font-family:monospace;"
+            f"background:#12121c;border:1px solid #2a2a45;border-radius:4px;"
+            f"padding:4px 8px;margin-top:4px;word-break:break-all;'>"
+            f"{_display_val}"
+            f"</div>"
+            f"</div></div>"
+        )
+
+        # Connector
+        steps_html += (
+            "<div style='margin-left:11px;border-left:2px dashed #2a2a45;"
+            "height:8px;margin-bottom:8px;'></div>"
+        )
+
+        # Step 2 — Mapping method
+        steps_html += (
+            f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
+            f"<div style='min-width:22px;height:22px;border-radius:50%;background:#1a2540;"
+            f"border:2px solid {method_color};display:flex;align-items:center;justify-content:center;"
+            f"font-size:10px;color:{method_color};font-weight:bold;flex-shrink:0;'>2</div>"
+            f"<div style='flex:1;'>"
+            f"<div style='font-size:11px;font-weight:700;color:{method_color};font-family:monospace;"
+            f"text-transform:uppercase;letter-spacing:1px;'>{method_icon} {method}</div>"
+        )
+
+        if llm_mapped:
+            # Show source column and LLM reasoning
+            # In schema mode the reverse map gives us the source col;
+            # in plain mode the field IS the source col.
+            _src_col = _llm_reverse.get(field, field)
+            _reason  = _llm_reasoning.get(_src_col, "")
+            steps_html += (
+                f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
+                f"Source column: <code style='color:#f5c842;background:#1a1a2e;"
+                f"padding:1px 5px;border-radius:3px;'>{_src_col}</code>"
+            )
+            if active_schema and _src_col != field:
+                steps_html += (
+                    f" → mapped to <code style='color:#f5c842;background:#1a1a2e;"
+                    f"padding:1px 5px;border-radius:3px;'>{field}</code>"
+                )
+            steps_html += "</div>"
+            if _reason:
+                steps_html += (
+                    f"<div style='font-size:11px;color:#a0a0c8;font-style:italic;"
+                    f"margin-top:3px;padding:4px 8px;background:#1a1a2e;"
+                    f"border-left:2px solid #f5c842;border-radius:0 4px 4px 0;'>"
+                    f"LLM reasoning: {_reason}</div>"
+                )
+        elif hdr_score > 0:
+            steps_html += (
+                f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
+                f"Header similarity: <span style='color:{method_color};font-weight:700;'>"
+                f"{hdr_score}%</span> · "
+                f"Value quality: <span style='color:{conf_color};font-weight:700;'>"
+                f"{val_score}%</span> · "
+                f"Overall confidence: <span style='color:{conf_color};font-weight:700;'>"
+                f"{conf}%</span></div>"
+            )
+        else:
+            # DIRECT — no scores to show, but give a brief explanation
+            steps_html += (
+                f"<div style='font-size:12px;color:#a0a0c8;margin-top:2px;'>"
+                f"Column name matches field directly (no fuzzy scoring applied)</div>"
+            )
+
+        steps_html += "</div></div>"
+
+        # Edit history steps
+        if edits:
+            for i, edit in enumerate(edits):
+                steps_html += (
+                    "<div style='margin-left:11px;border-left:2px dashed #2a2a45;"
+                    "height:8px;margin-bottom:8px;'></div>"
+                )
+                steps_html += (
+                    f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;'>"
+                    f"<div style='min-width:22px;height:22px;border-radius:50%;background:#2a1a10;"
+                    f"border:2px solid #f5c842;display:flex;align-items:center;justify-content:center;"
+                    f"font-size:10px;color:#f5c842;font-weight:bold;flex-shrink:0;'>"
+                    f"{i+3}</div>"
+                    f"<div style='flex:1;'>"
+                    f"<div style='font-size:11px;font-weight:700;color:#f5c842;font-family:monospace;"
+                    f"text-transform:uppercase;letter-spacing:1px;'>✏ User Edit — {edit['ts']}</div>"
+                    f"<div style='display:flex;gap:8px;margin-top:4px;align-items:center;'>"
+                    f"<div style='font-size:12px;color:#f87171;font-family:monospace;"
+                    f"background:#2a1218;border:1px solid #f87171;border-radius:4px;"
+                    f"padding:3px 8px;word-break:break-all;flex:1;'>"
+                    f"<span style='font-size:10px;color:#f87171;'>FROM: </span>{edit['from']}</div>"
+                    f"<div style='color:#a0a0c8;font-size:14px;'>→</div>"
+                    f"<div style='font-size:12px;color:#34d399;font-family:monospace;"
+                    f"background:#0a2a1a;border:1px solid #34d399;border-radius:4px;"
+                    f"padding:3px 8px;word-break:break-all;flex:1;'>"
+                    f"<span style='font-size:10px;color:#34d399;'>TO: </span>{edit['to']}</div>"
+                    f"</div></div></div>"
+                )
+
+        # Final value (if modified)
+        if is_edited:
+            steps_html += (
+                "<div style='margin-left:11px;border-left:2px dashed #2a2a45;"
+                "height:8px;margin-bottom:8px;'></div>"
+                f"<div style='display:flex;align-items:flex-start;gap:10px;margin-bottom:4px;'>"
+                f"<div style='min-width:22px;height:22px;border-radius:50%;background:#0a2a1a;"
+                f"border:2px solid #34d399;display:flex;align-items:center;justify-content:center;"
+                f"font-size:10px;color:#34d399;flex-shrink:0;'>✓</div>"
+                f"<div style='flex:1;'>"
+                f"<div style='font-size:11px;font-weight:700;color:#34d399;font-family:monospace;"
+                f"text-transform:uppercase;letter-spacing:1px;'>Final Value</div>"
+                f"<div style='font-size:13px;color:#34d399;font-family:monospace;"
+                f"background:#0a2a1a;border:1px solid #34d399;border-radius:4px;"
+                f"padding:4px 8px;margin-top:4px;word-break:break-all;'>{cur_val}</div>"
+                f"</div></div>"
+            )
+
+        # ── Render field card ─────────────────────────────────────────────────
+        border_color = "#f5c842" if is_edited else "#2a2a45"
+        st.markdown(
+            f"<div style='background:#17172a;border:1px solid {border_color};"
+            f"border-radius:8px;padding:12px 14px;margin-bottom:10px;'>"
+            f"<div style='font-size:12px;font-weight:700;color:#e8e7ff;font-family:monospace;"
+            f"text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;"
+            f"display:flex;align-items:center;gap:8px;'>"
+            f"{field}"
+            # ── MODIFIED badge only — no AI/LLM badge in the header ──────────
+            + (
+                f"<span style='font-size:9px;background:#2a1a10;color:#f5c842;"
+                f"padding:1px 6px;border-radius:3px;border:1px solid #f5c842;'>"
+                f"MODIFIED</span>" if is_edited else ""
+            )
+            + f"</div>"
+            f"{steps_html}"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+
+    # ── Audit Events Section ──────────────────────────────────────────────────
+    if _claim_audit:
+        st.markdown("---")
+        st.markdown(
+            "<div style='font-size:11px;font-weight:700;color:#a0a0c8;font-family:monospace;"
+            "text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;'>"
+            "📋 Audit Log Events</div>",
+            unsafe_allow_html=True,
+        )
+        for event in _claim_audit:
+            ev_type  = event.get("event", "EVENT")
+            ev_ts    = event.get("timestamp", "")[:19].replace("T", " ")
+            ev_field = event.get("field", "")
+            ev_from  = event.get("original", "")
+            ev_to    = event.get("new_value", "")
+            ev_color = "#4f9cf9" if ev_type == "FIELD_EDITED" else "#a0a0c8"
+            st.markdown(
+                f"<div style='background:#12121c;border:1px solid #2a2a45;"
+                f"border-left:3px solid {ev_color};border-radius:6px;"
+                f"padding:8px 12px;margin-bottom:6px;font-family:monospace;font-size:11px;'>"
+                f"<span style='color:{ev_color};font-weight:700;'>{ev_type}</span>"
+                f" <span style='color:#555;'>·</span> "
+                f"<span style='color:#6b7280;'>{ev_ts}</span>"
+                + (
+                    f" <span style='color:#555;'>·</span> "
+                    f"<span style='color:#e8e7ff;'>{ev_field}</span> "
+                    f"<span style='color:#f87171;'>{ev_from}</span> → "
+                    f"<span style='color:#34d399;'>{ev_to}</span>" if ev_field else ""
+                )
+                + "</div>",
+                unsafe_allow_html=True,
+            )
+
+    if st.button("Close", type="primary", use_container_width=True):
+        st.rerun()

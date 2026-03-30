@@ -1,9 +1,908 @@
 {
+  "---": {
+    "claim_id": "---",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "---",
+      "Loss Date": "---",
+      "Policy Number": "---",
+      "Insured Name": "---",
+      "Claimant Name": "---",
+      "Description of Loss": "---",
+      "Status": "---",
+      "Total Paid": "0",
+      "Reserve": "0",
+      "Total Incurred": "0",
+      "Date Reported": "---"
+    }
+  },
+  "CLM-AU0001": {
+    "claim_id": "CLM-AU0001",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0001",
+      "Loss Date": "2023-01-07",
+      "Policy Number": "POL-AU100000",
+      "Insured Name": "Insured_001",
+      "Claimant Name": "Jane Smith",
+      "Description of Loss": "Trip hazard",
+      "Status": "Closed",
+      "Total Paid": "0",
+      "Reserve": "0",
+      "Total Incurred": "0",
+      "Date Reported": "2025-07-03"
+    }
+  },
+  "CLM-AU0002": {
+    "claim_id": "CLM-AU0002",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0002",
+      "Loss Date": "2023-02-20",
+      "Policy Number": "POL-AU100010",
+      "Insured Name": "Insured_002",
+      "Claimant Name": "Frank Miller",
+      "Description of Loss": "Storm smash",
+      "Status": "Closed",
+      "Total Paid": "4500",
+      "Reserve": "800",
+      "Total Incurred": "5300",
+      "Date Reported": "2026-03-12"
+    }
+  },
+  "CLM-AU0003": {
+    "claim_id": "CLM-AU0003",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0003",
+      "Loss Date": "2023-03-15",
+      "Policy Number": "POL-AU100020",
+      "Insured Name": "Insured_003",
+      "Claimant Name": "Diana Lee",
+      "Description of Loss": "Slippy slide",
+      "Status": "Closed",
+      "Total Paid": "12000",
+      "Reserve": "3000",
+      "Total Incurred": "15000",
+      "Date Reported": "2025-08-11"
+    }
+  },
+  "CLM-AU0004": {
+    "claim_id": "CLM-AU0004",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0004",
+      "Loss Date": "2023-04-11",
+      "Policy Number": "POL-AU100030",
+      "Insured Name": "Insured_004",
+      "Claimant Name": "Jane Smith",
+      "Description of Loss": "Water whoosh",
+      "Status": "Open",
+      "Total Paid": "4500",
+      "Reserve": "300",
+      "Total Incurred": "4800",
+      "Date Reported": "2025-07-05"
+    }
+  },
+  "CLM-AU0005": {
+    "claim_id": "CLM-AU0005",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0005",
+      "Loss Date": "2023-05-08",
+      "Policy Number": "POL-AU100040",
+      "Insured Name": "Insured_005",
+      "Claimant Name": "Charlie Wilson",
+      "Description of Loss": "Trip hazard",
+      "Status": "Pending",
+      "Total Paid": "0",
+      "Reserve": "300",
+      "Total Incurred": "300",
+      "Date Reported": "2025-03-23"
+    }
+  },
+  "CLM-AU0006": {
+    "claim_id": "CLM-AU0006",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0006",
+      "Loss Date": "2023-06-21",
+      "Policy Number": "POL-AU100050",
+      "Insured Name": "Insured_006",
+      "Claimant Name": "John Doe",
+      "Description of Loss": "Slippy slide",
+      "Status": "Closed",
+      "Total Paid": "0",
+      "Reserve": "0",
+      "Total Incurred": "0",
+      "Date Reported": "2025-06-07"
+    }
+  },
+  "CLM-AU0007": {
+    "claim_id": "CLM-AU0007",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0007",
+      "Loss Date": "2023-07-07",
+      "Policy Number": "POL-AU100060",
+      "Insured Name": "Insured_007",
+      "Claimant Name": "Henry Anderson",
+      "Description of Loss": "Machinery munch",
+      "Status": "Settled",
+      "Total Paid": "12000",
+      "Reserve": "1500",
+      "Total Incurred": "13500",
+      "Date Reported": "2025-08-22"
+    }
+  },
+  "CLM-AU0008": {
+    "claim_id": "CLM-AU0008",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0008",
+      "Loss Date": "2023-08-26",
+      "Policy Number": "POL-AU100070",
+      "Insured Name": "Insured_008",
+      "Claimant Name": "Diana Lee",
+      "Description of Loss": "Trip hazard",
+      "Status": "Settled",
+      "Total Paid": "0",
+      "Reserve": "0",
+      "Total Incurred": "0",
+      "Date Reported": "2026-03-02"
+    }
+  },
+  "CLM-AU0009": {
+    "claim_id": "CLM-AU0009",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0009",
+      "Loss Date": "2023-09-19",
+      "Policy Number": "POL-AU100080",
+      "Insured Name": "Insured_009",
+      "Claimant Name": "Grace Taylor",
+      "Description of Loss": "Machinery munch",
+      "Status": "Closed",
+      "Total Paid": "25000",
+      "Reserve": "1500",
+      "Total Incurred": "26500",
+      "Date Reported": "2025-04-05"
+    }
+  },
+  "CLM-AU0010": {
+    "claim_id": "CLM-AU0010",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0010",
+      "Loss Date": "2023-10-23",
+      "Policy Number": "POL-AU100090",
+      "Insured Name": "Insured_010",
+      "Claimant Name": "John Doe",
+      "Description of Loss": "Worker tumble",
+      "Status": "Settled",
+      "Total Paid": "0",
+      "Reserve": "300",
+      "Total Incurred": "300",
+      "Date Reported": "2026-02-03"
+    }
+  },
+  "CLM-AU0011": {
+    "claim_id": "CLM-AU0011",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0011",
+      "Loss Date": "2023-11-11",
+      "Policy Number": "POL-AU100100",
+      "Insured Name": "Insured_011",
+      "Claimant Name": "Henry Anderson",
+      "Description of Loss": "Slippy slide",
+      "Status": "Open",
+      "Total Paid": "2500",
+      "Reserve": "0",
+      "Total Incurred": "2500",
+      "Date Reported": "2025-09-19"
+    }
+  },
+  "CLM-AU0012": {
+    "claim_id": "CLM-AU0012",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0012",
+      "Loss Date": "2023-12-11",
+      "Policy Number": "POL-AU100110",
+      "Insured Name": "Insured_012",
+      "Claimant Name": "Bob Johnson",
+      "Description of Loss": "Water whoosh",
+      "Status": "Open",
+      "Total Paid": "25000",
+      "Reserve": "3000",
+      "Total Incurred": "28000",
+      "Date Reported": "2026-01-13"
+    }
+  },
+  "CLM-AU0013": {
+    "claim_id": "CLM-AU0013",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0013",
+      "Loss Date": "2023-01-24",
+      "Policy Number": "POL-AU100120",
+      "Insured Name": "Insured_013",
+      "Claimant Name": "Eve Davis",
+      "Description of Loss": "Storm smash",
+      "Status": "Open",
+      "Total Paid": "25000",
+      "Reserve": "800",
+      "Total Incurred": "25800",
+      "Date Reported": "2025-03-30"
+    }
+  },
+  "CLM-AU0014": {
+    "claim_id": "CLM-AU0014",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0014",
+      "Loss Date": "2023-02-21",
+      "Policy Number": "POL-AU100130",
+      "Insured Name": "Insured_014",
+      "Claimant Name": "Alice Brown",
+      "Description of Loss": "Theft nab",
+      "Status": "Closed",
+      "Total Paid": "12000",
+      "Reserve": "1500",
+      "Total Incurred": "13500",
+      "Date Reported": "2025-07-29"
+    }
+  },
+  "CLM-AU0015": {
+    "claim_id": "CLM-AU0015",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0015",
+      "Loss Date": "2023-03-04",
+      "Policy Number": "POL-AU100140",
+      "Insured Name": "Insured_015",
+      "Claimant Name": "Grace Taylor",
+      "Description of Loss": "Fireworks boom",
+      "Status": "Closed",
+      "Total Paid": "1200",
+      "Reserve": "800",
+      "Total Incurred": "2000",
+      "Date Reported": "2025-07-19"
+    }
+  },
+  "CLM-AU0016": {
+    "claim_id": "CLM-AU0016",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0016",
+      "Loss Date": "2023-04-27",
+      "Policy Number": "POL-AU100150",
+      "Insured Name": "Insured_016",
+      "Claimant Name": "Bob Johnson",
+      "Description of Loss": "Fireworks boom",
+      "Status": "Closed",
+      "Total Paid": "4500",
+      "Reserve": "800",
+      "Total Incurred": "5300",
+      "Date Reported": "2025-08-31"
+    }
+  },
+  "CLM-AU0017": {
+    "claim_id": "CLM-AU0017",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0017",
+      "Loss Date": "2023-05-14",
+      "Policy Number": "POL-AU100160",
+      "Insured Name": "Insured_017",
+      "Claimant Name": "Jane Smith",
+      "Description of Loss": "Slippy slide",
+      "Status": "Closed",
+      "Total Paid": "7800",
+      "Reserve": "0",
+      "Total Incurred": "7800",
+      "Date Reported": "2025-12-31"
+    }
+  },
+  "CLM-AU0018": {
+    "claim_id": "CLM-AU0018",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0018",
+      "Loss Date": "2023-06-24",
+      "Policy Number": "POL-AU100170",
+      "Insured Name": "Insured_018",
+      "Claimant Name": "Eve Davis",
+      "Description of Loss": "Storm smash",
+      "Status": "Closed",
+      "Total Paid": "2500",
+      "Reserve": "300",
+      "Total Incurred": "2800",
+      "Date Reported": "2025-12-19"
+    }
+  },
+  "CLM-AU0019": {
+    "claim_id": "CLM-AU0019",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0019",
+      "Loss Date": "2023-07-08",
+      "Policy Number": "POL-AU100180",
+      "Insured Name": "Insured_019",
+      "Claimant Name": "Grace Taylor",
+      "Description of Loss": "Car smashup",
+      "Status": "Closed",
+      "Total Paid": "12000",
+      "Reserve": "3000",
+      "Total Incurred": "15000",
+      "Date Reported": "2025-07-17"
+    }
+  },
+  "CLM-AU0020": {
+    "claim_id": "CLM-AU0020",
+    "sheet_name": "Loss Run Data",
+    "filename": "test_lossrun_weirdfields.xlsx",
+    "ingested_at": "2026-03-26T15:25:51.774741",
+    "fields": {
+      "Claim Number": "CLM-AU0020",
+      "Loss Date": "2023-08-22",
+      "Policy Number": "POL-AU100190",
+      "Insured Name": "Insured_020",
+      "Claimant Name": "Frank Miller",
+      "Description of Loss": "Machinery munch",
+      "Status": "Closed",
+      "Total Paid": "7800",
+      "Reserve": "0",
+      "Total Incurred": "7800",
+      "Date Reported": "2025-05-17"
+    }
+  },
+  "CLM-HO0001": {
+    "claim_id": "CLM-HO0001",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:43.938965",
+    "fields": {
+      "Claim Number": "CLM-HO0001",
+      "Loss Date": "01/20/2024",
+      "SUMMARY_FLIBBER": "POL-HO200000",
+      "Carrier": "Homeowner_001",
+      "Claimant Name": "Mike Peterson",
+      "Description of Loss": "Roof leak splish",
+      "Status": "Closed",
+      "Total Incurred": "32000",
+      "Total Paid": "500",
+      "Reserve": "32500",
+      "Date Reported": "10/01/2025",
+      "All Adjusters": "Adjuster_D"
+    }
+  },
+  "CLM-HO0002": {
+    "claim_id": "CLM-HO0002",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:43.994547",
+    "fields": {
+      "Claim Number": "CLM-HO0002",
+      "Loss Date": "02/15/2024",
+      "SUMMARY_FLIBBER": "POL-HO200015",
+      "Carrier": "Homeowner_002",
+      "Claimant Name": "Emma Rodriguez",
+      "Description of Loss": "Flood water glug",
+      "Status": "Closed",
+      "Total Incurred": "32000",
+      "Total Paid": "8000",
+      "Reserve": "40000",
+      "Date Reported": "01/28/2026",
+      "All Adjusters": "Adjuster_E"
+    }
+  },
+  "CLM-HO0003": {
+    "claim_id": "CLM-HO0003",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.032928",
+    "fields": {
+      "Claim Number": "CLM-HO0003",
+      "Loss Date": "03/19/2024",
+      "SUMMARY_FLIBBER": "POL-HO200030",
+      "Carrier": "Homeowner_003",
+      "Claimant Name": "Noah Davis",
+      "Description of Loss": "Pipe burst splash",
+      "Status": "Closed",
+      "Total Incurred": "8900",
+      "Total Paid": "500",
+      "Reserve": "9400",
+      "Date Reported": "03/07/2025",
+      "All Adjusters": "Adjuster_B"
+    }
+  },
+  "CLM-HO0004": {
+    "claim_id": "CLM-HO0004",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.066697",
+    "fields": {
+      "Claim Number": "CLM-HO0004",
+      "Loss Date": "04/02/2024",
+      "SUMMARY_FLIBBER": "POL-HO200045",
+      "Carrier": "Homeowner_004",
+      "Claimant Name": "Sophia Lee",
+      "Description of Loss": "Appliance kaboom",
+      "Status": "Closed",
+      "Total Incurred": "1500",
+      "Total Paid": "2500",
+      "Reserve": "4000",
+      "Date Reported": "06/15/2025",
+      "All Adjusters": "Adjuster_B"
+    }
+  },
+  "CLM-HO0005": {
+    "claim_id": "CLM-HO0005",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.114502",
+    "fields": {
+      "Claim Number": "CLM-HO0005",
+      "Loss Date": "05/13/2024",
+      "SUMMARY_FLIBBER": "POL-HO200060",
+      "Carrier": "Homeowner_005",
+      "Claimant Name": "James Chen",
+      "Description of Loss": "Appliance kaboom",
+      "Status": "Closed",
+      "Total Incurred": "32000",
+      "Total Paid": "0",
+      "Reserve": "32000",
+      "Date Reported": "03/23/2025",
+      "All Adjusters": "Adjuster_C"
+    }
+  },
+  "CLM-HO0006": {
+    "claim_id": "CLM-HO0006",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.146140",
+    "fields": {
+      "Claim Number": "CLM-HO0006",
+      "Loss Date": "06/27/2024",
+      "SUMMARY_FLIBBER": "POL-HO200075",
+      "Carrier": "Homeowner_006",
+      "Claimant Name": "David Kumar",
+      "Description of Loss": "Appliance kaboom",
+      "Status": "Closed",
+      "Total Incurred": "32000",
+      "Total Paid": "0",
+      "Reserve": "32000",
+      "Date Reported": "05/06/2025",
+      "All Adjusters": "Adjuster_D"
+    }
+  },
+  "CLM-HO0007": {
+    "claim_id": "CLM-HO0007",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.178324",
+    "fields": {
+      "Claim Number": "CLM-HO0007",
+      "Loss Date": "07/04/2024",
+      "SUMMARY_FLIBBER": "POL-HO200090",
+      "Carrier": "Homeowner_007",
+      "Claimant Name": "James Chen",
+      "Description of Loss": "Basement soggy mess",
+      "Status": "Settled",
+      "Total Incurred": "45000",
+      "Total Paid": "500",
+      "Reserve": "45500",
+      "Date Reported": "07/18/2025",
+      "All Adjusters": "Adjuster_B"
+    }
+  },
+  "CLM-HO0008": {
+    "claim_id": "CLM-HO0008",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.210116",
+    "fields": {
+      "Claim Number": "CLM-HO0008",
+      "Loss Date": "08/21/2024",
+      "SUMMARY_FLIBBER": "POL-HO200105",
+      "Carrier": "Homeowner_008",
+      "Claimant Name": "Emma Rodriguez",
+      "Description of Loss": "Fire go boom",
+      "Status": "Closed",
+      "Total Incurred": "15000",
+      "Total Paid": "2500",
+      "Reserve": "17500",
+      "Date Reported": "02/13/2026",
+      "All Adjusters": "Adjuster_B"
+    }
+  },
+  "CLM-HO0009": {
+    "claim_id": "CLM-HO0009",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.258077",
+    "fields": {
+      "Claim Number": "CLM-HO0009",
+      "Loss Date": "09/25/2024",
+      "SUMMARY_FLIBBER": "POL-HO200120",
+      "Carrier": "Homeowner_009",
+      "Claimant Name": "Noah Davis",
+      "Description of Loss": "Hail damage thunk",
+      "Status": "Closed",
+      "Total Incurred": "5500",
+      "Total Paid": "1200",
+      "Reserve": "6700",
+      "Date Reported": "07/29/2025",
+      "All Adjusters": "Adjuster_A"
+    }
+  },
+  "CLM-HO0010": {
+    "claim_id": "CLM-HO0010",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.289869",
+    "fields": {
+      "Claim Number": "CLM-HO0010",
+      "Loss Date": "10/21/2024",
+      "SUMMARY_FLIBBER": "POL-HO200135",
+      "Carrier": "Homeowner_010",
+      "Claimant Name": "Oliver Brown",
+      "Description of Loss": "Pipe burst splash",
+      "Status": "Closed",
+      "Total Incurred": "45000",
+      "Total Paid": "5000",
+      "Reserve": "50000",
+      "Date Reported": "11/22/2025",
+      "All Adjusters": "Adjuster_A"
+    }
+  },
+  "CLM-HO0011": {
+    "claim_id": "CLM-HO0011",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.321673",
+    "fields": {
+      "Claim Number": "CLM-HO0011",
+      "Loss Date": "11/18/2024",
+      "SUMMARY_FLIBBER": "POL-HO200150",
+      "Carrier": "Homeowner_011",
+      "Claimant Name": "Sophia Lee",
+      "Description of Loss": "Fire go boom",
+      "Status": "Pending",
+      "Total Incurred": "800",
+      "Total Paid": "0",
+      "Reserve": "800",
+      "Date Reported": "04/12/2025",
+      "All Adjusters": "Adjuster_E"
+    }
+  },
+  "CLM-HO0012": {
+    "claim_id": "CLM-HO0012",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.369425",
+    "fields": {
+      "Claim Number": "CLM-HO0012",
+      "Loss Date": "12/09/2024",
+      "SUMMARY_FLIBBER": "POL-HO200165",
+      "Carrier": "Homeowner_012",
+      "Claimant Name": "Sophia Lee",
+      "Description of Loss": "Wind rip whoosh",
+      "Status": "Settled",
+      "Total Incurred": "5500",
+      "Total Paid": "2500",
+      "Reserve": "8000",
+      "Date Reported": "09/27/2025",
+      "All Adjusters": "Adjuster_C"
+    }
+  },
+  "CLM-HO0013": {
+    "claim_id": "CLM-HO0013",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.401121",
+    "fields": {
+      "Claim Number": "CLM-HO0013",
+      "Loss Date": "01/17/2024",
+      "SUMMARY_FLIBBER": "POL-HO200180",
+      "Carrier": "Homeowner_013",
+      "Claimant Name": "James Chen",
+      "Description of Loss": "Wind rip whoosh",
+      "Status": "Closed",
+      "Total Incurred": "800",
+      "Total Paid": "5000",
+      "Reserve": "5800",
+      "Date Reported": "12/30/2025",
+      "All Adjusters": "Adjuster_C"
+    }
+  },
+  "CLM-HO0014": {
+    "claim_id": "CLM-HO0014",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.433071",
+    "fields": {
+      "Claim Number": "CLM-HO0014",
+      "Loss Date": "02/02/2024",
+      "SUMMARY_FLIBBER": "POL-HO200195",
+      "Carrier": "Homeowner_014",
+      "Claimant Name": "Sarah Johnson",
+      "Description of Loss": "Basement soggy mess",
+      "Status": "Pending",
+      "Total Incurred": "3200",
+      "Total Paid": "8000",
+      "Reserve": "11200",
+      "Date Reported": "04/06/2025",
+      "All Adjusters": "Adjuster_B"
+    }
+  },
+  "CLM-HO0015": {
+    "claim_id": "CLM-HO0015",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.481390",
+    "fields": {
+      "Claim Number": "CLM-HO0015",
+      "Loss Date": "03/02/2024",
+      "SUMMARY_FLIBBER": "POL-HO200210",
+      "Carrier": "Homeowner_015",
+      "Claimant Name": "Ava Williams",
+      "Description of Loss": "Hail damage thunk",
+      "Status": "Open",
+      "Total Incurred": "8900",
+      "Total Paid": "0",
+      "Reserve": "8900",
+      "Date Reported": "01/11/2026",
+      "All Adjusters": "Adjuster_D"
+    }
+  },
+  "CLM-HO0016": {
+    "claim_id": "CLM-HO0016",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.513175",
+    "fields": {
+      "Claim Number": "CLM-HO0016",
+      "Loss Date": "04/26/2024",
+      "SUMMARY_FLIBBER": "POL-HO200225",
+      "Carrier": "Homeowner_016",
+      "Claimant Name": "James Chen",
+      "Description of Loss": "Roof leak splish",
+      "Status": "Closed",
+      "Total Incurred": "0",
+      "Total Paid": "5000",
+      "Reserve": "5000",
+      "Date Reported": "06/28/2025",
+      "All Adjusters": "Adjuster_E"
+    }
+  },
+  "CLM-HO0017": {
+    "claim_id": "CLM-HO0017",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.550912",
+    "fields": {
+      "Claim Number": "CLM-HO0017",
+      "Loss Date": "05/25/2024",
+      "SUMMARY_FLIBBER": "POL-HO200240",
+      "Carrier": "Homeowner_017",
+      "Claimant Name": "Emma Rodriguez",
+      "Description of Loss": "Basement soggy mess",
+      "Status": "Closed",
+      "Total Incurred": "32000",
+      "Total Paid": "1200",
+      "Reserve": "33200",
+      "Date Reported": "05/26/2025",
+      "All Adjusters": "Adjuster_A"
+    }
+  },
+  "CLM-HO0018": {
+    "claim_id": "CLM-HO0018",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.592248",
+    "fields": {
+      "Claim Number": "CLM-HO0018",
+      "Loss Date": "06/26/2024",
+      "SUMMARY_FLIBBER": "POL-HO200255",
+      "Carrier": "Homeowner_018",
+      "Claimant Name": "Ava Williams",
+      "Description of Loss": "Appliance kaboom",
+      "Status": "Closed",
+      "Total Incurred": "15000",
+      "Total Paid": "8000",
+      "Reserve": "23000",
+      "Date Reported": "11/22/2025",
+      "All Adjusters": "Adjuster_D"
+    }
+  },
+  "CLM-HO0019": {
+    "claim_id": "CLM-HO0019",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.624327",
+    "fields": {
+      "Claim Number": "CLM-HO0019",
+      "Loss Date": "07/16/2024",
+      "SUMMARY_FLIBBER": "POL-HO200270",
+      "Carrier": "Homeowner_019",
+      "Claimant Name": "Mike Peterson",
+      "Description of Loss": "Roof leak splish",
+      "Status": "Closed",
+      "Total Incurred": "1500",
+      "Total Paid": "2500",
+      "Reserve": "4000",
+      "Date Reported": "10/22/2025",
+      "All Adjusters": "Adjuster_E"
+    }
+  },
+  "CLM-HO0020": {
+    "claim_id": "CLM-HO0020",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.656788",
+    "fields": {
+      "Claim Number": "CLM-HO0020",
+      "Loss Date": "08/05/2024",
+      "SUMMARY_FLIBBER": "POL-HO200285",
+      "Carrier": "Homeowner_020",
+      "Claimant Name": "Mike Peterson",
+      "Description of Loss": "Appliance kaboom",
+      "Status": "Settled",
+      "Total Incurred": "32000",
+      "Total Paid": "500",
+      "Reserve": "32500",
+      "Date Reported": "01/05/2026",
+      "All Adjusters": "Adjuster_D"
+    }
+  },
+  "CLM-HO0021": {
+    "claim_id": "CLM-HO0021",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.703842",
+    "fields": {
+      "Claim Number": "CLM-HO0021",
+      "Loss Date": "09/02/2024",
+      "SUMMARY_FLIBBER": "POL-HO200300",
+      "Carrier": "Homeowner_021",
+      "Claimant Name": "Emma Rodriguez",
+      "Description of Loss": "Hail damage thunk",
+      "Status": "Closed",
+      "Total Incurred": "3200",
+      "Total Paid": "500",
+      "Reserve": "3700",
+      "Date Reported": "02/21/2026",
+      "All Adjusters": "Adjuster_C"
+    }
+  },
+  "CLM-HO0022": {
+    "claim_id": "CLM-HO0022",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.750099",
+    "fields": {
+      "Claim Number": "CLM-HO0022",
+      "Loss Date": "10/05/2024",
+      "SUMMARY_FLIBBER": "POL-HO200315",
+      "Carrier": "Homeowner_022",
+      "Claimant Name": "Lisa Wong",
+      "Description of Loss": "Wind rip whoosh",
+      "Status": "Open",
+      "Total Incurred": "15000",
+      "Total Paid": "5000",
+      "Reserve": "20000",
+      "Date Reported": "07/03/2025",
+      "All Adjusters": "Adjuster_B"
+    }
+  },
+  "CLM-HO0023": {
+    "claim_id": "CLM-HO0023",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.783749",
+    "fields": {
+      "Claim Number": "CLM-HO0023",
+      "Loss Date": "11/18/2024",
+      "SUMMARY_FLIBBER": "POL-HO200330",
+      "Carrier": "Homeowner_023",
+      "Claimant Name": "Sophia Lee",
+      "Description of Loss": "Wind rip whoosh",
+      "Status": "Closed",
+      "Total Incurred": "3200",
+      "Total Paid": "5000",
+      "Reserve": "8200",
+      "Date Reported": "04/09/2025",
+      "All Adjusters": "Adjuster_A"
+    }
+  },
+  "CLM-HO0024": {
+    "claim_id": "CLM-HO0024",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.815949",
+    "fields": {
+      "Claim Number": "CLM-HO0024",
+      "Loss Date": "12/04/2024",
+      "SUMMARY_FLIBBER": "POL-HO200345",
+      "Carrier": "Homeowner_024",
+      "Claimant Name": "James Chen",
+      "Description of Loss": "Pipe burst splash",
+      "Status": "Closed",
+      "Total Incurred": "32000",
+      "Total Paid": "0",
+      "Reserve": "32000",
+      "Date Reported": "05/11/2025",
+      "All Adjusters": "Adjuster_C"
+    }
+  },
+  "CLM-HO0025": {
+    "claim_id": "CLM-HO0025",
+    "sheet_name": "HomeOwners Loss Run",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "ingested_at": "2026-03-30T11:10:44.863951",
+    "fields": {
+      "Claim Number": "CLM-HO0025",
+      "Loss Date": "01/25/2024",
+      "SUMMARY_FLIBBER": "POL-HO200360",
+      "Carrier": "Homeowner_025",
+      "Claimant Name": "Noah Davis",
+      "Description of Loss": "Flood water glug",
+      "Status": "Settled",
+      "Total Incurred": "800",
+      "Total Paid": "0",
+      "Reserve": "800",
+      "Date Reported": "03/04/2026",
+      "All Adjusters": "Adjuster_A"
+    }
+  },
   "CGL-001": {
     "claim_id": "CGL-001",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.772635",
+    "ingested_at": "2026-03-30T11:08:21.170911",
     "fields": {
       "Claim Number": "CGL-001",
       "Loss Date": "03/15/2021",
@@ -23,7 +922,7 @@
     "claim_id": "CGL-002",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.804217",
+    "ingested_at": "2026-03-30T11:08:21.219513",
     "fields": {
       "Claim Number": "CGL-002",
       "Loss Date": "07/08/2021",
@@ -43,7 +942,7 @@
     "claim_id": "CGL-003",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.820234",
+    "ingested_at": "2026-03-30T11:08:21.299234",
     "fields": {
       "Claim Number": "CGL-003",
       "Loss Date": "11/22/2021",
@@ -63,7 +962,7 @@
     "claim_id": "CGL-004",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.852176",
+    "ingested_at": "2026-03-30T11:08:21.331216",
     "fields": {
       "Claim Number": "CGL-004",
       "Loss Date": "02/14/2022",
@@ -83,7 +982,7 @@
     "claim_id": "CGL-005",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.886784",
+    "ingested_at": "2026-03-30T11:08:21.379236",
     "fields": {
       "Claim Number": "CGL-005",
       "Loss Date": "06/30/2022",
@@ -103,7 +1002,7 @@
     "claim_id": "CGL-006",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.918108",
+    "ingested_at": "2026-03-30T11:08:21.411106",
     "fields": {
       "Claim Number": "CGL-006",
       "Loss Date": "09/11/2022",
@@ -123,7 +1022,7 @@
     "claim_id": "CGL-007",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.932060",
+    "ingested_at": "2026-03-30T11:08:21.458643",
     "fields": {
       "Claim Number": "CGL-007",
       "Loss Date": "01/20/2023",
@@ -143,7 +1042,7 @@
     "claim_id": "CGL-008",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.963611",
+    "ingested_at": "2026-03-30T11:08:21.506679",
     "fields": {
       "Claim Number": "CGL-008",
       "Loss Date": "05/03/2023",
@@ -163,7 +1062,7 @@
     "claim_id": "CGL-009",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:21.995432",
+    "ingested_at": "2026-03-30T11:08:21.554187",
     "fields": {
       "Claim Number": "CGL-009",
       "Loss Date": "08/17/2023",
@@ -183,7 +1082,7 @@
     "claim_id": "CGL-010",
     "sheet_name": "CGL Loss Run",
     "filename": "loss_runs.xlsx",
-    "ingested_at": "2026-03-24T11:37:22.059290",
+    "ingested_at": "2026-03-30T11:08:21.601885",
     "fields": {
       "Claim Number": "CGL-010",
       "Loss Date": "11/05/2023",
@@ -197,506 +1096,6 @@
       "Reserve": "9500.00",
       "Total Incurred": "10700.00",
       "Status": "OPEN"
-    }
-  },
-  "CLM-HO0001": {
-    "claim_id": "CLM-HO0001",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0001",
-      "Loss Date": "01/20/2024",
-      "Policy Number": "POL-HO200000",
-      "Carrier": "Homeowner_001",
-      "Claimant Name": "Mike Peterson",
-      "Description of Loss": "Roof leak splish",
-      "Status": "Closed",
-      "Total Incurred": "32000",
-      "Total Paid": "500",
-      "Reserve": "32500",
-      "Date Reported": "10/01/2025",
-      "Adjuster Name": "Adjuster_D"
-    }
-  },
-  "CLM-HO0002": {
-    "claim_id": "CLM-HO0002",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0002",
-      "Loss Date": "02/15/2024",
-      "Policy Number": "POL-HO200015",
-      "Carrier": "Homeowner_002",
-      "Claimant Name": "Emma Rodriguez",
-      "Description of Loss": "Flood water glug",
-      "Status": "Closed",
-      "Total Incurred": "32000",
-      "Total Paid": "8000",
-      "Reserve": "40000",
-      "Date Reported": "01/28/2026",
-      "Adjuster Name": "Adjuster_E"
-    }
-  },
-  "CLM-HO0003": {
-    "claim_id": "CLM-HO0003",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0003",
-      "Loss Date": "03/19/2024",
-      "Policy Number": "POL-HO200030",
-      "Carrier": "Homeowner_003",
-      "Claimant Name": "Noah Davis",
-      "Description of Loss": "Pipe burst splash",
-      "Status": "Closed",
-      "Total Incurred": "8900",
-      "Total Paid": "500",
-      "Reserve": "9400",
-      "Date Reported": "03/07/2025",
-      "Adjuster Name": "Adjuster_B"
-    }
-  },
-  "CLM-HO0004": {
-    "claim_id": "CLM-HO0004",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0004",
-      "Loss Date": "04/02/2024",
-      "Policy Number": "POL-HO200045",
-      "Carrier": "Homeowner_004",
-      "Claimant Name": "Sophia Lee",
-      "Description of Loss": "Appliance kaboom",
-      "Status": "Closed",
-      "Total Incurred": "1500",
-      "Total Paid": "2500",
-      "Reserve": "4000",
-      "Date Reported": "06/15/2025",
-      "Adjuster Name": "Adjuster_B"
-    }
-  },
-  "CLM-HO0005": {
-    "claim_id": "CLM-HO0005",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0005",
-      "Loss Date": "05/13/2024",
-      "Policy Number": "POL-HO200060",
-      "Carrier": "Homeowner_005",
-      "Claimant Name": "James Chen",
-      "Description of Loss": "Appliance kaboom",
-      "Status": "Closed",
-      "Total Incurred": "32000",
-      "Total Paid": "0",
-      "Reserve": "32000",
-      "Date Reported": "03/23/2025",
-      "Adjuster Name": "Adjuster_C"
-    }
-  },
-  "CLM-HO0006": {
-    "claim_id": "CLM-HO0006",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0006",
-      "Loss Date": "06/27/2024",
-      "Policy Number": "POL-HO200075",
-      "Carrier": "Homeowner_006",
-      "Claimant Name": "David Kumar",
-      "Description of Loss": "Appliance kaboom",
-      "Status": "Closed",
-      "Total Incurred": "32000",
-      "Total Paid": "0",
-      "Reserve": "32000",
-      "Date Reported": "05/06/2025",
-      "Adjuster Name": "Adjuster_D"
-    }
-  },
-  "CLM-HO0007": {
-    "claim_id": "CLM-HO0007",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0007",
-      "Loss Date": "07/04/2024",
-      "Policy Number": "POL-HO200090",
-      "Carrier": "Homeowner_007",
-      "Claimant Name": "James Chen",
-      "Description of Loss": "Basement soggy mess",
-      "Status": "Settled",
-      "Total Incurred": "45000",
-      "Total Paid": "500",
-      "Reserve": "45500",
-      "Date Reported": "07/18/2025",
-      "Adjuster Name": "Adjuster_B"
-    }
-  },
-  "CLM-HO0008": {
-    "claim_id": "CLM-HO0008",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0008",
-      "Loss Date": "08/21/2024",
-      "Policy Number": "POL-HO200105",
-      "Carrier": "Homeowner_008",
-      "Claimant Name": "Emma Rodriguez",
-      "Description of Loss": "Fire go boom",
-      "Status": "Closed",
-      "Total Incurred": "15000",
-      "Total Paid": "2500",
-      "Reserve": "17500",
-      "Date Reported": "02/13/2026",
-      "Adjuster Name": "Adjuster_B"
-    }
-  },
-  "CLM-HO0009": {
-    "claim_id": "CLM-HO0009",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0009",
-      "Loss Date": "09/25/2024",
-      "Policy Number": "POL-HO200120",
-      "Carrier": "Homeowner_009",
-      "Claimant Name": "Noah Davis",
-      "Description of Loss": "Hail damage thunk",
-      "Status": "Closed",
-      "Total Incurred": "5500",
-      "Total Paid": "1200",
-      "Reserve": "6700",
-      "Date Reported": "07/29/2025",
-      "Adjuster Name": "Adjuster_A"
-    }
-  },
-  "CLM-HO0010": {
-    "claim_id": "CLM-HO0010",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0010",
-      "Loss Date": "10/21/2024",
-      "Policy Number": "POL-HO200135",
-      "Carrier": "Homeowner_010",
-      "Claimant Name": "Oliver Brown",
-      "Description of Loss": "Pipe burst splash",
-      "Status": "Closed",
-      "Total Incurred": "45000",
-      "Total Paid": "5000",
-      "Reserve": "50000",
-      "Date Reported": "11/22/2025",
-      "Adjuster Name": "Adjuster_A"
-    }
-  },
-  "CLM-HO0011": {
-    "claim_id": "CLM-HO0011",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0011",
-      "Loss Date": "11/18/2024",
-      "Policy Number": "POL-HO200150",
-      "Carrier": "Homeowner_011",
-      "Claimant Name": "Sophia Lee",
-      "Description of Loss": "Fire go boom",
-      "Status": "Pending",
-      "Total Incurred": "800",
-      "Total Paid": "0",
-      "Reserve": "800",
-      "Date Reported": "04/12/2025",
-      "Adjuster Name": "Adjuster_E"
-    }
-  },
-  "CLM-HO0012": {
-    "claim_id": "CLM-HO0012",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0012",
-      "Loss Date": "12/09/2024",
-      "Policy Number": "POL-HO200165",
-      "Carrier": "Homeowner_012",
-      "Claimant Name": "Sophia Lee",
-      "Description of Loss": "Wind rip whoosh",
-      "Status": "Settled",
-      "Total Incurred": "5500",
-      "Total Paid": "2500",
-      "Reserve": "8000",
-      "Date Reported": "09/27/2025",
-      "Adjuster Name": "Adjuster_C"
-    }
-  },
-  "CLM-HO0013": {
-    "claim_id": "CLM-HO0013",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0013",
-      "Loss Date": "01/17/2024",
-      "Policy Number": "POL-HO200180",
-      "Carrier": "Homeowner_013",
-      "Claimant Name": "James Chen",
-      "Description of Loss": "Wind rip whoosh",
-      "Status": "Closed",
-      "Total Incurred": "800",
-      "Total Paid": "5000",
-      "Reserve": "5800",
-      "Date Reported": "12/30/2025",
-      "Adjuster Name": "Adjuster_C"
-    }
-  },
-  "CLM-HO0014": {
-    "claim_id": "CLM-HO0014",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0014",
-      "Loss Date": "02/02/2024",
-      "Policy Number": "POL-HO200195",
-      "Carrier": "Homeowner_014",
-      "Claimant Name": "Sarah Johnson",
-      "Description of Loss": "Basement soggy mess",
-      "Status": "Pending",
-      "Total Incurred": "3200",
-      "Total Paid": "8000",
-      "Reserve": "11200",
-      "Date Reported": "04/06/2025",
-      "Adjuster Name": "Adjuster_B"
-    }
-  },
-  "CLM-HO0015": {
-    "claim_id": "CLM-HO0015",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0015",
-      "Loss Date": "03/02/2024",
-      "Policy Number": "POL-HO200210",
-      "Carrier": "Homeowner_015",
-      "Claimant Name": "Ava Williams",
-      "Description of Loss": "Hail damage thunk",
-      "Status": "Open",
-      "Total Incurred": "8900",
-      "Total Paid": "0",
-      "Reserve": "8900",
-      "Date Reported": "01/11/2026",
-      "Adjuster Name": "Adjuster_D"
-    }
-  },
-  "CLM-HO0016": {
-    "claim_id": "CLM-HO0016",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0016",
-      "Loss Date": "04/26/2024",
-      "Policy Number": "POL-HO200225",
-      "Carrier": "Homeowner_016",
-      "Claimant Name": "James Chen",
-      "Description of Loss": "Roof leak splish",
-      "Status": "Closed",
-      "Total Incurred": "0",
-      "Total Paid": "5000",
-      "Reserve": "5000",
-      "Date Reported": "06/28/2025",
-      "Adjuster Name": "Adjuster_E"
-    }
-  },
-  "CLM-HO0017": {
-    "claim_id": "CLM-HO0017",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0017",
-      "Loss Date": "05/25/2024",
-      "Policy Number": "POL-HO200240",
-      "Carrier": "Homeowner_017",
-      "Claimant Name": "Emma Rodriguez",
-      "Description of Loss": "Basement soggy mess",
-      "Status": "Closed",
-      "Total Incurred": "32000",
-      "Total Paid": "1200",
-      "Reserve": "33200",
-      "Date Reported": "05/26/2025",
-      "Adjuster Name": "Adjuster_A"
-    }
-  },
-  "CLM-HO0018": {
-    "claim_id": "CLM-HO0018",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0018",
-      "Loss Date": "06/26/2024",
-      "Policy Number": "POL-HO200255",
-      "Carrier": "Homeowner_018",
-      "Claimant Name": "Ava Williams",
-      "Description of Loss": "Appliance kaboom",
-      "Status": "Closed",
-      "Total Incurred": "15000",
-      "Total Paid": "8000",
-      "Reserve": "23000",
-      "Date Reported": "11/22/2025",
-      "Adjuster Name": "Adjuster_D"
-    }
-  },
-  "CLM-HO0019": {
-    "claim_id": "CLM-HO0019",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0019",
-      "Loss Date": "07/16/2024",
-      "Policy Number": "POL-HO200270",
-      "Carrier": "Homeowner_019",
-      "Claimant Name": "Mike Peterson",
-      "Description of Loss": "Roof leak splish",
-      "Status": "Closed",
-      "Total Incurred": "1500",
-      "Total Paid": "2500",
-      "Reserve": "4000",
-      "Date Reported": "10/22/2025",
-      "Adjuster Name": "Adjuster_E"
-    }
-  },
-  "CLM-HO0020": {
-    "claim_id": "CLM-HO0020",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0020",
-      "Loss Date": "08/05/2024",
-      "Policy Number": "POL-HO200285",
-      "Carrier": "Homeowner_020",
-      "Claimant Name": "Mike Peterson",
-      "Description of Loss": "Appliance kaboom",
-      "Status": "Settled",
-      "Total Incurred": "32000",
-      "Total Paid": "500",
-      "Reserve": "32500",
-      "Date Reported": "01/05/2026",
-      "Adjuster Name": "Adjuster_D"
-    }
-  },
-  "CLM-HO0021": {
-    "claim_id": "CLM-HO0021",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0021",
-      "Loss Date": "09/02/2024",
-      "Policy Number": "POL-HO200300",
-      "Carrier": "Homeowner_021",
-      "Claimant Name": "Emma Rodriguez",
-      "Description of Loss": "Hail damage thunk",
-      "Status": "Closed",
-      "Total Incurred": "3200",
-      "Total Paid": "500",
-      "Reserve": "3700",
-      "Date Reported": "02/21/2026",
-      "Adjuster Name": "Adjuster_C"
-    }
-  },
-  "CLM-HO0022": {
-    "claim_id": "CLM-HO0022",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0022",
-      "Loss Date": "10/05/2024",
-      "Policy Number": "POL-HO200315",
-      "Carrier": "Homeowner_022",
-      "Claimant Name": "Lisa Wong",
-      "Description of Loss": "Wind rip whoosh",
-      "Status": "Open",
-      "Total Incurred": "15000",
-      "Total Paid": "5000",
-      "Reserve": "20000",
-      "Date Reported": "07/03/2025",
-      "Adjuster Name": "Adjuster_B"
-    }
-  },
-  "CLM-HO0023": {
-    "claim_id": "CLM-HO0023",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0023",
-      "Loss Date": "11/18/2024",
-      "Policy Number": "POL-HO200330",
-      "Carrier": "Homeowner_023",
-      "Claimant Name": "Sophia Lee",
-      "Description of Loss": "Wind rip whoosh",
-      "Status": "Closed",
-      "Total Incurred": "3200",
-      "Total Paid": "5000",
-      "Reserve": "8200",
-      "Date Reported": "04/09/2025",
-      "Adjuster Name": "Adjuster_A"
-    }
-  },
-  "CLM-HO0024": {
-    "claim_id": "CLM-HO0024",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0024",
-      "Loss Date": "12/04/2024",
-      "Policy Number": "POL-HO200345",
-      "Carrier": "Homeowner_024",
-      "Claimant Name": "James Chen",
-      "Description of Loss": "Pipe burst splash",
-      "Status": "Closed",
-      "Total Incurred": "32000",
-      "Total Paid": "0",
-      "Reserve": "32000",
-      "Date Reported": "05/11/2025",
-      "Adjuster Name": "Adjuster_C"
-    }
-  },
-  "CLM-HO0025": {
-    "claim_id": "CLM-HO0025",
-    "sheet_name": "HomeOwners Loss Run",
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "ingested_at": "2026-03-24T11:40:42.040428",
-    "fields": {
-      "Claim Number": "CLM-HO0025",
-      "Loss Date": "01/25/2024",
-      "Policy Number": "POL-HO200360",
-      "Carrier": "Homeowner_025",
-      "Claimant Name": "Noah Davis",
-      "Description of Loss": "Flood water glug",
-      "Status": "Settled",
-      "Total Incurred": "800",
-      "Total Paid": "0",
-      "Reserve": "800",
-      "Date Reported": "03/04/2026",
-      "Adjuster Name": "Adjuster_A"
     }
   }
 }

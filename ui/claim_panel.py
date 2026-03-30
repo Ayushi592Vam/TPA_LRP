@@ -39,6 +39,9 @@ def _render_schema_mode(
 ):
     schema_def    = SCHEMAS[active_schema]
     mapped        = map_claim_to_schema(curr_claim, active_schema, active.get("title_fields", {}), _llm_map_result)
+    # Collect all existing claim IDs in the sheet for duplicate check
+    from modules.schema_mapping import detect_claim_id as _detect_id
+    _all_claim_ids = [_detect_id(row, i) for i, row in enumerate(active.get("data", []))]
     custom_flds   = st.session_state.get(f"custom_fields_{active_schema}", [])
     display_flds  = list(schema_def["required_fields"]) + [
         f for f in custom_flds if f not in schema_def["required_fields"]
@@ -129,6 +132,7 @@ def _render_schema_mode(
             active_schema=active_schema,
             use_conf=use_conf, conf_thresh=conf_thresh,
             open_eye_popup=show_eye_popup,
+            all_claim_ids=_all_claim_ids,
         )
 
 
@@ -140,6 +144,22 @@ def _render_plain_mode(
     _llm_map_result, _field_dup_index, _claim_dup_results,
     use_conf, conf_thresh,
 ):
+    # Fields that should never appear in a TPA loss run context
+    # These are PII fields or irrelevant fields that may appear in source data
+    _EXCLUDED_FIELD_KEYWORDS = {
+        "date of birth", "dob", "birth date", "birthdate", "date_of_birth",
+        "social security", "ssn", "tax id", "ein", "passport",
+        "driver license", "drivers license", "license number",
+        "bank account", "routing number", "credit card",
+        "personal email", "home address", "home phone",
+        "gender", "race", "ethnicity", "marital status", "religion",
+        "salary", "wage rate", "hourly rate",
+    }
+
+    def _should_exclude_field(field_name: str) -> bool:
+        fn = field_name.lower().replace("_", " ").strip()
+        return any(kw in fn for kw in _EXCLUDED_FIELD_KEYWORDS)
+
     _plain_col_rename = active.get("col_rename_log", {})
     _llm_plain_map    = {}
     if not _plain_col_rename and active.get("data"):
@@ -186,21 +206,32 @@ def _render_plain_mode(
             with hc[ci]: st.markdown(_col_hdr(lbl), unsafe_allow_html=True)
 
     for field, info in curr_claim.items():
+        # Skip fields that are irrelevant or contain PII not needed for loss runs
+        if _should_exclude_field(field):
+            continue
+
         ek = f"edit_{selected_sheet}_{curr_claim_id}_{field}"
         xk = f"chk_{selected_sheet}_{curr_claim_id}_{field}"
         mk = f"mod_{selected_sheet}_{curr_claim_id}_{field}"
+        from modules.schema_mapping import detect_claim_id as _did
+        _all_ids_plain = [_did(row, i) for i, row in enumerate(active.get("data", []))]
         if ek not in st.session_state: st.session_state[ek] = False
         if mk not in st.session_state: st.session_state[mk] = info.get("value", "")
         if xk not in st.session_state: st.session_state[xk] = True
 
-        _cur_val_p              = st.session_state.get(mk, info.get("value", "")) or ""
+        _cur_val_p = st.session_state.get(mk, info.get("value", "")) or ""
         _dot_p = "<span style='color:var(--yellow);margin-left:4px;font-size:8px;'>●</span>" if _cur_val_p != info["value"] else ""
 
         disp_name, _was_rule, _was_llm = _display_field_name(field)
+
+        # ── Field label: show STD badge for rule-renamed fields only.
+        # LLM-mapped fields show their display name + raw subtitle — no badge.
         _renamed_badge  = ""
         _orig_raw_title = ""
+
         if _was_rule and disp_name != field:
-            _renamed_badge  = (
+            # Standardised by rule — show subtle STD badge
+            _renamed_badge = (
                 f"<span style='font-size:9px;background:rgba(52,211,153,0.12);"
                 f"border:1px solid rgba(52,211,153,0.3);border-radius:3px;color:#34d399;"
                 f"padding:0 4px;margin-left:3px;font-family:monospace;' "
@@ -208,12 +239,7 @@ def _render_plain_mode(
             )
             _orig_raw_title = field
         elif _was_llm and disp_name != field:
-            _renamed_badge  = (
-                f"<span style='font-size:9px;background:rgba(245,200,66,0.10);"
-                f"border:1px solid rgba(245,200,66,0.3);border-radius:3px;color:#f5c842;"
-                f"padding:0 4px;margin-left:3px;font-family:monospace;' "
-                f"title='AI-mapped from: {field}'>AI</span>"
-            )
+            # LLM-mapped — show raw source name as subtitle only, no badge
             _orig_raw_title = field
 
         _plain_field_label = (
@@ -257,7 +283,23 @@ def _render_plain_mode(
                     nv        = st.text_input("m", value=_plain_display_val, label_visibility="collapsed")
                     submitted = st.form_submit_button("", use_container_width=False)
                     if submitted:
-                        if _is_date_field(_field):
+                        from ui.field_row import _is_claim_id_field as _is_cid2
+                        if _is_cid2(_field):
+                            _nv_s = nv.strip()
+                            _orig_id = info.get("value", "").strip()
+                            _other_ids = [c for c in _all_ids_plain if c != _orig_id]
+                            if _nv_s in _other_ids:
+                                st.session_state[_err_key] = f"'{_nv_s}' already exists. Claim Number must be unique."
+                            else:
+                                st.session_state.pop(_err_key, None)
+                                old_val = _plain_display_val
+                                st.session_state[_mk] = nv
+                                active["data"][st.session_state.selected_idx][_field]["modified"] = nv
+                                st.session_state[_ek] = False
+                                _record_field_history(selected_sheet, curr_claim_id, _field, old_val, nv)
+                                _append_audit({"event":"FIELD_EDITED","timestamp":datetime.datetime.now().isoformat(),"filename":uploaded_name,"sheet":selected_sheet,"claim_id":curr_claim_id,"field":_field,"original":info["value"],"new_value":nv})
+                                st.rerun()
+                        elif _is_date_field(_field):
                             is_valid, err_msg = _validate_date(nv)
                             if not is_valid:
                                 st.session_state[_err_key] = err_msg
@@ -326,7 +368,21 @@ def _render_plain_mode(
                 if st.button("👁", key=f"eye_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
                     show_eye_popup(field, info, excel_path, selected_sheet)
             with cb:
-                if not st.session_state[ek]:
+                from ui.field_row import _is_claim_id_field as _is_cid
+                if _is_cid(field):
+                    _lk = f"_claim_id_edit_warn_{mk}"
+                    if not st.session_state[ek]:
+                        if st.button("🔒", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}_v{st.session_state.get(f'_v_{mk}',0)}", use_container_width=True, help="Primary key — edit with caution"):
+                            st.session_state[_lk] = True
+                        if st.session_state.get(_lk):
+                            st.markdown("<div style='background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.4);border-radius:6px;padding:6px 8px;font-size:10px;color:#f5c842;'>⚠ Primary key.<br>Duplicates not allowed.</div>", unsafe_allow_html=True)
+                            if st.button("Proceed", key=f"ed_confirm_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                                st.session_state[_lk] = False
+                                st.session_state[ek] = True
+                                st.rerun()
+                    else:
+                        st.markdown("<div style='height:38px;display:flex;align-items:center;justify-content:center;color:var(--yellow);font-size:11px;border:1px solid rgba(245,200,66,0.4);border-radius:6px;'>↵</div>", unsafe_allow_html=True)
+                elif not st.session_state[ek]:
                     if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}_v{st.session_state.get(f'_v_{mk}',0)}", use_container_width=True):
                         st.session_state[ek] = True
                         st.rerun()
@@ -537,10 +593,8 @@ def render_claim_panel(
         b1, b2 = st.columns([1, 1])
         with b1:
             if st.button("✔ All", key=f"all_{selected_sheet}_{curr_claim_id}", use_container_width=True):
-                # Set for both plain field keys and schema field keys
                 for fld in curr_claim:
                     st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{fld}"] = True
-                # Also set schema field keys if schema is active
                 _active_s = st.session_state.get("active_schema")
                 if _active_s:
                     from config.schemas import SCHEMAS
