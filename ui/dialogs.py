@@ -8,26 +8,26 @@ All @st.dialog popups:
 
 AUDIT LOG BEHAVIOUR (show_claim_journey_dialog)
 ────────────────────────────────────────────────
-• Default view  : only user actions THIS SESSION — FIELD_EDITED, FIELD_ADDED,
+- Default view  : only user actions THIS SESSION — FIELD_EDITED, FIELD_ADDED,
                   EXPORT_GENERATED with timestamp >= _session_start
-• "View Full History" button : expands inline, ALL events across all sessions
-• LLM_CAUSE_ENRICHED : deduplicated to FIRST occurrence per claim in full history;
+- "View Full History" button : expands inline, ALL events across all sessions
+- LLM_CAUSE_ENRICHED : deduplicated to FIRST occurrence per claim in full history;
                         never shown in the default user-actions view
-• Each row has ▼/▲ toggle for full event-dict detail
-• All toggles use on_click callbacks — never st.rerun() — so the dialog
+- Each row has ▼/▲ toggle for full event-dict detail
+- All toggles use on_click callbacks — never st.rerun() — so the dialog
   stays open when the user expands/collapses rows or switches history views
 
 DIALOG PERSISTENCE
 ──────────────────
-• show_claim_journey_dialog is kept open across reruns via the
+- show_claim_journey_dialog is kept open across reruns via the
   "_open_journey_dialog" session-state flag set by the caller (e.g. the
   "View Journey" button in claim_panel / export_panel).
-• The flag is checked at the top of app.py on every rerun, so on_click
+- The flag is checked at the top of app.py on every rerun, so on_click
   callbacks inside the dialog (which trigger a rerun) automatically
   re-open the dialog in the correct state.
-• Only the Close button clears the flag, which is the one place we
+- Only the Close button clears the flag, which is the one place we
   actually want the dialog to disappear.
-• Callers must NOT call show_claim_journey_dialog() directly from a
+- Callers must NOT call show_claim_journey_dialog() directly from a
   button handler.  Instead set the flag:
       st.session_state["_open_journey_dialog"] = {
           "claim_id": ..., "curr_claim": ...,
@@ -54,6 +54,53 @@ from modules.excel_renderer import (
 
 @st.dialog("Cell View", width="large")
 def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> None:
+    """
+    Render a modal popup showing the raw and modified values for a single
+    cell, plus a highlighted pixel-level preview of that cell in its
+    surrounding sheet context.
+
+    For .xlsx files the full sheet is rendered to a PIL Image (cached in
+    session state so subsequent opens are instant), the target cell is
+    highlighted with a yellow fill and amber border, and a padded context
+    crop is displayed via ``st.image``.
+
+    For .csv files a plain HTML table is rendered showing the rows
+    surrounding the target row, with the target cell highlighted in gold.
+
+    Args:
+        field (str): The standard field name to display as the dialog
+            heading (e.g. "Claim Number", "Loss Date").
+        info (dict): Cell-info dict for the field. Must contain at least:
+            - "value"     (str)      : raw extracted value from the file.
+            - "modified"  (str|None) : user-edited value, or None.
+            - "excel_row" (int|None) : 1-based row index in the source file.
+            - "excel_col" (int|None) : 1-based column index in the source file.
+        excel_path (str): Absolute or relative path to the source .xlsx
+            or .csv file. The file extension determines the rendering path.
+        sheet_name (str): The sheet tab to render. Ignored for CSV files.
+
+    Returns:
+        None. All output is written directly to the Streamlit dialog.
+
+    Side effects:
+        - On first call for a given (excel_path, sheet_name) pair, renders
+          the full sheet and caches the result in
+          ``st.session_state["_rendered_{excel_path}_{sheet_name}"]``.
+          Subsequent calls read from this cache.
+
+    Example trigger:
+        >>> # Called when user clicks the eye icon on a field row
+        >>> show_eye_popup("Loss Date", info, "uploads/report.xlsx", "Q1 Claims")
+
+    Dependencies:
+        - :func:`modules.excel_renderer.render_excel_sheet`   : full sheet render.
+        - :func:`modules.excel_renderer.get_cell_pixel_bbox`  : cell pixel coords.
+        - :func:`modules.excel_renderer.crop_context`         : context crop.
+        - ``PIL.ImageDraw``                                   : cell highlight overlay.
+        - ``openpyxl.utils.get_column_letter``               : row/col display label.
+        - ``csv`` (stdlib)                                    : CSV file reading.
+        - ``streamlit``                                       : dialog and image rendering.
+    """
     import os
     raw_value  = info.get("value", "") or ""
     mod_value  = info.get("modified", raw_value) or raw_value
@@ -63,6 +110,26 @@ def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> 
     st.markdown(f"### 📍 {field}")
 
     def _val_box(label: str, val: str, color: str = "#4f9cf9"):
+        """
+        Render a labelled monospace value box using inline HTML.
+
+        Displays a small uppercase label in the given accent colour above
+        a dark rounded box containing the value text. Empty values are
+        replaced with a grey "(empty)" placeholder so the box is never
+        blank.
+
+        Args:
+            label (str): Short descriptor shown above the box in uppercase
+                (e.g. "Extracted Value (raw from file)").
+            val (str): The value to display inside the box. Pass an empty
+                string or None to show the "(empty)" placeholder.
+            color (str): CSS hex colour for the label text and the box's
+                subtle accent. Defaults to blue (#4f9cf9).
+
+        Returns:
+            None. Writes directly to the Streamlit dialog via
+            ``st.markdown(..., unsafe_allow_html=True)``.
+        """
         _empty_html = "<span style='color:#555;'>( empty )</span>"
         _content    = val if val else _empty_html
         st.markdown(
@@ -190,6 +257,48 @@ def show_field_history_dialog(
     field_name: str, sheet: str, claim_id: str,
     current_val: str, original_val: str,
 ) -> None:
+    """
+    Render a modal popup showing the full edit timeline for a single field.
+
+    Displays a two-column header comparing the original extracted value
+    against the current value, with a colour-coded indicator showing
+    whether the field has been modified. Below the header, each recorded
+    edit is shown as a timestamped row with source icon (manual edit vs
+    auto/LLM), a FROM → TO value diff, and a bottom border separator.
+
+    Args:
+        field_name (str): The standard field name shown in the dialog
+            heading (e.g. "Total Paid", "Status").
+        sheet (str): Active sheet/tab name. Used to scope the history
+            key lookup in :func:`modules.field_history._get_field_history`.
+        claim_id (str): Stable claim identifier. Used alongside ``sheet``
+            and ``field_name`` to look up the correct history list.
+        current_val (str): The current displayed value for the field
+            (may be the original, a normalised value, or a user edit).
+        original_val (str): The raw value extracted directly from the
+            source Excel or CSV file, shown as the "before" baseline.
+
+    Returns:
+        None. All output is written directly to the Streamlit dialog.
+
+    Side effects:
+        - Reads ``st.session_state`` via
+          :func:`modules.field_history._get_field_history`.
+        - Calls ``st.rerun()`` when the Close button is clicked to
+          dismiss the dialog.
+
+    Example trigger:
+        >>> # Called when user clicks the history icon on a field row
+        >>> show_field_history_dialog(
+        ...     "Total Paid", "Q1 Claims", "CLM-001",
+        ...     current_val="5000.00", original_val="$5,000"
+        ... )
+
+    Dependencies:
+        - :func:`modules.field_history._get_field_history` : loads the
+          edit history list for the field from session state.
+        - ``streamlit``                                    : dialog rendering.
+    """
     st.markdown(f"### 📋 History — {field_name}")
     history = _get_field_history(sheet, claim_id, field_name)
 
@@ -259,6 +368,61 @@ def show_field_history_dialog(
 
 @st.dialog("Settings", width="large")
 def show_settings_dialog(schemas: dict, config_load_status: dict) -> None:
+    """
+    Render the application Settings modal with three sections:
+
+    1. Confidence Settings — toggle confidence display on/off and set
+       the numeric threshold (0–100) via a slider. The slider renders
+       a colour-coded progress bar and a plain-English description of
+       the chosen level.
+
+    2. Export Schema — lists every available schema (Standard, Guidewire,
+       Duck Creek, etc.) with Activate/Deactivate, View Fields, and
+       Custom Fields buttons. The active schema is visually distinguished
+       with a coloured border and an "● ACTIVE" badge.
+
+    3. YAML Config Files — shows the load status of each schema's YAML
+       config file with a green "✓ Loaded" or red "✗ Not found" badge,
+       the file path, and a "Reload YAML Configs" button that hot-reloads
+       all schemas without requiring an app restart.
+
+    A "Reset Defaults" button in the footer restores the confidence
+    threshold to 80, disables confidence display, clears the active
+    schema, and removes all custom fields for every schema.
+
+    Args:
+        schemas (dict): The full ``SCHEMAS`` dict from ``config.schemas``,
+            mapping schema names to their definition dicts (icon, version,
+            description, color, required_fields, accepted_fields, etc.).
+        config_load_status (dict): Maps schema names to a status dict::
+
+                {
+                    "loaded": bool,   # True if the YAML file was found
+                    "file":   str,    # filename of the YAML config
+                }
+
+    Returns:
+        None. All output is written directly to the Streamlit dialog.
+
+    Side effects:
+        - Reads and writes ``st.session_state`` keys:
+          "use_conf_threshold", "conf_threshold", "active_schema",
+          ``f"custom_fields_{schema_name}"`` for each schema,
+          "sheet_cache", "schema_popup_target", "schema_popup_tab".
+        - Calls ``st.rerun()`` on every button click (Activate, View
+          Fields, Custom Fields, Reset Defaults, Reload YAML, Close).
+        - On "Reload YAML Configs", replaces ``config.schemas.SCHEMAS``
+          in-place and clears "sheet_cache" to force re-parsing.
+
+    Example trigger:
+        >>> # Called from the ⚙ Settings button in the main toolbar
+        >>> show_settings_dialog(schemas=SCHEMAS, config_load_status=status)
+
+    Dependencies:
+        - ``config.schemas._load_all_configs``  : YAML hot-reload.
+        - ``config.settings.CONFIG_DIR``        : displayed in the YAML section.
+        - ``streamlit``                         : dialog, widgets, and session state.
+    """
     import os
     from config.settings import CONFIG_DIR
 
@@ -404,6 +568,53 @@ def show_settings_dialog(schemas: dict, config_load_status: dict) -> None:
 
 @st.dialog("Schema Field Manager", width="large")
 def show_schema_fields_dialog(schema_name: str, schemas: dict) -> None:
+    """
+    Render the Schema Field Manager modal with three tabs for browsing
+    and customising the fields of a single schema.
+
+    Tabs:
+        - Mandatory Fields  : pill display of all required fields.
+        - All Accepted Fields : pills split into MANDATORY and OPTIONAL
+          groups, showing every field the schema recognises.
+        - My Custom Fields  : interactive panel to add optional fields
+          from the schema's accepted list and remove them individually
+          or all at once. Shows a live summary of mandatory / custom /
+          total field counts.
+
+    Custom fields are stored in
+    ``st.session_state[f"custom_fields_{schema_name}"]`` as a list.
+    Adding a field appends to this list; removing pops by index. The
+    selectbox for adding is populated only with fields not already
+    present in the required or custom lists (one-to-one constraint).
+
+    Args:
+        schema_name (str): Key of the schema to manage
+            (e.g. "Standard", "Guidewire"). Must exist in ``schemas``.
+        schemas (dict): Full ``SCHEMAS`` dict from ``config.schemas``,
+            mapping schema names to their definition dicts. Must contain
+            at minimum for the given ``schema_name``:
+            - "icon"            (str)       : emoji icon.
+            - "version"         (str)       : version string.
+            - "description"     (str)       : one-line description.
+            - "required_fields" (list[str]) : mandatory field names.
+            - "accepted_fields" (list[str]) : all recognised field names.
+
+    Returns:
+        None. All output is written directly to the Streamlit dialog.
+
+    Side effects:
+        - Initialises ``st.session_state[f"custom_fields_{schema_name}"]``
+          to ``[]`` if not already present.
+        - Mutates the custom fields list on Add / Remove / Clear All,
+          followed by ``st.rerun()``.
+
+    Example trigger:
+        >>> # Called when user clicks "View Fields" in the Settings dialog
+        >>> show_schema_fields_dialog("Guidewire", schemas=SCHEMAS)
+
+    Dependencies:
+        - ``streamlit`` : tabs, selectbox, buttons, and session state.
+    """
     schema     = schemas[schema_name]
     custom_key = f"custom_fields_{schema_name}"
     if custom_key not in st.session_state:
@@ -498,6 +709,61 @@ def show_schema_fields_dialog(schema_name: str, schemas: dict) -> None:
 
 @st.dialog("Cache Manager", width="large")
 def show_cache_manager_dialog() -> None:
+    """
+    Render the Cache Manager modal for inspecting and selectively
+    clearing each cache layer used by the application.
+
+    Displays live statistics for five cache layers (parsed sheet cache,
+    file hash store, claim duplicate store, audit log, export history),
+    then provides two clearing interfaces:
+
+    Quick Presets:
+        - Soft Reset        : clears UI session state only, preserving all
+                              on-disk caches.
+        - Clear File History: resets the hash store and claim duplicate
+                              store so all files appear as new on next upload.
+        - Full Reset        : clears all layers after a two-step
+                              confirmation prompt.
+
+    Granular Checkboxes:
+        Allows independently selecting any combination of the six cache
+        layers (UI state, parsed cache, file history, claim dups, audit
+        log, export history) and clearing only those via "Clear Selected".
+
+    The dialog never affects uploaded source files — only derived caches
+    and logs are cleared.
+
+    Args:
+        None. All data is read from session state and on-disk cache files
+        via the ``modules.cache_manager`` helpers.
+
+    Returns:
+        None. All output is written directly to the Streamlit dialog.
+
+    Side effects:
+        - Reads cache statistics via ``get_cache_stats()``.
+        - On preset/granular clear: calls the appropriate
+          ``modules.cache_manager`` clear functions and may set
+          ``st.session_state["sheet_cache"] = {}`` to force re-parsing.
+        - Sets ``st.session_state["_confirm_full_reset"] = True`` to
+          trigger the confirmation prompt for Full Reset.
+        - Calls ``st.rerun()`` after every mutating action.
+
+    Example trigger:
+        >>> # Called from the 🗄 Cache Manager button in the main toolbar
+        >>> show_cache_manager_dialog()
+
+    Dependencies:
+        - ``modules.cache_manager.get_cache_stats``      : live stats.
+        - ``modules.cache_manager.clear_session_cache``  : UI state clear.
+        - ``modules.cache_manager.clear_parsed_cache``   : JSON cache clear.
+        - ``modules.cache_manager.clear_hash_store``     : duplicate memory clear.
+        - ``modules.cache_manager.clear_claim_dup_store``: claim dup clear.
+        - ``modules.cache_manager.clear_audit_log``      : audit log clear.
+        - ``modules.cache_manager.clear_export_table``   : export history clear.
+        - ``modules.cache_manager._fmt_size``            : KB formatting helper.
+        - ``streamlit``                                  : dialog and widgets.
+    """
     from modules.cache_manager import (
         get_cache_stats, clear_session_cache, clear_parsed_cache,
         clear_hash_store, clear_claim_dup_store,
@@ -515,6 +781,26 @@ def show_cache_manager_dialog() -> None:
     stats = get_cache_stats()
 
     def _stat_row(label, detail, color="#4f9cf9"):
+        """
+        Render a single cache-layer statistics row as a dark card.
+
+        Displays the layer name on the left and a monospace detail string
+        (e.g. "3 file(s) · 1.2 MB") on the right, with the detail
+        coloured green/amber/red to indicate whether data is present.
+
+        Args:
+            label (str): Human-readable cache layer name
+                (e.g. "Parsed Sheet Cache").
+            detail (str): Pre-formatted detail string showing size or
+                entry count (e.g. "3 file(s) · 1.2 MB").
+            color (str): CSS hex colour for the detail text. Defaults
+                to blue (#4f9cf9). Callers typically pass green when
+                data is present and grey when the cache is empty.
+
+        Returns:
+            None. Writes directly to the Streamlit dialog via
+            ``st.markdown(..., unsafe_allow_html=True)``.
+        """
         st.markdown(
             f"<div style='display:flex;justify-content:space-between;align-items:center;"
             f"background:#17172a;border:1px solid #2a2a45;border-radius:6px;"
@@ -660,23 +946,82 @@ def show_claim_journey_dialog(
     """
     Visual traceability view — full transformation journey for a claim.
 
-    Audit log behaviour
-    ───────────────────
-    • Default  : shows only THIS SESSION's user actions
-                 (FIELD_EDITED, FIELD_ADDED, EXPORT_GENERATED)
-                 filtered by timestamp >= st.session_state["_session_start"]
-    • Full history : expands inline on button click; shows ALL events across
-                     all sessions; LLM_CAUSE_ENRICHED kept once per claim
-    • Toggle buttons use on_click= callbacks — NO st.rerun() — so the dialog
-      stays open when expanding/collapsing rows or switching history view
-    • Each row has ▼/▲ toggle for full event-dict detail
+    Renders a step-by-step breakdown of how every field in a claim was
+    extracted, mapped, normalised, and edited, culminating in its current
+    export-ready value.
 
-    Persistence
-    ───────────
-    • Do NOT call this function directly from a button handler.
-    • Instead, set st.session_state["_open_journey_dialog"] = {...} and let
-      app.py call this on the next rerun (see module docstring).
-    • The Close button below is the ONLY place that clears the flag.
+    Sections rendered:
+        1. Pipeline Trace banner — high-level ordered steps the claim
+           passed through (FILE PARSED → SCHEMA MAPPED → LLM CALLED →
+           USER EDITS) with timestamps and function references.
+        2. Field Transformation Timeline — one card per field showing:
+               Step 1 · Extracted from Excel (source column, raw value).
+               Step 2 · Mapping method (EXACT/FUZZY/PARTIAL/LLM/TITLE/DIRECT)
+                        with header similarity score, value quality score,
+                        and overall confidence percentage.
+               Step N · User Edit(s) — one numbered step per recorded
+                        edit showing FROM → TO with timestamp.
+               Final  · Final Value card (only shown when field was edited).
+        3. Audit Log section — session-filtered user-action events
+           (FIELD_EDITED, FIELD_ADDED, EXPORT_GENERATED) with summary
+           pills, and an optional "View Full History" inline expansion
+           showing all events across all sessions.
+
+    Audit log behaviour:
+        - Default view  : only THIS SESSION's user actions, filtered by
+          ``timestamp >= st.session_state["_session_start"]``.
+        - Full history  : inline expansion via ``_full_hist_key`` toggle;
+          all events across all sessions; ``LLM_CAUSE_ENRICHED`` kept
+          only on first occurrence per claim.
+        - All expand/collapse toggles use ``on_click`` callbacks so the
+          dialog stays open without triggering a full ``st.rerun()``.
+
+    Dialog persistence:
+        - Do NOT call this function directly from a button handler.
+        - Set ``st.session_state["_open_journey_dialog"] = {...}`` and
+          let ``app.py`` call this on the next rerun (see module docstring).
+        - The Close button is the ONLY place that pops
+          ``"_open_journey_dialog"`` from session state.
+
+    Args:
+        claim_id (str): Stable identifier for the claim being traced
+            (e.g. "CLM-001" or a row-index fallback like "claim_3").
+        curr_claim (dict): The raw claim dict from the sheet cache,
+            mapping field names to cell-info dicts with at least
+            "value", and optionally "modified", "excel_row", "excel_col",
+            "header_score", "value_score", "confidence", "from_title".
+        selected_sheet (str): Active sheet/tab name. Used to scope
+            session-state keys, audit log filtering, and field history lookups.
+        active_schema (str | None): Name of the currently active schema
+            (e.g. "Standard", "Guidewire"), or None if no schema is active.
+            When set, fields are shown in schema-mapped order and the
+            pipeline trace includes a SCHEMA MAPPED step.
+        _llm_map_result (dict | None): LLM column-mapping result dict
+            as produced by the LLM mapping call. Expected keys:
+            - "mappings"    (dict)  : {source_col: standard_field}
+            - "_reasoning"  (dict)  : {source_col: reasoning_string}
+            - "_timestamp"  (str)   : ISO timestamp of the LLM call.
+            - "_model"      (str)   : model name used.
+            Pass None or an empty dict when no LLM mapping was performed.
+
+    Returns:
+        None. All output is written directly to the Streamlit dialog.
+
+    Side effects:
+        - Initialises session-state keys:
+          ``_audit_expand_key`` (set of expanded card IDs),
+          ``_full_hist_key`` (bool for full-history toggle).
+        - Toggles the above keys via ``on_click`` callbacks on expand
+          and history buttons — no ``st.rerun()`` from within toggles.
+        - Pops ``st.session_state["_open_journey_dialog"]`` and calls
+          ``st.rerun()`` when the Close button is clicked.
+
+    Dependencies:
+        - ``modules.audit._load_audit_log``               : full audit event list.
+        - ``modules.field_history._get_field_history``    : per-field edit history.
+        - ``modules.schema_mapping.map_claim_to_schema``  : schema field mapping.
+        - ``config.schemas.SCHEMAS``                      : schema definitions.
+        - ``streamlit``                                   : dialog and widgets.
     """
     import json as _json
     import datetime as _dt
@@ -1021,7 +1366,6 @@ def show_claim_journey_dialog(
     if _claim_audit:
         st.markdown("---")
 
-        # ── Event config ──────────────────────────────────────────────────────
         _ev_cfg = {
             "FIELD_EDITED":             ("#4f9cf9", "✏",  "Field edited"),
             "FIELD_ADDED":              ("#a78bfa", "＋", "Custom field added"),
@@ -1032,13 +1376,9 @@ def show_claim_journey_dialog(
             "CLAIM_DUPLICATE_DETECTED": ("#f87171", "⚠",  "Duplicate detected"),
         }
 
-        # Only these event types appear in the default (session) view
         _USER_EVENTS = {"FIELD_EDITED", "FIELD_ADDED", "EXPORT_GENERATED"}
-
-        # ── Session boundary — ISO string set once per browser session ────────
         _session_start = st.session_state.get("_session_start", "")
 
-        # ── Deduplicate LLM_CAUSE_ENRICHED — first occurrence only ────────────
         _seen_llm = False
         _deduped_audit: list = []
         for _e in _claim_audit:
@@ -1049,20 +1389,15 @@ def show_claim_journey_dialog(
             else:
                 _deduped_audit.append(_e)
 
-        # Current-session user events only (default view)
         _session_user_events = [
             e for e in _deduped_audit
             if e.get("event") in _USER_EVENTS
             and e.get("timestamp", "") >= _session_start
         ]
 
-        # All events (full history view — every session)
         _full_events = _deduped_audit
-
-        # Read toggle state (mutated via on_click, no rerun needed)
         _show_full = st.session_state[_full_hist_key]
 
-        # ── Summary pills for session events ──────────────────────────────────
         _type_counts: dict[str, int] = {}
         for _e in _session_user_events:
             _t = _e.get("event", "EVENT")
@@ -1077,7 +1412,6 @@ def show_claim_journey_dialog(
             for _t, _n in _type_counts.items()
         )
 
-        # ── Header + toggle button (on_click — dialog stays open) ─────────────
         _hdr_col, _btn_col = st.columns([7, 3])
         with _hdr_col:
             st.markdown(
@@ -1103,8 +1437,43 @@ def show_claim_journey_dialog(
                 on_click=_toggle_full_hist,
             )
 
-        # ── Inner renderer — shared by session view + full history ────────────
         def _render_audit_rows(events: list, id_prefix: str) -> None:
+            """
+            Render a list of audit events as expandable row cards.
+
+            Each event is displayed as a compact single-line card with a
+            colour-coded left border, event type, timestamp, and a brief
+            inline detail string. A ▼/▲ toggle button to the right of
+            each card expands or collapses a detail panel showing every
+            key-value pair in the event dict (excluding null/empty values).
+
+            Toggle state is stored in
+            ``st.session_state[_audit_expand_key]`` as a set of expanded
+            card IDs. All toggles use ``on_click`` callbacks so the
+            dialog stays open without triggering a ``st.rerun()``.
+
+            Args:
+                events (list[dict]): Ordered list of audit event dicts to
+                    render. Each dict must contain at least an "event"
+                    (str) key. Optional keys rendered in detail panels
+                    include "timestamp", "field", "original", "new_value",
+                    "export_type", "records", "cause_of_loss".
+                id_prefix (str): A unique string prefix used to namespace
+                    card toggle keys (e.g. "user_Q1_CLM-001" or
+                    "full_Q1_CLM-001"). Prevents key collisions between
+                    the session view and the full history view when both
+                    are visible simultaneously.
+
+            Returns:
+                None. Writes directly to the Streamlit dialog.
+
+            Side effects:
+                - Reads and mutates
+                  ``st.session_state[_audit_expand_key]`` (the set of
+                  expanded card IDs) via ``on_click`` callbacks.
+                - Does NOT call ``st.rerun()`` — all state changes happen
+                  through the on_click mechanism.
+            """
             for _ei, _event in enumerate(events):
                 _ev_type  = _event.get("event", "EVENT")
                 _ev_ts    = _event.get("timestamp", "")[:19].replace("T", " ")
@@ -1118,7 +1487,6 @@ def show_claim_journey_dialog(
                 _ev_color = _cfg[0]
                 _ev_icon  = _cfg[1]
 
-                # Compact summary line
                 _detail = ""
                 if _ev_type == "FIELD_EDITED" and _ev_field:
                     _sf   = str(_ev_from)[:22] + ("…" if len(str(_ev_from)) > 22 else "")
@@ -1147,7 +1515,6 @@ def show_claim_journey_dialog(
                 elif _ev_type == "CLAIM_DUPLICATE_DETECTED":
                     _detail = "<span style='color:#f87171;font-style:italic;'>duplicate flag raised</span>"
 
-                # Expand/collapse toggle — on_click keeps dialog open
                 _card_key = f"{id_prefix}_{_ei}"
                 _expanded = _card_key in st.session_state[_audit_expand_key]
                 _btn_lbl  = "▲" if _expanded else "▼"
@@ -1184,7 +1551,6 @@ def show_claim_journey_dialog(
                         on_click=_toggle_card,
                     )
 
-                # Expanded detail panel
                 if _expanded:
                     _detail_rows = ""
                     for _k, _v in _event.items():
@@ -1215,7 +1581,6 @@ def show_claim_journey_dialog(
                 else:
                     st.markdown("<div style='margin-bottom:6px;'></div>", unsafe_allow_html=True)
 
-        # ── Default view: this session's user actions only ────────────────────
         if not _session_user_events:
             st.markdown(
                 "<div style='color:#555;font-size:12px;font-family:monospace;"
@@ -1226,7 +1591,6 @@ def show_claim_journey_dialog(
         else:
             _render_audit_rows(_session_user_events, f"user_{selected_sheet}_{claim_id}")
 
-        # ── Full history (inline expand, no rerun) ────────────────────────────
         if _show_full:
             _llm_count_raw = sum(1 for e in _claim_audit if e.get("event") == "LLM_CAUSE_ENRICHED")
             _suppressed    = _llm_count_raw - (1 if _llm_count_raw > 0 else 0)
@@ -1245,9 +1609,6 @@ def show_claim_journey_dialog(
             _render_audit_rows(_full_events, f"full_{selected_sheet}_{claim_id}")
             st.markdown("</div>", unsafe_allow_html=True)
 
-    # ── Close button — clears the persistent flag so the dialog stays closed ──
-    # CHANGED: pop "_open_journey_dialog" before rerunning so app.py does not
-    # immediately re-open the dialog on the next pass.
     if st.button("Close", type="primary", use_container_width=True):
         st.session_state.pop("_open_journey_dialog", None)
         st.rerun()
