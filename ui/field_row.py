@@ -3,17 +3,17 @@ ui/field_row.py
 Reusable helper that renders a single editable field row
 (label | confidence | original | modified | eye | edit | history | checkbox).
 """
-
+ 
 import datetime
 import re
 import streamlit as st
-
+ 
 from modules.audit import _append_audit
 from modules.field_history import _record_field_history
-
-
+ 
+ 
 # ── Date validation ───────────────────────────────────────────────────────────
-
+ 
 _DATE_FORMATS = [
     ("%m/%d/%Y", "MM/DD/YYYY"),
     ("%d/%m/%Y", "DD/MM/YYYY"),
@@ -25,18 +25,18 @@ _DATE_FORMATS = [
     ("%B %d, %Y", "Month DD, YYYY"),
     ("%b %d, %Y", "Mon DD, YYYY"),
 ]
-
+ 
 _DATE_KEYWORDS = [
     "date", "dob", " dt", "dt_", "loss_dt", "incident",
     "reported", "opened", "closed", "settled", "received",
 ]
-
-
+ 
+ 
 def _is_date_field(field_name: str) -> bool:
     fn = field_name.lower()
     return any(kw in fn for kw in _DATE_KEYWORDS)
-
-
+ 
+ 
 def _validate_date(value: str) -> tuple[bool, str]:
     v = value.strip()
     if not v:
@@ -51,10 +51,10 @@ def _validate_date(value: str) -> tuple[bool, str]:
             continue
     formats_hint = "MM/DD/YYYY, YYYY-MM-DD, DD/MM/YYYY, DD-MM-YYYY"
     return False, f"'{v}' is not a valid date. Use formats like {formats_hint}."
-
-
+ 
+ 
 # ── Confidence colours ────────────────────────────────────────────────────────
-
+ 
 def _conf_colors(conf: int, use_conf: bool, conf_thresh: int) -> tuple[str, str, str]:
     if not use_conf:
         return "var(--t3)", "var(--b0)", "var(--bg)"
@@ -65,21 +65,21 @@ def _conf_colors(conf: int, use_conf: bool, conf_thresh: int) -> tuple[str, str,
     if conf < 88:
         return "var(--yellow)", "var(--b0)", "var(--bg)"
     return "var(--green)", "var(--b0)", "var(--bg)"
-
-
+ 
+ 
 # ── Main render function ──────────────────────────────────────────────────────
-
+ 
 # Claim ID field keywords — these are primary key fields that need protection
 _CLAIM_ID_KEYWORDS = [
     "claim number", "claim id", "claim_id", "claim no", "claim#",
     "claim ref", "file number", "file no", "claimid", "clm id",
 ]
-
+ 
 def _is_claim_id_field(field_name: str) -> bool:
     fn = field_name.lower().replace("_", " ").strip()
     return any(kw in fn for kw in _CLAIM_ID_KEYWORDS)
-
-
+ 
+ 
 def render_field_row(
     *,
     schema_field: str,
@@ -105,7 +105,7 @@ def render_field_row(
     conf_col, row_border, row_bg = _conf_colors(conf, use_conf, conf_thresh)
     is_claim_id = _is_claim_id_field(schema_field)
     all_claim_ids = all_claim_ids or []
-
+ 
     # ── State init ────────────────────────────────────────────────────────────
     if ek not in st.session_state:
         st.session_state[ek] = False
@@ -113,17 +113,17 @@ def render_field_row(
         st.session_state[xk] = True
     if mk not in st.session_state:
         st.session_state[mk] = info.get("modified", info.get("value", ""))
-
+ 
     _cur_val = st.session_state.get(mk, info.get("modified", info.get("value", "")))
     _edited  = _cur_val != info.get("value", "")
     _dot     = "<span style='color:var(--yellow);font-size:8px;'>●</span> " if _edited else ""
-
+ 
     _badge_html = (
         "<span class='mandatory-asterisk' title='Mandatory'>*</span>"
         if is_req else "<span class='optional-badge'>OPT</span>"
     )
     _ink = "var(--t0)" if is_req else "var(--t1)"
-
+ 
     _field_label_html = (
         f"<div style='min-height:40px;display:flex;flex-direction:column;justify-content:center;"
         f"color:{_ink};font-size:var(--sz-body);font-weight:600;text-transform:uppercase;"
@@ -140,13 +140,13 @@ def render_field_row(
         f"<div style='background:{conf_col};height:4px;border-radius:4px;width:{conf}%;'>"
         f"</div></div></div>"
     )
-
+ 
     st.markdown(
         f"<div style='border-left:2px solid {row_border};background:{row_bg};"
         f"border-radius:0 4px 4px 0;padding:2px 0 2px 4px;margin:1px 0;'></div>",
         unsafe_allow_html=True,
     )
-
+ 
     # ── Edit column ───────────────────────────────────────────────────────────
     def _save_field(nv, _display_val):
         """Shared save logic for both date and non-date fields."""
@@ -173,11 +173,11 @@ def render_field_row(
             "new_value": nv,
         })
         st.rerun()
-
+ 
     def _edit_col():
         _display_val = st.session_state.get(mk, info.get("modified", info.get("value", ""))) or ""
         err_key = f"err_{mk}"
-
+ 
         if st.session_state[ek]:
             with st.form(
                 key=f"form_s_{selected_sheet}_{curr_claim_id}_{schema_field}",
@@ -207,7 +207,7 @@ def render_field_row(
                             _save_field(nv, _display_val)
                     else:
                         _save_field(nv, _display_val)
-
+ 
             err = st.session_state.get(err_key)
             if err:
                 st.markdown(
@@ -222,7 +222,7 @@ def render_field_row(
                 "m", value=_display_val,
                 key=f"disp_{mk}", label_visibility="collapsed", disabled=True,
             )
-
+ 
     # ── Edit button ───────────────────────────────────────────────────────────
     def _edit_btn():
         if is_claim_id:
@@ -236,20 +236,13 @@ def render_field_row(
                     help="Claim Number is the primary key. Edit with caution.",
                 ):
                     st.session_state[_lock_key] = True
+                # ── FIXED: compact single button instead of vertical warning block ──
                 if st.session_state.get(_lock_key):
-                    st.markdown(
-                        "<div style='background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.4);"
-                        "border-radius:6px;padding:6px 8px;margin-top:4px;font-size:10px;"
-                        "color:#f5c842;font-family:monospace;'>"
-                        "⚠ Claim Number is the primary key.<br>"
-                        "Editing may affect duplicate tracking.<br>"
-                        "<b>Duplicate values are not allowed.</b></div>",
-                        unsafe_allow_html=True,
-                    )
                     if st.button(
-                        "Proceed to Edit",
+                        "✏",
                         key=f"ed_s_confirm_{selected_sheet}_{curr_claim_id}_{schema_field}",
                         use_container_width=True,
+                        help="⚠ Claim Number is the primary key. Editing may affect duplicate tracking. Duplicate values are not allowed.",
                     ):
                         st.session_state[_lock_key] = False
                         st.session_state[ek] = True
@@ -277,7 +270,7 @@ def render_field_row(
                 "border-radius:6px;'>↵</div>",
                 unsafe_allow_html=True,
             )
-
+ 
     # ── Layout ────────────────────────────────────────────────────────────────
     if use_conf:
         cl, cc, co, cm, ce, cb, cx = st.columns(
@@ -326,3 +319,4 @@ def render_field_row(
         with cx:
             st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
             st.checkbox("", key=xk, label_visibility="collapsed")
+ 
